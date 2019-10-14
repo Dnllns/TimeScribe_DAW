@@ -72,24 +72,26 @@ class ProjectController extends Controller
 
     public function view_newProject()
     {
-        return view('project/new');
+        return view('project/Pr_New');
     }
 
     public function view_selectProject()
     {
         $userProjects = auth()->user()->projects;
-        return view('project/select', ['userProjects' => $userProjects]);
+        return view('project/Pr_Select', ['userProjects' => $userProjects]);
     }
 
-    public function view_editProject($projectId)
+    public static function view_editProject($projectId)
     {
         $project = Project::find($projectId);
         $client = User::find($project->client_id);
+        $taskGroups = $project->taskGroups;
         return view(
-            'project/edit',
+            'project/Pr_Edit',
             [
                 'project' => $project,
                 'client' => $client,
+                'taskGroups' => $taskGroups,
             ]
         );
 

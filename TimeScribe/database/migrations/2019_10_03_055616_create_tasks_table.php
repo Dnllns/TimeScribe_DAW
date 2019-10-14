@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Task;
 
 class CreateTasksTable extends Migration
 {
@@ -18,12 +19,12 @@ class CreateTasksTable extends Migration
             //$table->timestamps();
 
             //ID PROYECTO
-            $table->unsignedInteger('project_id');
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            // $table->unsignedInteger('project_id');
+            // $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 
             //ID GRUPO DE TAREA
-            $table->unsignedInteger('taskgroup_id');
-            $table->foreign('taskgroup_id')->references('id')->on('taskgroups')->onDelete('cascade');
+            $table->unsignedInteger('task_group_id');
+            $table->foreign('task_group_id')->references('id')->on('taskgroups')->onDelete('cascade');
 
             //NOMBRE
             $table->string('name', 50);
@@ -32,7 +33,7 @@ class CreateTasksTable extends Migration
             $table->string('description', 250);
 
             //ESTADO
-            $table->string('status', 3);
+            $table->tinyInteger('status')->default(Task::STATUS_TODO);
 
             //FECHA DE INICIO
             $table->dateTime('start_date')->nullable()->default(null);

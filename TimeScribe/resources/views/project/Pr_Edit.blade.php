@@ -80,11 +80,53 @@
                                         
                 </div>
             </fieldset>
-            
+            <br>
             
             <!-- TASK GROUP CONFIGURAION -->
             <fieldset class="border p-2">
                 <legend  class="w-auto">Task Groups</legend>
+
+
+
+                @foreach ($taskGroups as $group)
+
+                    <div class="d-flex ">
+                        <div class="col-sm-10">
+                            <h4>{{ $group->name }}</h4>
+                            <p>{{ $group->description }}</p>
+                            <ul>
+                                <li>Status: {{ $group->status }}</li>
+                                <li>
+                                    % Completed: 
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p>Assigned Developers</p>
+                                    <ul>
+                                        <li>AAA</li>
+                                        <li>AAA</li>
+                                        <li>AAA</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-primary" href="{{route('rt_tg_edit', $group->id)}}" >Edit</a>
+                            <a class="btn btn-primary">Delete</a>
+                        </div>
+
+                    </div>
+                    
+                    <hr style="color: #0056b2;" />
+
+                @endforeach
+
+                <br>
+                <a class="btn btn-primary" href="{{ route('rt_tg_new', $project->id ) }}">Add new task group</a>
+
+
             </fieldset>
 
             <br>

@@ -7,6 +7,33 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $table = 'tasks';
+    public $timestamps = false;
+
+
+    protected $fillable = [
+        // 'user_id',
+        'task_group_id',
+        'name',
+        'description',
+        'status',
+        'start_date',
+        'finish_date',
+    ];
+
+
+    
+    //TASK STATUS
+    const STATUS_TODO = 0;
+    const STATUS_DONE = 1;
+    const STATUS_DOING = 2;
+
+
+    public function getAssignedDevelopers(){
+        return $this->users;
+    }
+
+
+
 
     // -------------------------------RELATIONS--------------------------------------
 

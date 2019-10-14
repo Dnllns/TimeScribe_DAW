@@ -7,9 +7,9 @@
 
     <div class="container">
 
-        <h2>Create task</h2>
+        <h2>Create task group</h2>
 
-        <form class="form-horizontal" method="post" action="{{ route('rt_tg_create') }}">
+        <form class="form-horizontal" method="post" action="{{ route('rt_tg_register', $projectId) }}">
 
             @csrf <!-- {{ csrf_field() }} -->
 
@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">TaskGroup name:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="Enter project name" name="name">
+                    <input type="text" class="form-control" id="name" placeholder="Enter task group name" name="name">
                 </div>
             </div>
 
@@ -25,13 +25,6 @@
                 <label class="control-label col-sm-2" for="description">Description:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="description" placeholder="Enter description" name="description">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="client_id">Asign to user id:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="client_id" placeholder="Enter client id" name="client_id">
                 </div>
             </div>
 

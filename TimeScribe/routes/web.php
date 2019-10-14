@@ -11,8 +11,6 @@
 |
  */
 
-//----------------------------VISTAS----------------------------
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,7 +21,9 @@ Auth::routes();
 //HOME
 Route::get('/home', 'HomeController@index')->name('home');
 
-//CREAR NUEVO PROYECTO
+//-------PROYECTO--------------------------------------------------------
+
+//VISTA NUEVO PROYECTO
 Route::get(
     '/project-new',
     'ProjectController@view_newProject'
@@ -31,25 +31,17 @@ Route::get(
     ->name('rt_pr_new')
     ->middleware('auth');
 
-//SELECCIONAR PROYECTO
+//VISTA SELECCIONAR PROYECTO
 Route::get(
     '/project-select',
     'ProjectController@view_selectProject'
 )->name('rt_pr_select');
 
-//EDITAR PROYECTO
+//VISTA EDITAR PROYECTO
 Route::get(
     '/project-edit/{projectId}',
     'ProjectController@view_editProject'
 )->name('rt_pr_edit');
-
-//EDITAR TASKGROUP
-Route::get(
-    '/taskgroup-edit/{taskGroupId}',
-    'TaskGroupController@view_editTaskGroup'
-)->name('rt_tg_edit');
-
-//---------------------------BD---------------------------------------
 
 //BD INSERTAR NUEVO PROYECTO
 Route::post(
@@ -67,10 +59,56 @@ Route::post(
     ->name('rt_pr_update')
     ->middleware('auth');
 
+//-------TASKGROUP--------------------------------------------------------
+
+//VISTA CEAR NUEVO TASKGROUP
+Route::get(
+    '/taskgroup-new/{projectId}',
+    'TaskGroupController@view_newTaskGroup'
+)->name('rt_tg_new');
+
+//VISTA EDITAR TASKGROUP
+Route::get(
+    '/taskgroup-edit/{taskGroupId}',
+    'TaskGroupController@view_editTaskGroup'
+)
+    ->name('rt_tg_edit')
+    ->middleware('auth');
+
 // BD INSERTAR DATOS DE UN TASKGROUP
 Route::post(
-    '/taskgroup-new/{projectId}',
+    '/taskgroup-register/{projectId}',
     'TaskGroupController@create'
 )
-    ->name('rt_tg_create')
+    ->name('rt_tg_register')
+    ->middleware('auth');
+
+// BD MODIFICAR DATOS DE UN TASKGROUP
+Route::post(
+    '/taskgroup-update/{taskGroupId}',
+    'TaskGroupController@updateTaskGroup'
+)
+    ->name('rt_tg_update')
+    ->middleware('auth');
+
+//------------------------------TASK------------------
+
+//VISTA Crear TASK
+Route::get(
+    '/task-new/{taskGroupId}',
+    'TaskController@view_newTask'
+)->name('rt_ts_new');
+
+//VISTA EDITAR TASK
+Route::get(
+    '/task-edit/{taskId}',
+    'TaskController@view_editTask'
+)->name('rt_ts_edit');
+
+// BD INSERTAR DATOS DE UN TASK
+Route::post(
+    '/task-register/{taskGroupId}',
+    'TaskController@create'
+)
+    ->name('rt_ts_register')
     ->middleware('auth');

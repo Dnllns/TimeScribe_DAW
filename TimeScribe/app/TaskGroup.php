@@ -18,6 +18,11 @@ class TaskGroup extends Model
         'project_id', 'name', 'description', 'status', 'start_date', 'finish_date',
     ];
 
+
+
+    
+
+
     // -------------------------------RELATIONS--------------------------------------
 
     //N:1 PROJECT
@@ -29,6 +34,8 @@ class TaskGroup extends Model
     //1:N TASK
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany(
+            'App\Task'
+        );
     }
 }

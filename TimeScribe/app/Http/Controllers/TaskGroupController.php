@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ProjectController;
 use App\TaskGroup;
+use Illuminate\Http\Request;
 
 class TaskGroupController extends Controller
 {
     //
-
 
     protected function create(Request $data, $projectId)
     {
@@ -21,38 +21,54 @@ class TaskGroupController extends Controller
             // 'status' => $data['status'],
         ]);
 
+        //Return to the project editor view
+        return ProjectController::view_editProject($projectId);
 
     }
 
-
-
-    public function view_editTaskGroup($taskGroupId){
-
-        $taskGroup = TaskGroup::find($taskGroupId);
+    public function view_newTaskGroup($projectId)
+    {
 
         return view(
-            'TaskGroup/createtask',
+            'TaskGroup/Tg_Create',
             [
-                'taskGroup' => $taskGroup,
+                'projectId' => $projectId,
             ]
         );
 
     }
 
+    public static function view_editTaskGroup($taskGroupId)
+    {
+        $taskGroup = TaskGroup::find($taskGroupId);
+        $tasks = $taskGroup->tasks;
+
+        return view(
+            'TaskGroup/Tg_Edit',
+            [
+                'taskGroup' => $taskGroup,
+                'taskList' => $tasks,
+                'projectId' => $taskGroup->project_id,
+            ]
+        );
+
+    }
+
+    public function updateTaskGroup(Request $data, $taskGroupId)
+    {
 
 
-    // public function view_editProject($projectId)
-    // {
-    //     $project = Project::find($projectId);
-    //     $client = User::find($project->client_id);
-    //     return view(
-    //         'project/edit',
-    //         [
-    //             'project' => $project,
-    //             'client' => $client,
-    //         ]
-    //     );
 
-    // }
+        $taskGroup = TaskGroup::find($taskGroupId);
+
+        //Udate fields
+        $taskGroup->name = $data['name'];
+        $taskGroup->description = $data['description'];
+
+        //Update database
+        $taskGroup->save();
+        return ProjectController::view_editProject($taskGroup->project_id);
+
+    }
 
 }

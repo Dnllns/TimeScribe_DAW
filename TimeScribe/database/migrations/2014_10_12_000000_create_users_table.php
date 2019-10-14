@@ -23,6 +23,14 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->boolean('is_customer');
 
+
+            //
+            // $users = DB::insert(
+            //     'insert into users values (d, d@d.com, xzcxzc))', 
+            //     [1]
+            // );
+
+
         });
     }
 

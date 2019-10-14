@@ -10,6 +10,7 @@ class Project extends Model
     const STATUS_TODO = 0;
     const STATUS_DONE = 1;
     const STATUS_DOING = 2;
+
     //PROJECT PERMISSIONS
     const PERM_ALL = 0;
     const PERM_EDIT = 1;
@@ -49,5 +50,9 @@ class Project extends Model
     {
         return $this->hasOne('App\Bill');
     }
+
+
+
+    // --------------------
 
 }
