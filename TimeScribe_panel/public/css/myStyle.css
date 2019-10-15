@@ -1,0 +1,8 @@
+.container {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.border-fat {
+    border-width: 4px !important;
+}
