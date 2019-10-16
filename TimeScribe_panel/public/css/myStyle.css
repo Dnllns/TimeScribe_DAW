@@ -6,3 +6,19 @@
 .border-fat {
     border-width: 4px !important;
 }
+
+.todo {
+    background: goldenrod;
+}
+
+.doing {
+    background: cornflowerblue;
+}
+
+.done {
+    background: mediumspringgreen;
+}
+
+.chrono {
+    font-size: 3em;
+}

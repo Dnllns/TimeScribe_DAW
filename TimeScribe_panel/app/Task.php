@@ -3,6 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\TimeRecord;
+use App\Http\Controllers\TaskController;
+
+
 
 class Task extends Model
 {
@@ -32,7 +36,11 @@ class Task extends Model
         return $this->users;
     }
 
+    public function getWorkedTime(){
 
+        return TaskController::getWorkedTime($this->id);
+
+    }
 
 
     // -------------------------------RELATIONS--------------------------------------

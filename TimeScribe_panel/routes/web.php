@@ -108,6 +108,13 @@ Route::get('/task-delete/{taskId}', 'TaskController@deleteTask')
 
 
 
-    Route::get('/table', function () {
-        return view('table');
-    });
+    //---------------------CONTAR TIEMPO------------------------------
+
+Route::get('/ct-start/{taskId}', 'TaskController@startCount')
+    ->name('ct_start')->middleware('auth');
+
+Route::get('/ct-stop', 'TaskController@stopCount')
+    ->name('ct_stop')->middleware('auth');
+
+Route::get('/ct-getworkedtime/{taskId}', 'TaskController@getWorkedTime')
+    ->name('ct_gwt')->middleware('auth');

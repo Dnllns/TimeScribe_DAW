@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Task;
 use App\Http\Controllers\TaskGroupController;
+use App\Task;
+use App\TimeRecord;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -13,19 +15,17 @@ class TaskController extends Controller
     public function view_newTask($taskGroupId)
     {
         return view(
-            'Task/Ts_Create', ['taskGroupId' => $taskGroupId,]
+            'Task/Ts_Create', ['taskGroupId' => $taskGroupId]
         );
     }
-
 
     public function view_editTask($taskId)
     {
         $task = Task::find($taskId);
         return view(
-            'Task/Ts_Edit', ['task' => $task,]
+            'Task/Ts_Edit', ['task' => $task]
         );
     }
-
 
     protected function create(Request $data, $taskGroupId)
     {
@@ -39,7 +39,6 @@ class TaskController extends Controller
         return TaskGroupController::view_editTaskGroup($taskGroupId);
     }
 
-    
     public function updateTask(Request $data, $taskId)
     {
 
@@ -61,6 +60,59 @@ class TaskController extends Controller
         $taskgroupId = $task->task_group_id;
         $task->delete();
         return TaskGroupController::view_editTaskGroup($taskgroupId);
+    }
+
+    public function f()
+    {
+        echo "aaa";
+    }
+
+    public function startCount($taskId)
+    {
+        $insert = TimeRecord::create([
+            'user_id' => auth()->user()->id,
+            'task_id' => $taskId,
+            'start_date' => Carbon::now()->toDateTimeString(),
+        ]);
+
+    }
+
+    public function stopCount()
+    {
+
+        $timeRecord = TimeRecord::
+            where('finish_date', null)
+            ->where('user_id', auth()->user()->id)->first();
+
+        $timeRecord->finish_date = Carbon::now()->toDateTimeString();
+        $timeRecord->save();
+
+    }
+
+    public static function getWorkedTime($taskId)
+    {
+
+        $timeRecords = TimeRecord::
+            where('task_id', $taskId)
+            ->where('user_id', auth()->user()->id)->get();
+
+        $totalTime = new \DateTime('2000-01-01');
+
+        foreach ($timeRecords as $timeRecord) {
+
+            $start = new \DateTime($timeRecord->start_date);
+            $finish = new \DateTime($timeRecord->finish_date);
+
+            // Obtener el tiempo que se ha trabajado en cada timerecord
+            $interval = $start->diff($finish);
+
+            //Sumar el tiempo
+            $totalTime->add($interval);
+
+        }
+
+        return $totalTime->format('H:i:s');
+
     }
 
 }
