@@ -45,7 +45,7 @@
                         @foreach ($taskGroup->getTasks($taskGroup::STATUS_TODO) as $task)
 
                             <!-- Plantilla de tarea -->
- 
+
                             <div class="col-md-6 mb-4">
                                 <div class="card border-left-primary border-fat shadow h-100 py-2">
                                     <div class="card-body">
@@ -60,9 +60,9 @@
                                                         <i class="far fa-play-circle"></i>
                                                     </span>
                                                     <span class="text">Start task</span>
-                                                </a>                                  
+                                                </a>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +73,6 @@
                     </div>
                     <br>
 
-
                     <!-- TAREAS HACIENDOSE -->
                     <div class="col-sm-12 border border-fat border-info container rounded doing">
                         <h4>Doing</h4>
@@ -81,9 +80,9 @@
                         <div class="d-flex flex-wrap">
                             @foreach ($taskGroup->getTasks($taskGroup::STATUS_DOING) as $task)
                                 <!-- Plantilla de tarea -->
-                           
 
-                                <div class="col-md-6 mb-4">
+
+                                <div id="task_{{$task->id}}" class="col-md-6 mb-4">
                                     <div class="card border-left-primary border-fat shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="column no-gutters align-items-center">
@@ -117,28 +116,35 @@
                                                     </div>
                                                     <div class="card-body d-flex justify-content-center">
 
-                                                        <p class="chrono font-weight-bold">00:00:00</p>
+                                                        <p id="chronotime_{{$task->id}}" class="chrono font-weight-bold">00:00:00</p>
 
                                                     </div>
                                                 </div>
 
-
-
+                                                <!-- BOTONES -->
                                                 <div class="row pl-3">
-                                                    <a href="{{ route('ct_start', $task->id) }}" class="btn btn-success btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                            <i class="far fa-clock"></i>                                                        </span>
-                                                        <span class="text">Resume counting time</span>
-                                                    </a> 
 
-                                                    <a href="{{ route('ct_stop') }}" class="ml-2 btn btn-danger btn-icon-split">
+                                                    <!-- START/STOP/RESUME -->
+                                                    <button id="b_start_{{$task->id}}"
+                                                        class="btn btn-success btn-icon-split"
+                                                        onclick="chronoStart(event)">
+
                                                         <span class="icon text-white-50">
                                                             <i class="far fa-clock"></i>                                                        </span>
-                                                        <span class="text">Stop counting time</span>
-                                                    </a>  
+                                                        <span class="text">Start counting time</span>
+                                                    </button>
+
+                                                    <!-- RESET -->
+                                                    <button id="b_reset_{{$task->id}}"
+                                                        class="ml-2 btn btn-danger btn-icon-split d-none"
+                                                        onclick="">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-undo-alt"></i>                                                       </span>
+                                                        <span class="text">Reset time</span>
+                                                    </button>
 
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -187,16 +193,16 @@
                                                         <span class="icon text-white-50">
                                                             <i class="far fa-trash-alt"></i>                                                        </span>
                                                         <span class="text">Remove task</span>
-                                                    </a>                                  
+                                                    </a>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                         @endforeach
-                    </div>                    
+                    </div>
                 </div>
             </div>
 
@@ -212,5 +218,5 @@
 
 @section('js_libs')
     <!-- JS LIBRARYS -->
-    <script src=""></script>
+    <script src="/js/chrono/chrono.js"></script>
 @endsection
