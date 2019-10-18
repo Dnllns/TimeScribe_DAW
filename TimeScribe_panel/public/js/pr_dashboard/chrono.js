@@ -1,3 +1,31 @@
+$(function() {
+
+    //Evento start para los buttons que encienden el crono
+    $("button[id^='b_start_']").click(function() {
+
+        switch ($(this).attr("f")) {
+            case "chronoStart":
+                chronoStart($(this))
+                break
+
+            case "chronoStop":
+                chronoStop($(this))
+                break
+
+            case "chronoResume":
+                chronoResume($(this))
+                break
+        }
+    })
+
+    $("button[id^='b_reset_']").click(function() {
+        chronoReset($(this))
+    })
+
+});
+
+
+
 var startTime = 0
 var start = 0
 var end = 0
@@ -18,6 +46,9 @@ function chrono(id) {
     if (sec < 10) {
         sec = "0" + sec
     }
+    if (hr < 10) {
+        hr = "0" + hr
+    }
 
     $('#chronotime_' + id).html(hr + ":" + min + ":" + sec)
 
@@ -27,58 +58,45 @@ function chrono(id) {
     )
 }
 
-/**
- * Iniciar el cronometro;
- * Actualiza el texto del boton de StartStopResume a Stop
- * Añade el evento chronoStop al boton de StartStopResume
- * @param {*} event 
- */
-function chronoStart(event) {
+function chronoStart(e) {
 
-    event.preventDefault()
-    var id = getId(event) //Obtener el id
+    var id = getId(e)
 
     //Actualizar interface
     $("#b_start_" + id + " > span.text").text("Stop")
 
     //Actualizar eventos
-    $("#b_start_" + id).attr("onclick", "chronoStop(event)")
+    $("#b_start_" + id).attr("f", "chronoStop")
 
     start = new Date()
     chrono(id)
 }
 
-/**
- * Pausar el cronómetro
- * @param {} event 
- */
-function chronoStop(event) {
+function chronoStop(e) {
 
-    event.preventDefault()
-    var id = getId(event) //Obtener el id
+    var id = getId(e)
 
     //Actualizar interface
     $("#b_reset_" + id).removeClass("d-none")
     $("#b_start_" + id + " > span.text").text("Resume")
 
     //Actualizar eventos
-    $("#b_reset_" + id).attr("onclick", "chronoReset(event)")
-    $("#b_start_" + id).attr("onclick", "chronoResume(event)")
+    $("#b_reset_" + id).attr("f", "chronoReset")
+    $("#b_start_" + id).attr("f", "chronoResume")
 
     clearTimeout(timerID)
 }
 
-function chronoResume(event) {
+function chronoResume(e) {
 
-    event.preventDefault()
-    var id = getId(event) //Obtener el id
+    var id = getId(e)
 
     //Actualizar interface
     $("#b_start_" + id + " > span.text").text("Stop")
     $("#b_reset_" + id).addClass("d-none")
 
     //Actualizar eventos
-    $("#b_start_" + id).attr("onclick", "chronoStop(event)")
+    $("#b_start_" + id).attr("f", "chronoStop")
 
     start = new Date() - diff
     start = new Date(start)
@@ -86,30 +104,27 @@ function chronoResume(event) {
 
 }
 
-function chronoReset(event) {
+function chronoReset(e) {
 
-    event.preventDefault()
-    var id = getId(event)
+    var id = getId(e)
 
     //Actualizar interface
     $("#b_reset_" + id).addClass("d-none")
-    $('#chronotime_' + id).html("0:00:00")
+    $('#chronotime_' + id).html("00:00:00")
 
     //Actualizar eventos
-    $("#b_start_" + id).attr("onclick", "chronoStart(event)")
+    $("#b_start_" + id).attr("f", "chronoStart")
 
     start = new Date()
 }
 
 
 
-function getId(event) {
-
-    var fullId = event.target.parentElement.id
+function getId(e) {
+    var fullId = e.attr('id')
     var id = fullId.substr(
         fullId.lastIndexOf("_") + 1,
         fullId.length
     )
-
-    return id;
+    return id
 }

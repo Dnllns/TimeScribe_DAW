@@ -38,7 +38,7 @@
 
 
                     <!-- TAREAS POR HACER -->
-                    <div class="col-sm-12 border border-fat border-warning container rounded todo">
+                    <div id="todo_task" class="col-sm-12 border border-fat border-warning container rounded todo">
                         <h4>To do</h4>
                         <br>
 
@@ -46,18 +46,19 @@
 
                             <!-- Plantilla de tarea -->
 
-                            <div class="col-md-6 mb-4">
+                            <div id="task_{{$task->id}}" class="col-md-6 mb-4">
                                 <div class="card border-left-primary border-fat shadow h-100 py-2">
                                     <div class="card-body">
+                                        
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $task->name }}</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $task->description }}</div>
                                             </div>
                                             <div class="mt-4">
-                                                <a href="#" class="btn btn-success btn-icon-split">
+                                                <button id="b_startnew_{{$task->id}}" type="button" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50">
-                                                        <i class="far fa-play-circle"></i>
+                                                        <i class="far fa-play-circle icon-white"></i>
                                                     </span>
                                                     <span class="text">Start task</span>
                                                 </a>
@@ -78,71 +79,83 @@
                         <h4>Doing</h4>
                         <br>
                         <div class="d-flex flex-wrap">
+
                             @foreach ($taskGroup->getTasks($taskGroup::STATUS_DOING) as $task)
+                                
                                 <!-- Plantilla de tarea -->
-
-
                                 <div id="task_{{$task->id}}" class="col-md-6 mb-4">
                                     <div class="card border-left-primary border-fat shadow h-100 py-2">
+                   
                                         <div class="card-body">
-                                            <div class="column no-gutters align-items-center">
+
+                                            <div class="column no-gutters align-items-center ">
+
+                                                <!-- TASK HEADDER -->
                                                 <div class="col mr-2">
+                                                    <button type="button" class="btn btn-danger btn-circle btn-sm float-right" data-toggle="collapse" data-target="#taskcontent_{{$task->id}}">
+                                                        <span class="icon text-white-50">
+                                                            <i class="far fa-eye icon-white"></i>
+                                                        </span>
+                                                    </button>
                                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $task->name }}</div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $task->description }}</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $task->description }}</div>                                                   
                                                 </div>
 
-                                                <br>
-                                                <ul>
-                                                    <li>
-                                                        Total time worked
-                                                        <p>{{ $task->getWorkedTime() }}</p>
-                                                    </li>
-                                                    <li>
-                                                        Start date
-                                                        <p>{{ $task->start_date }}</p>
-                                                    </li>
-                                                </ul>
+                                                <div id="taskcontent_{{$task->id}}" class="collapse">
+                                                
+                                                    <!-- TASK DATA -->
+                                                    <ul>
+                                                        <li>
+                                                            Total time worked
+                                                            <p>{{ $task->getWorkedTime() }}</p>
+                                                        </li>
+                                                        <li>
+                                                            Start date
+                                                            <p>{{ $task->start_date }}</p>
+                                                        </li>
+                                                    </ul>
 
-                                                <!-- PROGRESS BAR -->
-                                                <!-- <h4 class="small font-weight-bold">% completed task<span class="float-right">20%</span></h4>
-                                                <div class="progress mb-4">
-                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div> -->
+                                                    <div class="card mb-4">
 
+                                                        <div class="card-header">
+                                                            Worked time today
+                                                        </div>
 
-                                                <div class="card mb-4">
-                                                    <div class="card-header">
-                                                        Worked time today
+                                                        <!-- CHRONO -->
+                                                        <div class="card-body d-flex justify-content-center ">
+                                                            <p id="chronotime_{{$task->id}}" class="chrono font-weight-bold">00:00:00</p>                                                    
+                                                        </div>
+
+                                                        <!-- BOTONES -->
+                                                        <div class="row d-flex justify-content-center">
+
+                                                            <!-- START/STOP/RESUME -->
+                                                            <button type="button" id="b_start_{{$task->id}}" class="btn btn-primary btn-icon-split" f="chronoStart"> 
+                                                                <span id="b_ic1_{{$task->id}}" class="icon text-white-50"><i class="far fa-clock icon-white"></i></span>
+                                                                <span id="b_tx1_{{$task->id}}" class="text">Start counting time</span>
+                                                            </button>
+
+                                                            <!-- RESET -->
+                                                            <button type="button" id="b_reset_{{$task->id}}" class="ml-2 btn btn-danger btn-icon-split d-none" >
+                                                                <span id="b_ic2_{{$task->id}}" class="icon text-white-50"><i class="fas fa-undo icon-white"></i></span>
+                                                                <span id="b_tx2_{{$task->id}}" class="text">Reset time</span>
+                                                            </button>
+
+                                                        </div>
+
                                                     </div>
-                                                    <div class="card-body d-flex justify-content-center">
-
-                                                        <p id="chronotime_{{$task->id}}" class="chrono font-weight-bold">00:00:00</p>
-
-                                                    </div>
+                
                                                 </div>
+                                                
 
-                                                <!-- BOTONES -->
-                                                <div class="row pl-3">
-
-                                                    <!-- START/STOP/RESUME -->
-                                                    <button id="b_start_{{$task->id}}"
-                                                        class="btn btn-success btn-icon-split"
-                                                        onclick="chronoStart(event)">
-
-                                                        <span class="icon text-white-50">
-                                                            <i class="far fa-clock"></i>                                                        </span>
-                                                        <span class="text">Start counting time</span>
+                                                <div class="row pt-3 pl-3 col-sm-12">
+                                                
+                                                    <!-- COMPLETED BUTTON -->
+                                                    <button type="button" id="b_done_{{$task->id}}" class="btn btn-success btn-icon-split" onclick="">
+                                                        <span id="b_ic3_{{$task->id}}" class="icon text-white-50 icon-white"><i class="far fa-check-circle icon-white"></i></span>
+                                                        <span id="b_tx4_{{$task->id}}" class="text">Set completed</span>
                                                     </button>
-
-                                                    <!-- RESET -->
-                                                    <button id="b_reset_{{$task->id}}"
-                                                        class="ml-2 btn btn-danger btn-icon-split d-none"
-                                                        onclick="">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-undo-alt"></i>                                                       </span>
-                                                        <span class="text">Reset time</span>
-                                                    </button>
-
+                                                
                                                 </div>
 
                                             </div>
@@ -191,7 +204,7 @@
                                                 <div class="mt-4">
                                                     <a href="#" class="btn btn-danger btn-icon-split">
                                                         <span class="icon text-white-50">
-                                                            <i class="far fa-trash-alt"></i>                                                        </span>
+                                                            <i class="far fa-trash-alt icon-white"></i>                                                        </span>
                                                         <span class="text">Remove task</span>
                                                     </a>
                                                 </div>
@@ -218,5 +231,6 @@
 
 @section('js_libs')
     <!-- JS LIBRARYS -->
-    <script src="/js/chrono/chrono.js"></script>
+    <script src="/js/pr_dashboard/ajax_updates.js"></script>
+    <script src="/js/pr_dashboard/chrono.js"></script>
 @endsection

@@ -22,3 +22,11 @@
 .chrono {
     font-size: 3em;
 }
+
+.card {
+    padding-bottom: 2em;
+}
+
+.icon-white {
+    color: white;
+}

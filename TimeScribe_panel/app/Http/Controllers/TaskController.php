@@ -115,4 +115,13 @@ class TaskController extends Controller
 
     }
 
+
+    public function startNewTask($taskId)
+    {
+        $task = Task::find($taskId);
+        $task->start_date = Carbon::now()->toDateTimeString();
+        $task->status = Task::STATUS_DOING;
+        $task->save();
+    }
+
 }
