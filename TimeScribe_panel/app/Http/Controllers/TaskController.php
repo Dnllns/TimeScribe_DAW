@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\TaskGroupController;
+use App\Http\Controllers\ProjectController;
+
 use App\Task;
+use App\Project;
 use App\TimeRecord;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -56,10 +59,15 @@ class TaskController extends Controller
 
     public function deleteTask($taskId)
     {
+        // $task = Task::find($taskId);
+        // $taskgroupId = $task->task_group_id;
+        // $task->delete();
+        // return TaskGroupController::view_editTaskGroup($taskgroupId);
+
         $task = Task::find($taskId);
-        $taskgroupId = $task->task_group_id;
-        $task->delete();
-        return TaskGroupController::view_editTaskGroup($taskgroupId);
+        $task->visible = Task::INVISIBLE;
+        $task->save();
+        
     }
 
     public function f()
@@ -123,5 +131,19 @@ class TaskController extends Controller
         $task->status = Task::STATUS_DOING;
         $task->save();
     }
+
+
+    public function setDone($taskId){
+
+        $task = Task::find($taskId);
+        $task->status = Task::STATUS_DONE;
+        $task->finish_date = Carbon::now()->toDateTimeString();
+        $task->save();
+
+        // return ProjectController::view_selectProject();
+    
+    }
+
+
 
 }

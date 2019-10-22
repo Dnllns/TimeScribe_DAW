@@ -21,6 +21,7 @@
 
 .chrono {
     font-size: 3em;
+    /* padding-right: 20px; */
 }
 
 .card {
@@ -29,4 +30,34 @@
 
 .icon-white {
     color: white;
+}
+
+
+/* STYCKY CHRONO */
+
+.sticky-chrono {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: yellow;
+    text-align: center;
+}
+
+#task_name {
+    font-size: 2em;
+}
+
+#x {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    float: right;
+    background: red;
+    color: white;
+    margin: 15px;
+}
+
+.my-container {
+    padding-top: 20px;
+    margin: 20px;
 }

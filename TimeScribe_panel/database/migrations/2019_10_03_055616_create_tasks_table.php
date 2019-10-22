@@ -41,6 +41,9 @@ class CreateTasksTable extends Migration
             //FECHA DE FINALIZACION
             $table->dateTime('finish_date')->nullable()->default(null);
 
+            //VISIBLE
+            $table->tinyInteger('visible')->default(1);
+
         });
     }
 

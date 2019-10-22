@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TimeRecord extends Model
 {
-  
+
     //DB TABLE
     protected $table = 'timerecords';
 
@@ -23,5 +23,7 @@ class TimeRecord extends Model
     {
         return $this->belongsTo('App\Task');
     }
+
+
 
 }

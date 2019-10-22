@@ -119,3 +119,12 @@ Route::get('/ct-getworkedtime/{taskId}', 'TaskController@getWorkedTime')
 
 Route::get('/ct-startnew/{taskId}', 'TaskController@startNewTask')
     ->name('ct_startnew')->middleware('auth');
+
+Route::get('/ct-reset/{taskId}', 'TimeRecordController@removeLastTimerecord')
+    ->name('ct_reset')->middleware('auth');
+
+Route::get('/task-done/{taskId}', 'TaskController@setDone')
+    ->name('td')->middleware('auth');
+
+
+

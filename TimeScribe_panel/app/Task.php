@@ -22,6 +22,7 @@ class Task extends Model
         'status',
         'start_date',
         'finish_date',
+        'visible',
     ];
 
 

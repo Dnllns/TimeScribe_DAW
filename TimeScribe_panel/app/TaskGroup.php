@@ -11,6 +11,12 @@ class TaskGroup extends Model
     const STATUS_TODO = 0;
     const STATUS_DOING = 1;
     const STATUS_DONE = 2;
+    
+    const VISIBLE = 1;
+    const INVISIBLE = 2;
+    
+
+
 
     protected $table = 'taskgroups';
 
@@ -30,7 +36,7 @@ class TaskGroup extends Model
         $searchedTasks = array();
 
         foreach ($tasks as $task) {
-            if ($task->status == $status ) {
+            if ($task->status == $status && $task->visible == $task->VISIBLE) {
                 array_push( $searchedTasks, $task);
             }
         }
