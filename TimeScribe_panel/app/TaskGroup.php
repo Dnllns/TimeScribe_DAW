@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Task;
+
 
 class TaskGroup extends Model
 {
@@ -44,6 +46,17 @@ class TaskGroup extends Model
         return $searchedTasks;
     }
 
+
+    public function getPercentCompleted(){
+
+
+        $toDo = count($this->getTasks(Task::STATUS_TODO));
+        $doing = count($this->getTasks(Task::STATUS_DOING));
+        $done = count($this->getTasks(Task::STATUS_DONE));
+
+        return (($toDo + $doing) * 100) / ($toDo + $doing + $done);
+
+    }
 
 
 
