@@ -42,7 +42,7 @@ class CreateTasksTable extends Migration
             $table->dateTime('finish_date')->nullable()->default(null);
 
             //VISIBLE
-            $table->tinyInteger('visible')->default(1);
+            $table->tinyInteger('visible')->default(Task::VISIBLE);
 
         });
     }

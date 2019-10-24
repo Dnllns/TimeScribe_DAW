@@ -58,6 +58,21 @@ $(function() {
 
 
 
+    $("button[id^='remove_task_']").click(function() {
+
+        //get task id 
+        var fullId = $(this).attr('id')
+        var task_id = fullId.substr(
+            fullId.lastIndexOf("_") + 1,
+            fullId.length
+        )
+
+        removeTask(task_id)
+    })
+
+
+
+
 });
 
 //peticiones al servidor
@@ -74,6 +89,13 @@ function startNewTask(id) {
     $.get("/ct-startnew/" + id)
 }
 
+
+function removeTask(id) {
+
+    $.get("/task-delete/" + id)
+    location.reload()
+
+}
 
 //Empezar nueva tarea
 function setDone(id) {

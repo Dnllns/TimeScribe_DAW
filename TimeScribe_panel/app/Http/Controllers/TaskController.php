@@ -70,10 +70,6 @@ class TaskController extends Controller
         
     }
 
-    public function f()
-    {
-        echo "aaa";
-    }
 
     public function startCount($taskId)
     {

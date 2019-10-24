@@ -101,7 +101,7 @@ Route::post('/task-update/{taskId}', 'TaskController@updateTask')
     ->name('rt_ts_update')
     ->middleware('auth');
 
-// BD MODIFICAR DATOS DE UN TASK
+// BD eliminar TASK
 Route::get('/task-delete/{taskId}', 'TaskController@deleteTask')
     ->name('rt_ts_delete')
     ->middleware('auth');
@@ -127,4 +127,8 @@ Route::get('/task-done/{taskId}', 'TaskController@setDone')
     ->name('td')->middleware('auth');
 
 
+//---------------------- CLIENTE -------------------------------------
 
+
+Route::get('/client-dashboard', 'UserController@view_clientDashboard')
+    ->name('client_dashboard')->middleware('auth');

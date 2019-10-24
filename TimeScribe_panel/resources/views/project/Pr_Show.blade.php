@@ -2,13 +2,20 @@
 
 @section('head')
 
+    <!-- STYLES -->
+    <link rel="stylesheet" href="/JqueryUi/jquery-ui.min.css">
+    <link rel="stylesheet" href="/JqueryUi/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="/JqueryUi/jquery-ui.theme.min.css">
 
-    <!-- -----------------LIBRARYS----------------- -->
-    <!-- JQUERY UI -->
-    <script src="/js/JQueryUi/jquery-ui.min.js"></script>
-    <link href="/css/JQueryUi/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <!-- LIBS -->
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script src="/JqueryUi/jquery-ui.min.js"></script>
+    
 
-
+    <!-- SCRIPTS -->
+    <script src="/js/pr_dashboard/chrono.js"></script>
+    <script src="/js/pr_dashboard/ajax_updates.js"></script>
+    <script src="/js/pr_dashboard/draggable.js"></script><!-- Para hacer drag and drop -->
 
 @endsection
 
@@ -66,7 +73,7 @@
     @foreach ($taskGroups as $taskGroup)
 
 
-        <div class="container-fluid my-container task-group rounded ">
+        <div class="container-fluid my-group rounded ">
 
             <!-- TASKGROUP INFO -->
             <div class="column">
@@ -82,7 +89,9 @@
                     style="width: {{$taskGroup->getPercentCompleted()}}%;">{{$taskGroup->getPercentCompleted()}}%</div>
                 </div>
 
-                <button type="button" class="btn btn-info mt-4" data-toggle="collapse" data-target="#task_container">Show task list</button>
+                <button type="button" class="btn btn-info mt-4" data-toggle="collapse" data-target="#task_container">
+                   <i class="far fa-eye icon-white"></i>
+                </button>
 
             </div>
  
@@ -97,23 +106,26 @@
 
                         <!-- PLANTILLA DE TAREA -->
                         @foreach ($taskGroup->getTasks($taskGroup::STATUS_TODO) as $task)
-                        <div id="task_{{$task->id}}" class="card border-fat shadow mb-4 item py-2">
+                        <div id="task_{{$task->id}}" class="item card border-fat shadow mb-4 item py-2">
+                            
+                            <div class="card-body d-flex flex-row">
 
-                            <div class="card-body">
-
-                                <div class="no-gutters align-items-center">
-                                    <!-- CABECERA -->
+                                <!-- CABECERA -->
+                                <div class="no-gutters align-items-center col-sm-11">
                                     <div class="col mr-2">
                                         <div id="t_name_{{$task->id}}" class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $task->name }}</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $task->description }}</div>
                                     </div>
                                 </div>
+                                <!-- BOTONES -->
+                                <div class="d-flex flex-column col-sm-1">
 
-                                <!-- START TASK BUTTON -->
-                                <button id="b_startnew_{{$task->id}}" type="button" class="btn btn-success mt-3" data-toggle="tooltip" data-placement="bottom" title="Start task">
-                                    <i class="far fa-play-circle icon-white"></i>
-                                </button>
+                                    <!-- BOTON DE START -->
+                                    <button id="b_startnew_{{$task->id}}" type="button" class="btn btn-success btn-circle col-sm-1" data-toggle="tooltip" data-placement="bottom" title="Start task">
+                                        <i class="far fa-play-circle icon-white"></i>
+                                    </button>
 
+                                </div>
                             </div>
 
                         </div>
@@ -127,21 +139,13 @@
 
                         <!-- Plantilla de tarea -->
                         @foreach ($taskGroup->getTasks($taskGroup::STATUS_DOING) as $task)
-                        <div id="task_{{$task->id}}" class="card border-fat shadow mb-4 item py-2">
+                        <div id="task_{{$task->id}}" class="item card border-fat shadow mb-4 item py-2">
+                            
+                            <div class="card-body d-flex flex-row">
 
-                            <div class="card-body">
-
-                                <div class="item-move">MOVE</div>
-                                
+                                                                
                                 <!-- CABECERA -->
-                                <div class="col no-gutters align-items-center ">
-                                    
-                                    <!-- BOTON DE VISUALIZAR -->
-                                    <button type="button" class="btn btn-info btn-circle btn-sm float-right" data-toggle="collapse" data-target="#taskcontent_{{$task->id}}">
-                                        <span class="icon text-white-50">
-                                            <i class="far fa-eye icon-white"></i>
-                                        </span>
-                                    </button>
+                                <div class="col-sm-11 no-gutters align-items-center ">
                                     
                                     <!-- TITULO Y DESCRIPCION -->
                                     <div id="t_name_{{$task->id}}" class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $task->name }}</div>
@@ -165,17 +169,24 @@
 
                                 </div>
 
-                                <!-- BUTTONS -->
-                                <div class="row pt-2 pl-3 col-sm-12">
+                                <!-- BOTONES -->
+                                <div class="d-flex flex-column col-sm-1">
+
+                                    <!-- BOTON DE VISUALIZAR -->
+                                    <button type="button" class="btn btn-info btn-circle btn-sm " data-toggle="collapse" data-target="#taskcontent_{{$task->id}}">
+                                        <i class="far fa-eye icon-white"></i>
+                                    </button>
                                     <!-- START/STOP/RESUME -->
-                                    <button type="button" id="b_select_{{$task->id}}" class="btn btn-primary btn-icon-split mr-2" f="chronoStart" data-toggle="tooltip" data-placement="bottom" title="Select task">
+                                    <button type="button" id="b_select_{{$task->id}}" class="btn btn-primary btn-circle btn-sm mt-2" f="chronoStart" data-toggle="tooltip" data-placement="bottom" title="Select task">
                                         <i class="fas fa-stopwatch icon-white"></i>
                                     </button>
                                     <!-- COMPLETED BUTTON -->
-                                    <button type="button" id="b_done_{{$task->id}}" class="btn btn-success btn-icon-split" href="{{ route('rt_pr_update', $project->id) }}" data-toggle="tooltip" data-placement="bottom" title="Set done">
+                                    <button type="button" id="b_done_{{$task->id}}" class="btn btn-success btn-circle btn-sm mt-2"  data-toggle="tooltip" data-placement="bottom" title="Set done">
                                         <i class="far fa-check-circle icon-white"></i>
                                     </button>
+
                                 </div>
+
                             </div>
 
                         </div>
@@ -190,22 +201,12 @@
 
                         <!-- Plantilla de tarea -->
                         @foreach ($taskGroup->getTasks($taskGroup::STATUS_DONE) as $task)          
-                        <div id="task_{{$task->id}}" class="card border-fat shadow mb-4 item py-2">
+                        <div id="task_{{$task->id}}" class="item card border-fat shadow mb-4 py-2">
+                            <div class="card-body d-flex flex-row">
 
-                            <div class="card-body">
-
-                                <div class="item-move">MOVE</div>
-                                
                                 <!-- CABECERA -->
-                                <div class="column no-gutters align-items-center ">
-                                    
-                                    <!-- BOTON DE VISUALIZAR -->
-                                    <button type="button" class="btn btn-info btn-circle btn-sm float-right" data-toggle="collapse" data-target="#taskcontent_{{$task->id}}">
-                                        <span class="icon text-white-50">
-                                            <i class="far fa-eye icon-white"></i>
-                                        </span>
-                                    </button>
-                                    
+                                <div class="column no-gutters align-items-center col-sm-11">
+
                                     <!-- TITULO Y DESCRIPCION -->
                                     <div id="t_name_{{$task->id}}" class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $task->name }}</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $task->description }}</div>
@@ -234,8 +235,13 @@
                                 </div>
 
                                 <!-- BUTTONS -->
-                                <div class="row pt-2 pl-3 col-sm-12">
-                                    <button id="remove_task_{{$task->id}}" type="button"class="btn btn-danger btn-icon-split" data-toggle="tooltip" data-placement="bottom" title="Remove task">
+                                <div class="pt-2 pl-3 col-sm-1">
+                                    <!-- BOTON DE VISUALIZAR -->
+                                    <button type="button" class="btn btn-info btn-circle btn-sm" data-toggle="collapse" data-target="#taskcontent_{{$task->id}}">
+                                        <i class="far fa-eye icon-white"></i>
+                                    </button>
+                                    <!-- BOTON DE ELIMINAR -->
+                                    <button id="remove_task_{{$task->id}}" type="button"class="btn btn-danger btn-circle btn-sm mt-2" data-toggle="tooltip" data-placement="bottom" title="Remove task">
                                         <i class="far fa-trash-alt icon-white"></i>
                                     </button>
                                 </div>
@@ -246,6 +252,7 @@
                         @endforeach
 
                     </div>
+                    
                 </div>
             </div>
 
@@ -258,12 +265,9 @@
 
 @endsection
 
-@section('js_libs')
-
-<script src="/js/pr_dashboard/chrono.js"></script>
-<script src="/js/pr_dashboard/ajax_updates.js"></script>
-<script src="/js/pr_dashboard/draggable.js"></script>
 
 
 
-@endsection
+
+
+

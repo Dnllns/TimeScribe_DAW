@@ -1,9 +1,8 @@
 <?php
 
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-use App\Task;
+use \App\Task;
 
 
 class TaskGroup extends Model
@@ -13,21 +12,15 @@ class TaskGroup extends Model
     const STATUS_TODO = 0;
     const STATUS_DOING = 1;
     const STATUS_DONE = 2;
-    
+
     const VISIBLE = 1;
     const INVISIBLE = 2;
-    
-
-
 
     protected $table = 'taskgroups';
 
     protected $fillable = [
         'project_id', 'name', 'description', 'status', 'start_date', 'finish_date',
     ];
-    
-
-
 
     // -------------------------------FUNCTIONS-------------------------------------
 
@@ -38,28 +31,30 @@ class TaskGroup extends Model
         $searchedTasks = array();
 
         foreach ($tasks as $task) {
-            if ($task->status == $status && $task->visible == $task->VISIBLE) {
-                array_push( $searchedTasks, $task);
+
+            if ($task->status == $status ) {   // && $task->getVisible() == $task::VISIBLE
+                array_push($searchedTasks, $task);
             }
         }
-        
+
         return $searchedTasks;
     }
 
-
-    public function getPercentCompleted(){
-
-
+    public function getPercentCompleted()
+    {
         $toDo = count($this->getTasks(Task::STATUS_TODO));
         $doing = count($this->getTasks(Task::STATUS_DOING));
         $done = count($this->getTasks(Task::STATUS_DONE));
+        $result = 0;
 
-        return (($toDo + $doing) * 100) / ($toDo + $doing + $done);
+        try {
+            $result =  100 - round((($toDo + $doing) * 100) / ($toDo + $doing + $done));
+        } catch (\Exception $e) {
+        }
+
+        return $result;
 
     }
-
-
-
 
     // -------------------------------RELATIONS--------------------------------------
 

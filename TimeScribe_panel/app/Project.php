@@ -55,4 +55,32 @@ class Project extends Model
 
     // --------------------
 
+
+
+    public function getPercentCompleted()
+    {
+
+
+        $taskGroups = $this->taskGroups;
+        $percent = 0;
+        $result = 0;
+        $count = 0;
+
+
+        foreach ($taskGroups as $taskgroup ) {
+
+            if( count($taskgroup->tasks) != 0){
+                $percent += $taskgroup->getPercentCompleted();
+                $count+=1;
+            }
+        }
+
+        try {
+            $result =  $percent / $count;
+        } catch (\Exception $e) {
+        }
+
+        return $result;
+
+    }
 }

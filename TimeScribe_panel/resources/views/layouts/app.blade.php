@@ -11,7 +11,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="/js/jquery-3.4.1.min.js"></script>
+
+    
+    <script src="/js/jquery-3.4.1.min.js" language="JavaScript" type="text/javascript" ></script>
+    <script src="/js/enableTooltips.js" language="JavaScript" type="text/javascript"></script>
+
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +25,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
 
     @yield('head')
@@ -86,7 +92,7 @@
     </div>
 
 
-    @yield('js_libs')
+    
 
 </body>
 </html>
