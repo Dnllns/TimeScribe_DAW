@@ -132,3 +132,14 @@ Route::get('/task-done/{taskId}', 'TaskController@setDone')
 
 Route::get('/client-dashboard', 'UserController@view_clientDashboard')
     ->name('client_dashboard')->middleware('auth');
+
+
+
+
+
+
+
+    ///////
+
+    Route::get('/ww', 'PruebasController@view_ww')
+    ->name('ww')->middleware('auth');

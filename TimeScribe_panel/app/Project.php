@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Project extends Model
 {
@@ -81,6 +82,21 @@ class Project extends Model
         }
 
         return $result;
+
+    }
+
+
+    public function getCreator(){
+
+        $user = $this->users()->where('permissions', 1 )->get()->get(0);
+        return $user->name;
+
+    }
+
+    public function getDevelopers(){
+
+        $users = $this->users()->where('permissions', '<>', 0 );
+        return $users;
 
     }
 }

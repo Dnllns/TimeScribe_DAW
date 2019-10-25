@@ -53,5 +53,16 @@ class User extends Authenticatable
     }
 
 
+    //---------------------------------Methods------------------------------------
+
+    public function getProjectPermissions($id){
+        
+        
+        $project_user = $this->projects()->where('project_id', $id )->get();
+        $perm = $project_user->permissions;
+
+
+    }
+
 
 }

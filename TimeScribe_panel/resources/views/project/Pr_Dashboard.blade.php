@@ -24,49 +24,14 @@
 
 <div class="content">
 
-    <!-- STICKY CHRONO -->
-    <div id="sticky-chrono" class="sticky-chrono row justify-content-around d-none">
-
-
-        <div class="m-2">
-            <!-- <label for="task_name">Doing task:</label> -->
-            <p id="task_name" class="font-weight-bold"></p>
-        </div>
-        <!-- CHRONO -->
-        <div class="m-2">
-            <!-- <label for="chronotime">Elapsed time:</label> -->
-            <p id="chronotime" class="chrono font-weight-bold">00:00:00</p>
-        </div>
-        <!-- BOTONES -->
-        <div class="my-auto">
-
-            <!-- START/STOP/RESUME -->
-            <button type="button" id="b_start" class="btn btn-primary btn-icon-split" f="chronoStart">
-                <span id="" class="icon text-white-50"><i class="far fa-clock icon-white"></i></span>
-                <span id="" class="text">Start counting time</span>
-            </button>
-
-            <!-- RESET -->
-            <button type="button" id="b_reset" class="ml-2 btn btn-danger btn-icon-split d-none" >
-                <span id="" class="icon text-white-50"><i class="fas fa-undo icon-white"></i></span>
-                <span id="" class="text">Reset time</span>
-            </button>
-
-        </div>
-
-        <button id="x" class="btn" type="button">X</button>
-
-
-
-    </div>
-
+    <!-- Plantilla de sticky chrono -->
+    @include('task.partials.StickyChrono')
 
     <div class="container">
 
         <h2>{{ $project->name }}</h2>
         <p>{{ $project->description }}</p>
         <br>
-
 
     </div>
 
@@ -100,9 +65,12 @@
 
                 <div id="task_list" class="d-flex flex-nowrap justify-content-around ">
 
+
                     <!-- TAREAS POR HACER -->
                     <div id="todo_task" class="dragg-container col-sm-3 border border-fat border-warning rounded todo">
+                        
                         <h4>To do</h4>
+                        
 
                         <!-- PLANTILLA DE TAREA -->
                         @foreach ($taskGroup->getTasks($taskGroup::STATUS_TODO) as $task)
@@ -196,59 +164,68 @@
 
 
                     <!-- TAREAS HECHAS -->
-                    <div class="dragg-container col-sm-4 border border-fat border-success rounded done">
+                    <div id="done" class="dragg-container col-sm-4 border border-fat border-success rounded done">
                         <h4>Done</h4>
 
                         <!-- Plantilla de tarea -->
-                        @foreach ($taskGroup->getTasks($taskGroup::STATUS_DONE) as $task)          
-                        <div id="task_{{$task->id}}" class="item card border-fat shadow mb-4 py-2">
-                            <div class="card-body d-flex flex-row">
+                        @foreach ($taskGroup->getTasks($taskGroup::STATUS_DONE) as $task)     
 
-                                <!-- CABECERA -->
-                                <div class="column no-gutters align-items-center col-sm-11">
+                            <!-- Incluir la plantilla de tarea, Task.PL_Task -->
 
-                                    <!-- TITULO Y DESCRIPCION -->
-                                    <div id="t_name_{{$task->id}}" class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $task->name }}</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $task->description }}</div>
+                            <!-- TITULO DE LA TAREA -->
+                            <div id="task_{{$task->id}}" class="item card border-fat shadow mb-4 item py-2">
+
+                                <div class="card-body d-flex flex-row">
+
                                     
+                                    <!-- CABECERA -->
+                                    <div class="col-sm-11 no-gutters align-items-center ">
 
-                                    <!-- TASK DATA -->
-                                    <div id="taskcontent_{{$task->id}}" class="col mr-2 pt-4 collapse">
+                                        <!-- TITULO Y DESCRIPCION -->
+                                        <div id="t_name_{{$task->id}}" class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ $task->name }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $task->description }}</div>
 
-                                        <div class="d-flex ">
-                                            <i class="fas fa-business-time pr-3" data-toggle="tooltip" data-placement="bottom" title="Worked time"></i>
-                                            <p>{{ $task->getWorkedTime() }}</p>
-                                        </div>
 
-                                        <div class="d-flex">
-                                            <i class="fas fa-calendar-day pr-3" data-toggle="tooltip" data-placement="bottom" title="Start date"></i>
-                                            <p>{{ $task->start_date }}</p>
-                                        </div>
+                                        <!-- TASK DATA -->
+                                        <div id="taskcontent_{{$task->id}}" class="col mr-2 pt-4 collapse">
 
-                                        <div class="d-flex">
-                                            <i class="fas fa-calendar-check pr-3" data-toggle="tooltip" data-placement="bottom" title="Finish date"></i>
-                                            <p>{{ $task->finish_date }}</p>
+                                            <div class="d-flex ">
+                                                <i class="fas fa-business-time pr-3" data-toggle="tooltip" data-placement="bottom" title="Worked time"></i>
+                                                <p>{{ $task->getWorkedTime() }}</p>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <i class="fas fa-calendar-day pr-3" data-toggle="tooltip" data-placement="bottom" title="Start date"></i>
+                                                <p>{{ $task->start_date }}</p>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <i class="fas fa-calendar-check pr-3" data-toggle="tooltip" data-placement="bottom" title="Finish date"></i>
+                                                <p>{{ $task->finish_date }}</p>
+                                            </div>
+
                                         </div>
 
                                     </div>
 
-                                </div>
+                                    <!-- BOTONES -->
+                                    <div class="d-flex flex-column col-sm-1">
 
-                                <!-- BUTTONS -->
-                                <div class="pt-2 pl-3 col-sm-1">
-                                    <!-- BOTON DE VISUALIZAR -->
-                                    <button type="button" class="btn btn-info btn-circle btn-sm" data-toggle="collapse" data-target="#taskcontent_{{$task->id}}">
-                                        <i class="far fa-eye icon-white"></i>
-                                    </button>
-                                    <!-- BOTON DE ELIMINAR -->
-                                    <button id="remove_task_{{$task->id}}" type="button"class="btn btn-danger btn-circle btn-sm mt-2" data-toggle="tooltip" data-placement="bottom" title="Remove task">
-                                        <i class="far fa-trash-alt icon-white"></i>
-                                    </button>
-                                </div>
+                                        
+                                        <!-- BOTON DE VISUALIZAR -->
+                                        <button type="button" class="btn btn-info btn-circle btn-sm" data-toggle="collapse" data-target="#taskcontent_{{$task->id}}">
+                                            <i class="far fa-eye icon-white"></i>
+                                        </button>
+                                        <!-- BOTON DE ELIMINAR -->
+                                        <button id="remove_task_{{$task->id}}" type="button"class="btn btn-danger btn-circle btn-sm mt-2" data-toggle="tooltip" data-placement="bottom" title="Remove task">
+                                            <i class="far fa-trash-alt icon-white"></i>
+                                        </button>
 
+                                    </div>
+
+                                </div>
                             </div>
 
-                        </div>
                         @endforeach
 
                     </div>

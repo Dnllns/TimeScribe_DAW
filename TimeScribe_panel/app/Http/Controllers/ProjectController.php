@@ -101,7 +101,7 @@ class ProjectController extends Controller
         $taskGroups = $project->taskGroups;
 
         return view(
-            'project/Pr_Show',
+            'project/Pr_Dashboard',
             [
                 'taskGroups' => $taskGroups,
                 'project' => $project,

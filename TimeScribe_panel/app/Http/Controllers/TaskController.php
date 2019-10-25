@@ -18,7 +18,7 @@ class TaskController extends Controller
     public function view_newTask($taskGroupId)
     {
         return view(
-            'Task/Ts_Create', ['taskGroupId' => $taskGroupId]
+            'task/Ts_Create', ['taskGroupId' => $taskGroupId]
         );
     }
 
@@ -26,7 +26,7 @@ class TaskController extends Controller
     {
         $task = Task::find($taskId);
         return view(
-            'Task/Ts_Edit', ['task' => $task]
+            'task/Ts_Edit', ['task' => $task]
         );
     }
 

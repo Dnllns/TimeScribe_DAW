@@ -7,7 +7,7 @@
 
     <div class="container">
 
-        
+
 
 
 
@@ -21,20 +21,26 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                 @foreach ($clientProjects as $project)
-                    <a class="dropdown-item" href="#project_{{$project->id}}">{{ $project->name }}</a>
+                <a class="dropdown-item" href="#project_{{$project->id}}">{{ $project->name }}</a>
                 @endforeach
 
             </div>
         </div>
 
-        
+
         @foreach ($clientProjects as $project)
-        
+
         <!-- Project INFO -->
         <div id="project_{{$project->id}}" class="my-group">
 
             <h3>{{ $project->name }}</h3>
             <p>{{ $project->description }}</p>
+
+            <!-- <p>Created by {{-- $project->getCreator() --}}</p> -->
+
+
+
+
             <label for="pbar">Project % completed:</label>
 
             <!-- Progress bar -->
@@ -50,8 +56,8 @@
 
             <!-- TASKGROUPS -->
             <div id="task_groups_{{$project->id}}" class="collapse mt-4">
-                @foreach ($project->taskgroups as $taskGroup)
 
+                @foreach ($project->taskgroups as $taskGroup)
                 <div id="task_group_{{$taskGroup->id}}">
                     <p> {{$taskGroup->name}}</p>
 
@@ -65,25 +71,16 @@
 
 
                 </div>
-                
-
                 @endforeach
-            </div>
 
-            @endforeach
+            </div>
 
         </div>
 
-    
-        
-
-
-
+        @endforeach
 
     </div>
 
 </div>
 
 @endsection
-
-
