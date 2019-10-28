@@ -14,13 +14,13 @@
     <div class="my-auto">
 
         <!-- START/STOP/RESUME -->
-        <button type="button" id="b_start" class="btn btn-primary btn-icon-split" f="chronoStart">
+        <button type="button" id="b_crono_start" class="btn btn-primary btn-icon-split" function="chronoStart">
             <span id="" class="icon text-white-50"><i class="far fa-clock icon-white"></i></span>
             <span id="" class="text">Start counting time</span>
         </button>
 
         <!-- RESET -->
-        <button type="button" id="b_reset" class="ml-2 btn btn-danger btn-icon-split d-none" >
+        <button type="button" id="b_crono_reset" class="ml-2 btn btn-danger btn-icon-split d-none" >
             <span id="" class="icon text-white-50"><i class="fas fa-undo icon-white"></i></span>
             <span id="" class="text">Reset time</span>
         </button>

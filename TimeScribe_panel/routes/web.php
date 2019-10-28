@@ -87,7 +87,7 @@ Route::get('/taskgroup-delete/{taskGroupId}', 'TaskGroupController@deleteTaskGro
 Route::get('/task-new/{taskGroupId}', 'TaskController@view_newTask')
     ->name('rt_ts_new');
 
-//VISTA EDITAR TASK
+//VISTA EDITAR TAREA
 Route::get('/task-edit/{taskId}', 'TaskController@view_editTask')
     ->name('rt_ts_edit');
 
@@ -117,29 +117,32 @@ Route::get('/ct-stop', 'TaskController@stopCount')
 Route::get('/ct-getworkedtime/{taskId}', 'TaskController@getWorkedTime')
     ->name('ct_gwt')->middleware('auth');
 
+
+/**
+ * Iniciar una tarea por hacer
+ */
 Route::get('/ct-startnew/{taskId}', 'TaskController@startNewTask')
     ->name('ct_startnew')->middleware('auth');
 
-Route::get('/ct-reset/{taskId}', 'TimeRecordController@removeLastTimerecord')
+/**
+ * Eliminar timerecords borrador
+ */
+Route::get('/ct-reset/{taskId}', 'TimeRecordController@removeLastTimerecordsInteraction')
     ->name('ct_reset')->middleware('auth');
 
-Route::get('/task-done/{taskId}', 'TaskController@setDone')
-    ->name('td')->middleware('auth');
 
+/**
+ * Actualizar timerecords borrador a finalizados 
+ */    
+Route::get('/timerec-set-finish/{taskId}', 'TimeRecordController@setFinalTimerecordsInteraction')
+    ->name('timerec-set-finish')->middleware('auth');
 
 //---------------------- CLIENTE -------------------------------------
-
 
 Route::get('/client-dashboard', 'UserController@view_clientDashboard')
     ->name('client_dashboard')->middleware('auth');
 
+///////
 
-
-
-
-
-
-    ///////
-
-    Route::get('/ww', 'PruebasController@view_ww')
+Route::get('/ww', 'PruebasController@view_ww')
     ->name('ww')->middleware('auth');

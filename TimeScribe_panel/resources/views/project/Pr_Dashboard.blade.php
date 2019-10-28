@@ -12,10 +12,13 @@
     <script src="/JqueryUi/jquery-ui.min.js"></script>
     
 
-    <!-- SCRIPTS -->
-    <script src="/js/pr_dashboard/chrono.js"></script>
+    <!-- -------------SCRIPTS---------------- -->
+    <script src="/js/pr_dashboard/funcionesComunes.js"></script>
+    <!-- Primero las peticiones al server -->
     <script src="/js/pr_dashboard/ajax_updates.js"></script>
-    <script src="/js/pr_dashboard/draggable.js"></script><!-- Para hacer drag and drop -->
+    <script src="/js/pr_dashboard/chrono.js"></script>
+    <!-- Para hacer drag and drop -->
+    <script src="/js/pr_dashboard/draggable.js"></script>
 
 @endsection
 
@@ -145,7 +148,7 @@
                                         <i class="far fa-eye icon-white"></i>
                                     </button>
                                     <!-- START/STOP/RESUME -->
-                                    <button type="button" id="b_select_{{$task->id}}" class="btn btn-primary btn-circle btn-sm mt-2" f="chronoStart" data-toggle="tooltip" data-placement="bottom" title="Select task">
+                                    <button type="button" id="b_doing_select_{{$task->id}}" class="btn btn-primary btn-circle btn-sm mt-2" f="chronoStart" data-toggle="tooltip" data-placement="bottom" title="Select task">
                                         <i class="fas fa-stopwatch icon-white"></i>
                                     </button>
                                     <!-- COMPLETED BUTTON -->
@@ -177,7 +180,7 @@
 
                                 <div class="card-body d-flex flex-row">
 
-                                    
+                                
                                     <!-- CABECERA -->
                                     <div class="col-sm-11 no-gutters align-items-center ">
 

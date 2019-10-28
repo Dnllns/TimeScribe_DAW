@@ -2,28 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\TimeRecord;
-
 
 class TimeRecordController extends Controller
 {
 
-    public function removeLastTimerecord($task_id)
+
+    /**
+     * ELIMINAR TIMERECORDS BORRADOR
+     * -----------------------------
+     * Elimina los timerecords de la tarea con id pasado por parametro del usuario logeado
+     * Solo son eliminado los marcados como borrador
+     * @param Integer $task_id, el id de la tarea
+     */
+    public function removeLastTimerecordsInteraction($task_id)
     {
 
-        $user_id = auth()->user()->id;
-
-        //SELECT * from timerecords where user_id=1 AND task_id=1 ORDER BY id DESC LIMIT 1;
-
-        //ELoquent query
-        $lastTimerecord = TimeRecord::
-            where('user_id', $user_id)->
+        $lastTimerecords = TimeRecord::
+            where('user_id', auth()->user()->id)->
             where('task_id', $task_id)->
-            orderBy('id', 'desc')->
-            take(1);
+            where('status', Timerecord::STATUS_DRAFT);
 
-        $lastTimerecord->forceDelete();
+        $lastTimerecords->forceDelete();
     }
 
+    /**
+     * ACTUALIZAR TIMERECORDS A FINALIZADO
+     * -----------------------------------
+     * Actualiza los timerecords de la tarea con id pasado por parametro del usuario logeado
+     * Cambia el valor de el campo status a STATUS_FINAL
+     * @param Integer $task_id, el id de la tarea
+     */
+    public function setFinalTimerecordsInteraction($task_id)
+    {
+
+        // Obtener los registros correspondientes al usuario y tarea que esten como borrador
+        $lastTimerecords = TimeRecord::
+            where('user_id', auth()->user()->id)->
+            where('task_id', $task_id)->
+            where('status', Timerecord::STATUS_DRAFT);
+
+        // Actualizar el campo status a finalizado
+        $lastTimerecords->status = Timerecord::STATUS_FINAL;
+        $lastTimerecords->save();
+    }
 }

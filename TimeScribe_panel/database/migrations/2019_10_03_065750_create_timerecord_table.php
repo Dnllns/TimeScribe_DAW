@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\TimeRecord;
 
 class CreateTimerecordTable extends Migration
 {
@@ -29,6 +30,9 @@ class CreateTimerecordTable extends Migration
 
             //FECHA DE FINALIZACION
             $table->dateTime('finish_date')->nullable()->default(null);
+
+            //STATUS (Borrador)
+            $table->tinyInteger('status')->default(Timerecord::STATUS_DRAFT);
 
         });
     }

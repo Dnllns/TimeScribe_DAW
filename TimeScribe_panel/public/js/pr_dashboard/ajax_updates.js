@@ -1,104 +1,94 @@
 $(function() {
 
     //Evento start para los buttons que encienden el crono
-    $("#b_start").click(function() {
+    $("#b_crono_start").click(function() {
 
         var task_id = $("#sticky-chrono").attr("task_id")
 
-        //Esta correcto (la llamada a las funcions parece incorrecta pero es asi porque el script previo chrono.js ha hecho cambios antes)
-        switch ($(this).attr("f")) {
-            case "chronoStop":
-                startCountServer(task_id)
-                break
+
+        switch ($(this).attr("function")) {
 
             case "chronoStart":
-                stopCountServer(task_id)
+
+                // Actualiza en BD la tabla tasks, 
+                // inserta en el campo start_date la fecha actual
+                $.get("/ct-start/" + task_id)
+                break
+
+            case "chronoStop":
+
+                // Inserta en BD en la tabla timerecords, 
+                // inserta un registro nuevo, con los ides y la fecha de comienzo
+                $.get("/ct-stop")
                 break
 
             case "chronoResume":
-                stopCountServer(task_id)
+
+                // Actualiza en BD la tabla timerecords, 
+                // inserta en el campo finish_date la fecha actual
+                $.get("/ct-start/" + task_id)
                 break
         }
     })
 
+    // CLICK BTN STARTNEW (TODO)
+    // Actualiza en BD la tabla tasks,
+    // inserta en el campo start_date la fecha actual
 
-    //Evento start para los buttons que encienden el crono
     $("button[id^='b_startnew_']").click(function() {
-        //get task id 
-        var fullId = $(this).attr('id')
-        var task_id = fullId.substr(
-            fullId.lastIndexOf("_") + 1,
-            fullId.length
-        )
 
-        startNewTask(task_id)
-        location.reload()
-
+        $.get("/ct-startnew/" + getId($(this)))
+            // location.reload()
     })
 
 
-    //Evento reset
-    $("#b_reset").click(function() {
+    // CLICK BTN DONE (DONE)
+    // Actualiza en BD la tabla tasks,
+    // Pone el valor de status a 2 (DONE)
+
+    $("button[id^='b_done_']").click(function() {
+
+        $.get("/task-done/" + getId($(this)))
+        location.reload()
+    })
+
+
+
+    // CLICK REMOVE TASK (DONE)
+    // Actualiza en BD en la tabla tasks,
+    // Pone el valor de visible a 0 (Invisible)
+
+    $("button[id^='remove_task_']").click(function() {
+        $.get("/task-delete/" + getId($(this)))
+        location.reload()
+    })
+
+
+
+    ////---------------STYKYCHRONO-------------------
+
+    // CLICK BTN RESET (STYKYCHRONO)
+    // Actualiza en BD la tabla timerecords,
+    // Elimina los registros que no tienen el campo status a 1 (Los que no se han confirmado)
+
+    $("#b_crono_reset").click(function() {
+
         var task_id = $("#sticky-chrono").attr("task_id")
         $.get("/ct-reset/" + task_id)
     })
 
-    //Evento start para los buttons que encienden el crono
-    $("button[id^='b_done_']").click(function() {
-
-        //get task id 
-        var fullId = $(this).attr('id')
-        var task_id = fullId.substr(
-            fullId.lastIndexOf("_") + 1,
-            fullId.length
-        )
-
-        setDone(task_id)
-    })
-
-
-
-    $("button[id^='remove_task_']").click(function() {
-
-        //get task id 
-        var fullId = $(this).attr('id')
-        var task_id = fullId.substr(
-            fullId.lastIndexOf("_") + 1,
-            fullId.length
-        )
-
-        removeTask(task_id)
-    })
-
-
-
 
 });
 
-//peticiones al servidor
-function startCountServer(id) {
-    $.get("/ct-start/" + id)
-}
-
-function stopCountServer() {
-    $.get("/ct-stop")
-}
-
-//Empezar nueva tarea
-function startNewTask(id) {
-    $.get("/ct-startnew/" + id)
-}
 
 
-function removeTask(id) {
+//CLICK X (STICKYCHRONO)
+$("#x").click(function() {
 
-    $.get("/task-delete/" + id)
-    location.reload()
+    // Obtener el id de la tarea actual
+    var taskId = $("#sticky-chrono").attr("task_id")
 
-}
+    // Peticion al server
+    $.get("/timerec-set-finish/" + taskId)
 
-//Empezar nueva tarea
-function setDone(id) {
-    $.get("/task-done/" + id)
-    location.reload()
-}
+})

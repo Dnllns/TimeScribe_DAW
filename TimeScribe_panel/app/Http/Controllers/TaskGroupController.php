@@ -78,5 +78,33 @@ class TaskGroupController extends Controller
 
 
   
+    /**
+     * INICIAR TASK GROUP
+     * -------------------
+     * 
+     * Si no ha sido iniciado previamente se actualiza en BD 
+     * la fecha de inicio y el estado
+     * 
+     */
+    public static function startTaskGroup($taskGroupId)
+    {
+
+        // Actualizar el proyecto en BD (tabla project)
+        // Solo si no se ha empezado ya
+        $taskGroup = TaskGroup::find($taskGroupId);
+
+        if ($taskGroup->start_date != null && $taskGroup->status == TaskGroup::STATUS_TODO) {
+
+            // Añadir la fecha de inicio al grupo de tareas
+            // Actualizar el estado del grupo de tareas a haciendose
+
+            $taskGroup->start_date = Carbon::now()->toDateTimeString();
+            $taskGroup->status = TaskGroup::STATUS_DOING;
+        }
+
+    }
+
+
+
 
 }

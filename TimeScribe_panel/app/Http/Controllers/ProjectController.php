@@ -62,7 +62,6 @@ class ProjectController extends Controller
 
         return $this->view_selectProject(); //Show the project selection view
 
-
     }
 
     //VISTAS
@@ -94,8 +93,8 @@ class ProjectController extends Controller
 
     }
 
-
-    public function view_dashboard($projectId){
+    public function view_dashboard($projectId)
+    {
 
         $project = Project::find($projectId);
         $taskGroups = $project->taskGroups;
@@ -109,12 +108,30 @@ class ProjectController extends Controller
         );
     }
 
-
     public function deleteProject($projectId)
     {
         $project = Project::find($projectId);
         $project->delete();
         return $this->view_selectProject();
+    }
+
+    public function startProject($projectId)
+    {
+
+        // Actualizar el proyecto en BD (tabla project)
+        // Solo si no se ha empezado ya
+        
+        $project = Project::find($projectId);
+
+        if ($project->start_date != null && $project->status == Project::STATUS_TODO) {
+
+            // Añadir la fecha de inicio al proyecto
+            // Actualizar el estado del proyecto a haciendose
+
+            $project->start_date = Carbon::now()->toDateTimeString();
+            $project->status = Project::STATUS_DOING;
+        }
+
     }
 
 }

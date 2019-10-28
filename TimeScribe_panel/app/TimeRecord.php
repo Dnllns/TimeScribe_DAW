@@ -17,7 +17,11 @@ class TimeRecord extends Model
         'task_id',
         'start_date',
         'finish_date',
+        'status'
     ];
+
+    const STATUS_DRAFT = 0;
+    const STATUS_FINAL = 1;
 
     public function task()
     {
