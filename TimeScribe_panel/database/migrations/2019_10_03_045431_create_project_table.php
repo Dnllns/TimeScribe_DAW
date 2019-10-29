@@ -35,6 +35,13 @@ class CreateProjectTable extends Migration
             //ESTADO
             $table->tinyInteger('status')->default(Project::STATUS_TODO);
 
+            //VISIBLE
+            $table->tinyInteger('visible')->default(Project::VISIBLE);
+
+            //CREADO POR
+            $table->unsignedInteger('created_by_id')->nullable()->default(null);
+            $table->foreign('created_by_id')->references('id')->on('users')->onDelete('cascade');
+
             //FECHA DE INICIO
             $table->dateTime('start_date')->nullable()->default(null);
 

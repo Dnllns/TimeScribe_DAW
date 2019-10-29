@@ -8,8 +8,24 @@ use Illuminate\Http\Request;
 
 class TaskGroupController extends Controller
 {
-    //
 
+    /**
+     * -----------------------------------------------------------------
+     * ---------------------ALTA BAJA MODIFICACION----------------------
+     * -----------------------------------------------------------------
+     *
+     */
+    #region GESTION
+
+    /**
+     * INSERTAR NUEVO GRUPO DE TAREAS
+     * ---------------------------------
+     * Recibe un Request con los datos de la vista de crear un nuevo grupo de tareas y el id del proyecto
+     * Inserta los datos en las estructuras de BD
+     * @param Request $data, el request de la vista
+     * @param Integer $projectId, el id del proyecto al que va a pertenecer el grupo
+     * @return View ProjectController::view_editProject, la vista de editar proyecto
+     */
     protected function create(Request $data, $projectId)
     {
 
@@ -26,34 +42,15 @@ class TaskGroupController extends Controller
 
     }
 
-    public function view_newTaskGroup($projectId)
-    {
-
-        return view(
-            'TaskGroup/Tg_Create',
-            [
-                'projectId' => $projectId,
-            ]
-        );
-
-    }
-
-    public static function view_editTaskGroup($taskGroupId)
-    {
-        $taskGroup = TaskGroup::find($taskGroupId);
-        $tasks = $taskGroup->tasks;
-
-        return view(
-            'TaskGroup/Tg_Edit',
-            [
-                'taskGroup' => $taskGroup,
-                'taskList' => $tasks,
-                'projectId' => $taskGroup->project_id,
-            ]
-        );
-
-    }
-
+    /**
+     * ACTUALIZAR GRUPO DE TAREAS
+     * ---------------------------
+     * Recibe un Request con los datos de la vista de editar grupo de tareas y el id del grupo de tareas
+     * Actualiza las estructuras en BD con los nuevos datos
+     * @param Request $data, el request de la vista
+     * @param Integer $taskGroupId, el id del grupo de tareas
+     * @return View ProjectController::view_editProject, la vista de editar proyecto
+     */
     public function updateTaskGroup(Request $data, $taskGroupId)
     {
         $taskGroup = TaskGroup::find($taskGroupId);
@@ -68,23 +65,35 @@ class TaskGroupController extends Controller
 
     }
 
+    /**
+     * ELIMINAR UN GRUPO DE TAREAS
+     * ----------------------------
+     * Recibe el id de un grupo  de tareas y lo borra de la BD (Invisible)
+     * @param Integer $taskGroupId, el id del grupo a eliminar
+     * @return View ProjectController::view_editProject, la vista de editar proyecto
+     */
     public function deleteTaskGroup($taskGroupId)
     {
         $taskGroup = TaskGroup::find($taskGroupId);
+        // $taskGroup->delete();
+        $taskGroup->visible = TaskGroup::INVISIBLE;
+        $taskGroup->save();
+
         $projectId = $taskGroup->project_id;
-        $taskGroup->delete();
         return ProjectController::view_editProject($projectId);
     }
 
+    #endregion
 
-  
+
+
     /**
      * INICIAR TASK GROUP
      * -------------------
-     * 
-     * Si no ha sido iniciado previamente se actualiza en BD 
+     *
+     * Si no ha sido iniciado previamente se actualiza en BD
      * la fecha de inicio y el estado
-     * 
+     *
      */
     public static function startTaskGroup($taskGroupId)
     {
@@ -104,7 +113,50 @@ class TaskGroupController extends Controller
 
     }
 
+    /**
+     * -----------------------------------------------------------------
+     * ---------------------------VISTAS--------------------------------
+     * -----------------------------------------------------------------
+     *
+     */
 
+    #region VISTAS
 
+    /**
+     * VISTA CREAR GRUPO DE TAREA
+     * ---------------------------
+     * Devuelbe la vista de crear un nuevo grupo de tarea
+     * @param Integer $projectId, el id del proyecto
+     */
+    public function view_newTaskGroup($projectId)
+    {
+        return view('TaskGroup/Tg_Create', ['projectId' => $projectId]);
+    }
+
+    /**
+     * VISTA EDITAR GRUPO DE TAREA
+     * ----------------------------
+     * Devuelbe la vista de editar un grupo de tarea existente
+     * @param Integer $taskGroupId, el id del grupo de tarea
+     */
+    public static function view_editTaskGroup($taskGroupId)
+    {
+        $taskGroup = TaskGroup::find($taskGroupId);
+        $tasks = $taskGroup->tasks;
+
+        return view(
+            'TaskGroup/Tg_Edit',
+            [
+                'taskGroup' => $taskGroup,
+                'taskList' => $tasks,
+                'projectId' => $taskGroup->project_id,
+            ]
+        );
+
+    }
+
+    #endregion
+
+    
 
 }

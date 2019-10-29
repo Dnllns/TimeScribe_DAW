@@ -14,18 +14,23 @@ class Project extends Model
 
     //PROJECT PERMISSIONS
     const PERM_ALL = 0;
-    const PERM_EDIT = 1;
+    const PERM_WORK = 1;
     const PERM_VIEW = 2;
+
+    //VISIBILITY
+    const INVISIBLE = 0;
+    const VISIBLE = 1;
 
     //DB TABLE
     protected $table = 'projects';
 
     protected $fillable = [
-        // 'user_id',
         'client_id',
         'name',
         'description',
         'status',
+        'visible',
+        'created_by_id',
         'start_date',
         'finish_date',
     ];
@@ -58,15 +63,20 @@ class Project extends Model
 
 
 
+    /**
+     * GET PORCENTAJE
+     * ----------------
+     * Obtiene el porcentaje de completado para este proyecto basandose
+     * en el porcentaje de completado que tienen sus grupos de tarea.
+     * @return Integer, el porcentaje calculado
+     */
     public function getPercentCompleted()
     {
-
 
         $taskGroups = $this->taskGroups;
         $percent = 0;
         $result = 0;
         $count = 0;
-
 
         foreach ($taskGroups as $taskgroup ) {
 
@@ -79,24 +89,36 @@ class Project extends Model
         try {
             $result =  $percent / $count;
         } catch (\Exception $e) {
+            //posible division por 0
         }
 
         return $result;
-
     }
 
 
+    /**
+     * GET USER CREADOR
+     * -------------------
+     * Obtiene el usuario que ha creado el proyecto
+     * @return User, el usuario que ha creado el proyecto
+     */
     public function getCreator(){
-
-        $user = $this->users()->where('permissions', 1 )->get()->get(0);
-        return $user->name;
-
+        return User::find($this->created_by_id);
     }
 
+    /**
+     * GET DESARROLLADORES
+     * ----------------------
+     * Obtiene los desarrolladores que pueden participar en el proyecto
+     * @return Collection[User], una coleccion con los usuarios 
+     */
     public function getDevelopers(){
-
-        $users = $this->users()->where('permissions', '<>', 0 );
-        return $users;
-
+        return $this->users()->where('permissions', Project::PERM_WORK )->get();
     }
+
+
+
+
+
+
 }

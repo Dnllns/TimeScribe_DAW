@@ -43,15 +43,11 @@
     text-align: center;
 }
 
-#task_name {
-    font-size: 2em;
-}
-
 #x {
-    position: absolute;
+    /* position: absolute;
     top: 0px;
     right: 0px;
-    float: right;
+    float: right; */
     background: red;
     color: white;
     margin: 15px;
@@ -70,10 +66,17 @@
     background: #e4e7ff;
 }
 
-
-/* .scroleable {
-    overflow-x: scroll;
-} */
+.styckychrono-title-font {
+    font-size: 25px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
 
 
 /*MOVIBLE*/

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Http\Controllers\TaskController;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
@@ -26,47 +25,57 @@ class Task extends Model
     const STATUS_DOING = 1;
     const STATUS_DONE = 2;
 
+    //VISIBLE
     const VISIBLE = 1;
     const INVISIBLE = 2;
 
-    public function getAssignedDevelopers()
+    /**
+     * -----------------------------------------------------
+     * ------------------FUNCTIONS--------------------------
+     * -----------------------------------------------------
+     */
+
+    #region FUNCIONES
+
+    /**
+     * Obtiene el tiempo trabajado en la tarea
+     * @param Integer $taskId, el id de la tarea
+     * @return DateTime, el tiempo trabajado
+     */
+    public static function getWorkedTime($taskId)
     {
-        return $this->users;
-    }
+        // $taskId = $this->id;
+        $timeRecords = TimeRecord::
+            where('task_id', $taskId )
+            ->where('user_id', auth()->user()->id)->get();
 
-    public function getWorkedTime()
-    {
+        $totalTime = new \DateTime('2000-01-01');
 
-        return TaskController::getWorkedTime($this->id);
+        foreach ($timeRecords as $timeRecord) {
 
-    }
+            $start = new \DateTime($timeRecord->start_date);
+            $finish = new \DateTime($timeRecord->finish_date);
 
-    public function getVisible()
-    {
-        return $this->visible;
-    }
+            // Obtener el tiempo que se ha trabajado en cada timerecord
+            $interval = $start->diff($finish);
 
-    public function getStatusIcon()
-    {
-
-        switch ($this->status) {
-            case $this::STATUS_TODO:
-                echo '<i class="far fa-clipboard ml-3" data-toggle="tooltip" data-placement="right" title="To do"></i>';
-                break;
-
-            case $this::STATUS_DOING:
-                echo '<i class="fas fa-pencil-alt ml-3" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
-                break;
-
-            case $this::STATUS_DONE:
-                echo '<i class="fas fa-clipboard-check ml-3" data-toggle="tooltip" data-placement="right" title="Done"></i>';
-                break;
+            //Sumar el tiempo
+            $totalTime->add($interval);
 
         }
 
+        return $totalTime->format('H:i:s');
     }
 
-    // -------------------------------RELATIONS--------------------------------------
+    #endregion
+
+    /**
+     * -----------------------------------------------------
+     * ------------------RELATIONS--------------------------
+     * -----------------------------------------------------
+     */
+
+    #region RELATIONS
 
     // N:1 TASKGROUP
     public function taskGroup()
@@ -85,4 +94,7 @@ class Task extends Model
     {
         return $this->belongsToMany('App\user');
     }
+
+    #endregion
+
 }

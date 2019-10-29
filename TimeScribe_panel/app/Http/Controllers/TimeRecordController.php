@@ -35,15 +35,16 @@ class TimeRecordController extends Controller
      */
     public function setFinalTimerecordsInteraction($task_id)
     {
-
         // Obtener los registros correspondientes al usuario y tarea que esten como borrador
         $lastTimerecords = TimeRecord::
             where('user_id', auth()->user()->id)->
             where('task_id', $task_id)->
-            where('status', Timerecord::STATUS_DRAFT);
+            where('status', Timerecord::STATUS_DRAFT)->get();
 
-        // Actualizar el campo status a finalizado
-        $lastTimerecords->status = Timerecord::STATUS_FINAL;
-        $lastTimerecords->save();
+        // Actualizar el campo status a finalizado para todas las tareas
+        foreach ($lastTimerecords as $timeRecord) {
+            $timeRecord->status = Timerecord::STATUS_FINAL;
+            $timeRecord->save();
+        }
     }
 }

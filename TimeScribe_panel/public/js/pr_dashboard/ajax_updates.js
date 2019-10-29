@@ -1,3 +1,12 @@
+/**
+ * Script de actualizaciones Ajax
+ * ----------------------------------
+ * 
+ * Hace las peticiones al servidor relacionadas con la vista de project dashboard
+ * 
+ * 
+ */
+
 $(function() {
 
     //Evento start para los buttons que encienden el crono
@@ -38,7 +47,7 @@ $(function() {
     $("button[id^='b_startnew_']").click(function() {
 
         $.get("/ct-startnew/" + getId($(this)))
-            // location.reload()
+        location.reload()
     })
 
 
@@ -78,17 +87,16 @@ $(function() {
     })
 
 
+    //CLICK X (STICKYCHRONO)
+    $("#x").click(function() {
+
+        // Obtener el id de la tarea actual
+        var taskId = $("#sticky-chrono").attr("task_id")
+
+        // Peticion al server
+        // Marcar los timerecords como finalizado
+        $.get("/timerec-set-finish/" + taskId)
+    })
+
+
 });
-
-
-
-//CLICK X (STICKYCHRONO)
-$("#x").click(function() {
-
-    // Obtener el id de la tarea actual
-    var taskId = $("#sticky-chrono").attr("task_id")
-
-    // Peticion al server
-    $.get("/timerec-set-finish/" + taskId)
-
-})

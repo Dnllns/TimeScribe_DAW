@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskGroupController;
 use App\Task;
 use App\TimeRecord;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\TaskGroupController;
-
-
 
 class TaskController extends Controller
 {
@@ -19,6 +17,8 @@ class TaskController extends Controller
      * -------------------------------GESTION DE TAREAS------------------------------------
      * ------------------------------------------------------------------------------------
      */
+
+    #region GESTION
 
     /**
      * CREAR NUEVA TAREA
@@ -84,15 +84,22 @@ class TaskController extends Controller
 
     }
 
+    #endregion
+
     /**
      * ------------------------------------------------------------------------------------
-     * ------------------------------------METODOS-----------------------------------------
+     * ------------------------------------FUNCIONES---------------------------------------
      * ------------------------------------------------------------------------------------
      */
 
+    #region FUNCIONES
+
     /**
-     * Inicia la cuenta de tiempo de una tarea,
+     * COMENZAR A CONTAR TIEMPO
+     * -------------------------
+     * Inicia la cuenta de tiempo de una tarea (FICTICIO),
      * Inserta en la tabla timerecords un nuevo registro para la tarea, con los ides y la fecha de inicio
+     * @param Integer $taskId, el id de la tarea
      */
     public function startCount($taskId)
     {
@@ -101,62 +108,39 @@ class TaskController extends Controller
             'task_id' => $taskId,
             'start_date' => Carbon::now()->toDateTimeString(),
         ]);
-
-    }
-
-    public function stopCount()
-    {
-
-        $timeRecord = TimeRecord::
-            where('finish_date', null)
-            ->where('user_id', auth()->user()->id)->first();
-
-        $timeRecord->finish_date = Carbon::now()->toDateTimeString();
-        $timeRecord->save();
-
-    }
-
-    public static function getWorkedTime($taskId)
-    {
-
-        $timeRecords = TimeRecord::
-            where('task_id', $taskId)
-            ->where('user_id', auth()->user()->id)->get();
-
-        $totalTime = new \DateTime('2000-01-01');
-
-        foreach ($timeRecords as $timeRecord) {
-
-            $start = new \DateTime($timeRecord->start_date);
-            $finish = new \DateTime($timeRecord->finish_date);
-
-            // Obtener el tiempo que se ha trabajado en cada timerecord
-            $interval = $start->diff($finish);
-
-            //Sumar el tiempo
-            $totalTime->add($interval);
-
-        }
-
-        return $totalTime->format('H:i:s');
-
     }
 
     /**
+     * PARAR DE CONTAR TIEMPO
+     * ------------------------
+     * Para la cuenta de tiempo de una tarea (FICTICIO)
+     * Actualiza en la tabla timerecords el campo finish_date con la fecha actual
+     * Actualiza los registros del usuario logeado, que tengan finish_date null y con status borrador
      *
+     */
+    public function stopCount()
+    {
+        $timeRecord = TimeRecord::
+            where('finish_date', null)->
+            where('status', TimeRecord::STATUS_DRAFT)->
+            where('user_id', auth()->user()->id)->first();
+        $timeRecord->finish_date = Carbon::now()->toDateTimeString();
+        $timeRecord->save();
+    }
+
+    /**
      * INICIAR TAREA (TODO)
      * -----------------------
-     *
      * Actualiza la tarea con el id passado por parametro
      * Añade la fecha a el campo fecha de inicio de la tarea
      * Actualiza el estado de la traea a haciendose
      *
      * Si el proyecto y el grupo de tareas al que pertenece esa tarea todavia no ha sido iniciado se inicia
-     *
+     * @param Integer $taskId, el id de la tarea a iniciar
+     * @return View dashboard del proyecto
      */
     public function startNewTask($taskId)
     {
-
 
         // Actualizar la tarea en BD (tabla tasks)
         // Añadir la fecha de inicio y marcar como haciendose
@@ -164,7 +148,6 @@ class TaskController extends Controller
         $task->start_date = Carbon::now()->toDateTimeString();
         $task->status = Task::STATUS_DOING;
         $task->save();
-
 
         // Actualizar el grupo de tareas
         TaskGroupController::startTaskGroup($task->taskGroup()->id);
@@ -175,9 +158,15 @@ class TaskController extends Controller
 
         // Redireccionar a la ruta de dashboard del proyecto
         return ProjectController::view_dashboard($task->taskGroup()->project_id);
-
     }
 
+    /**
+     * TERMINAR TAREA
+     * ------------------
+     * Actualiza las estructuras de la tarea en BD,
+     * le pone el estado de terminado y añade la fecha de finalizacion
+     * @param Integer $taskId, el id de la tarea
+     */
     public function setDone($taskId)
     {
 
@@ -186,9 +175,32 @@ class TaskController extends Controller
         $task->finish_date = Carbon::now()->toDateTimeString();
         $task->save();
 
-        // return ProjectController::view_selectProject();
-
     }
+
+    /**
+     * GET ICONO DE ESTADO
+     * ---------------------
+     * Obtiene el icono de el estado en el que se encuentra la tarea paa mostrarlo en la vista
+     */
+    public function getStatusIcon()
+    {
+
+        switch ($this->status) {
+            case $this::STATUS_TODO:
+                echo '<i class="far fa-clipboard ml-3" data-toggle="tooltip" data-placement="right" title="To do"></i>';
+                break;
+
+            case $this::STATUS_DOING:
+                echo '<i class="fas fa-pencil-alt ml-3" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
+                break;
+
+            case $this::STATUS_DONE:
+                echo '<i class="fas fa-clipboard-check ml-3" data-toggle="tooltip" data-placement="right" title="Done"></i>';
+                break;
+        }
+    }
+
+    #endregion
 
     /**
      * ------------------------------------------------------------------------------------
@@ -196,10 +208,13 @@ class TaskController extends Controller
      * ------------------------------------------------------------------------------------
      */
 
+    #region VISTAS
+
     /**
      * VISTA CREAR TAREA
      * Devuelve la vista de crear una tarea dentro de un grupo de tareas
      * @param Integer $taskGroupId, el id del Grupo de tareas
+     * @return View
      */
     public function view_newTask($taskGroupId)
     {
@@ -210,10 +225,13 @@ class TaskController extends Controller
      * VISTA EDITAR TAREA
      * Devuelve la vista de editar una tarea
      * @param Integer $taskId, el id de la tarea
+     * @return View
      */
     public function view_editTask($taskId)
     {
         return view('task/Ts_Edit', ['task' => Task::find($taskId)]);
     }
+
+    #endregion
 
 }
