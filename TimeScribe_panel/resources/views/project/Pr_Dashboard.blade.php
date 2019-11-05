@@ -12,7 +12,7 @@
     <script src="/JqueryUi/jquery-ui.min.js"></script>
     
     <!-- -------------SCRIPTS---------------- -->
-    <script src="/js/pr_dashboard/funcionesComunes.js"></script>
+    <script src="/js/funcionesComunes.js"></script>
     <!-- Primero las peticiones al server -->
     <script src="/js/pr_dashboard/ajax_updates.js"></script>
     <script src="/js/pr_dashboard/chrono.js"></script>
@@ -24,7 +24,7 @@
 
 @section('content')
 
-<div class="content">
+
 
     <!-- Plantilla de sticky chrono -->
     @include('task.partials.StickyChrono')
@@ -110,14 +110,4 @@
 
     @endforeach
 
-
-</div>
-
 @endsection
-
-
-
-
-
-
-
