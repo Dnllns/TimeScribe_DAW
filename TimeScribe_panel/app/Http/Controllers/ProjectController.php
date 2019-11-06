@@ -135,7 +135,7 @@ class ProjectController extends Controller
      */
     public function view_newProject()
     {
-        return view('project/Pr_New');
+        return view('project/new');
     }
 
     /**
@@ -146,7 +146,7 @@ class ProjectController extends Controller
     public function view_selectProject()
     {
         $userProjects = auth()->user()->projects;
-        return view('project/Pr_Select', ['userProjects' => $userProjects]);
+        return view('project/select', ['userProjects' => $userProjects]);
     }
 
     /**
@@ -161,7 +161,7 @@ class ProjectController extends Controller
         $client = User::find($project->client_id);
         $taskGroups = $project->taskGroups;
         return view(
-            'project/Pr_Edit',
+            'project/edit',
             [
                 'project' => $project,
                 'client' => $client,
@@ -184,7 +184,7 @@ class ProjectController extends Controller
         $taskGroups = $project->taskGroups;
 
         return view(
-            'project/Pr_Dashboard',
+            'project/dashboard',
             [
                 'taskGroups' => $taskGroups,
                 'project' => $project,

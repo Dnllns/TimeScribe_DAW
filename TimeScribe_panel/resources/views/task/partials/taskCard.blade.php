@@ -16,7 +16,7 @@
 
 
             <!-- TASK DATA -->
-            <div class="col mr-2 pt-4 collapse collapse-task-data">
+            <div id="task-data-{{$task->id}}" class="col mr-2 pt-4 collapse">
 
                 <div class="d-flex"
                     data-tooltip="tooltip" data-placement="bottom" title="Worked time">
@@ -31,9 +31,9 @@
                 </div>
 
                 @if($status == $taskGroup::STATUS_DONE)
-                    <div class="d-flex">
-                        <i class="fas fa-calendar-check pr-3" 
-                        data-tooltip="tooltip" data-placement="bottom" title="Finish date"></i>
+                    <div class="d-flex" 
+                        data-tooltip="tooltip" data-placement="bottom" title="Finish date">
+                        <i class="fas fa-calendar-check pr-3"></i>
                         <p>{{ $task->finish_date }}</p>
                     </div>
                 @endif
@@ -44,26 +44,28 @@
         <!-- BOTONES -->
         <div class="d-flex flex-column col-sm-1">
 
-            @switch($status)
-                @case($taskGroup::STATUS_TODO)
-                    <!-- BOTON DE START -->
-                    <button 
-                        data-funct="start"
-                        type="button" class="btn btn-success btn-circle col-sm-1" 
-                        data-tooltip="tooltip" data-placement="bottom" title="Start task">
-                        <i class="far fa-play-circle icon-white"></i>
-                    </button>
-                    @break
+            @if ($status == $taskGroup::STATUS_TODO)
 
-                @case($taskGroup::STATUS_DOING)
-                    <!-- BOTON DE VISUALIZAR -->
-                    <button 
-                        data-funct="view"
-                        type="button" class="btn btn-info btn-circle btn-sm "
-                        data-tooltip="tooltip" data-placement="bottom" title="View task"
-                        data-toggle="collapse" data-target="$(this).closest('.collapse-task-data')">
-                        <i class="far fa-eye icon-white"></i>
-                    </button>
+                <button 
+                    data-funct="start"
+                    data-ajax-route="{{route('taskCard-setStarted', $task->id)}}"
+                    type="button" class="btn btn-success btn-circle col-sm-1" 
+                    data-tooltip="tooltip" data-placement="bottom" title="Start task">
+                    <i class="far fa-play-circle icon-white"></i>
+                </button>
+            @else
+
+                <!-- BOTON DE VISUALIZAR -->
+                <button 
+                    data-funct="view"
+                    type="button" class="btn btn-info btn-circle btn-sm "
+                    data-tooltip="tooltip" data-placement="bottom" title="View task"
+                    data-toggle="collapse" data-target="#task-data-{{$task->id}}">
+                    <i class="far fa-eye icon-white"></i>
+                </button>
+
+                @if ($status == $taskGroup::STATUS_DOING)
+
                     <!-- BOTON DE SELECT -->
                     <button 
                         data-funct="select" data-chronofunct="start"
@@ -71,32 +73,30 @@
                         data-tooltip="tooltip" data-placement="bottom" title="Select task">
                         <i class="fas fa-stopwatch icon-white"></i>
                     </button>
+                    
                     <!-- BOTON DE COMPLETADO -->
                     <button
                         data-funct="done" 
+                        data-ajax-route="{{route('taskCard-setDone', $task->id)}}"
                         type="button" class="btn btn-success btn-circle btn-sm mt-2" 
                         data-tooltip="tooltip" data-placement="bottom" title="Set done">
                         <i class="far fa-check-circle icon-white"></i>
                     </button>
-                    @break
 
-                @case($taskGroup::STATUS_DONE)
-                    <!-- BOTON DE VISUALIZAR -->
-                    <button
-                        data-funct="view"
-                        type="button" class="btn btn-info btn-circle btn-sm" 
-                        data-toggle="collapse" data-target="$(this).closest('.collapse-task-data')">
-                        <i class="far fa-eye icon-white"></i>
-                    </button>
+                @elseif ($status == $taskGroup::STATUS_DONE)
+
                     <!-- BOTON DE ELIMINAR -->
                     <button 
+                        data-funct="delete" 
+                        data-ajax-route="{{route('taskCard-setDelete', $task->id)}}"
                         type="button"class="btn btn-danger btn-circle btn-sm mt-2" 
                         data-tooltip="tooltip" data-placement="bottom" title="Remove task">
                         <i class="far fa-trash-alt icon-white"></i>
                     </button>
-                    @break
 
-            @endswitch
+                @endif
+
+            @endif
 
         </div>
 

@@ -26,8 +26,8 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <p class="collapse-header">Project menu:</p>
-            <a class="collapse-item" href="{{route('rt_pr_select')}}#my-own-projects" data-toggle="collapse" data-target=".collapse-my-own-projects">My own projects</a>
-            <a class="collapse-item" href="{{route('rt_pr_select')}}#assigned-projects" data-toggle="collapse" data-target=".collapse-assigned-projects">Assigned projects</a>
+            <a class="collapse-item" href="{{route('rt_pr_select')}}" >My own projects</a>
+            <a class="collapse-item" href="{{route('rt_pr_select')}}" >Assigned projects</a>
           </div>
         </div>
       </li>

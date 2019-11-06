@@ -9,93 +9,86 @@
 
 $(function() {
 
-    //Evento start para los buttons que encienden el crono
-    $("#b_crono_start").click(function() {
-
-        var task_id = $("#sticky-chrono").attr("task_id")
-
-
-        switch ($(this).attr("function")) {
-
-            case "chronoStart":
-
-                // Actualiza en BD la tabla tasks, 
-                // inserta en el campo start_date la fecha actual
-                $.get("/ct-start/" + task_id)
-                break
-
-            case "chronoStop":
-
-                // Inserta en BD en la tabla timerecords, 
-                // inserta un registro nuevo, con los ides y la fecha de comienzo
-                $.get("/ct-stop")
-                break
-
-            case "chronoResume":
-
-                // Actualiza en BD la tabla timerecords, 
-                // inserta en el campo finish_date la fecha actual
-                $.get("/ct-start/" + task_id)
-                break
-        }
-    })
-
     // CLICK BTN STARTNEW (TODO)
     // Actualiza en BD la tabla tasks,
     // inserta en el campo start_date la fecha actual
-
-    $("button[id^='b_startnew_']").click(function() {
-
-        $.get("/ct-startnew/" + getId($(this)))
-        location.reload()
-    })
-
 
     // CLICK BTN DONE (DONE)
     // Actualiza en BD la tabla tasks,
     // Pone el valor de status a 2 (DONE)
 
-    $("button[id^='b_done_']").click(function() {
-
-        $.get("/task-done/" + getId($(this)))
-        location.reload()
-    })
-
-
-
     // CLICK REMOVE TASK (DONE)
     // Actualiza en BD en la tabla tasks,
     // Pone el valor de visible a 0 (Invisible)
 
-    $("button[id^='remove_task_']").click(function() {
-        $.get("/task-delete/" + getId($(this)))
-        location.reload()
+    $("button[data-funct]").click(function() {
+
+        var ruta = $(this).attr('data-ajax-route')
+        $.get(ruta)
+
+        //EL Boton de seleccionar no recarga la página
+        if ($(this).attr("data-funct") != "select" && $(this).attr("data-funct") != "view") {
+            location.reload()
+        } else {
+
+            //set the taskid to the attr (not necesary)
+            var taskId = $(this).closest("div[data-taskid]").attr("data-taskid")
+            $("#sticky-chrono").attr("data-taskid", taskId)
+
+            //actualizar las rutas con el id de la tarea
+            var startRoute = $("#chrono-start").attr("data-start-route") + "/" + taskId
+            $("#chrono-start").attr("data-start-route", startRoute)
+            var resetRoute = $("#chrono-reset").attr("data-reset-route") + "/" + taskId
+            $("#chrono-reset").attr("data-reset-route", resetRoute)
+
+        }
+
     })
 
 
 
     ////---------------STYKYCHRONO-------------------
 
+    //Evento start para los buttons que encienden el crono
+    $("#chrono-start").click(function() {
+
+        var currentFunction = $(this).attr("data-chronofunct")
+
+        switch (currentFunction) {
+
+            case "start" || "resume":
+                // Actualiza en BD la tabla tasks, 
+                // inserta en el campo start_date la fecha actual
+                $.get($(this).attr("data-start-route"))
+                break
+
+            case "stop":
+                // Inserta en BD en la tabla timerecords, 
+                // inserta un registro nuevo, con los ides y la fecha de comienzo
+                $.get($(this).attr("data-stop-route"))
+                break
+
+        }
+    })
+
     // CLICK BTN RESET (STYKYCHRONO)
     // Actualiza en BD la tabla timerecords,
     // Elimina los registros que no tienen el campo status a 1 (Los que no se han confirmado)
 
-    $("#b_crono_reset").click(function() {
-
-        var task_id = $("#sticky-chrono").attr("task_id")
-        $.get("/ct-reset/" + task_id)
+    $("#chrono-reset").click(function() {
+        $.get($(this).attr("data-reset-route"))
     })
 
 
     //CLICK X (STICKYCHRONO)
-    $("#x").click(function() {
+    $("#chrono-finish").click(function() {
 
         // Obtener el id de la tarea actual
-        var taskId = $("#sticky-chrono").attr("task_id")
+        var taskId = $("#sticky-chrono").attr("data-taskid")
 
         // Peticion al server
         // Marcar los timerecords como finalizado
-        $.get("/timerec-set-finish/" + taskId)
+        $.get($(this).attr("data-finish-route") + "/" + taskId)
     })
 
 

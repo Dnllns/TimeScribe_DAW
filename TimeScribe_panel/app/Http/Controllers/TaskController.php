@@ -139,7 +139,7 @@ class TaskController extends Controller
      * @param Integer $taskId, el id de la tarea a iniciar
      * @return View dashboard del proyecto
      */
-    public function startNewTask($taskId)
+    public function setStarted($taskId)
     {
 
         // Actualizar la tarea en BD (tabla tasks)
