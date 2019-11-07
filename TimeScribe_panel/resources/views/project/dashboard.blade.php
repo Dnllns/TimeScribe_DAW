@@ -28,19 +28,22 @@
     @include('task.partials.StickyChrono' )
 
 
-    <div class="col-sm-10 p-10">
+    <div class="p-10 col-sm-10">
 
-    <!-- PROYECTOS ASIGNADOS -->
-    <div id="assigned-projects" class="card shadow pb-0">
-        <div class="card-header py-3">
-            <p class="m-0 font-weight-bold text-primary">{{$project->name}}</p>
-            <p>{{$project->description}}</p>
+        <!-- PROYECTOS ASIGNADOS -->
+        <div id="assigned-projects" class="card shadow pb-0 col-sm-10">
+            <div class="card-header py-3">
+                <p class="m-0 font-weight-bold text-primary">{{$project->name}}</p>
+                <p>{{$project->description}}</p>
+            </div>
+            <div class="card-body">
+                @foreach ($taskGroups as $taskGroup)
+                    @include('taskGroup.partials.taskGroupItem', ['taskGroup' => $taskGroup])
+                @endforeach
+            </div>
         </div>
-        <div class="card-body">
-            @foreach ($taskGroups as $taskGroup)
-                @include('taskGroup.partials.taskGroupItem', ['tasks' => $taskGroup->getTasks(2)])
-            @endforeach
-        </div>
+
+
     </div>
 
 @endsection

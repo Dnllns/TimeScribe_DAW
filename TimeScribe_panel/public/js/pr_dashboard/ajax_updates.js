@@ -21,7 +21,7 @@ $(function() {
     // Actualiza en BD en la tabla tasks,
     // Pone el valor de visible a 0 (Invisible)
 
-    $("button[data-funct]").click(function() {
+    $("i[data-funct]").click(function() {
 
         var ruta = $(this).attr('data-ajax-route')
         $.get(ruta)

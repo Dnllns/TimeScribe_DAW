@@ -37,21 +37,18 @@
     <div id="app" class="">
         
         @include('layouts.navbar')
-        
-        
 
         <main class="d-flex">
 
             @include('layouts.sidebar')
-            <div class="content col-sm-10">
+            <div class="content col-sm-10 row justify-content-center mt-5 mb-5">
                 @yield('content')
             </div>
             
         </main>
+
     </div>
 
-
-    
 
 </body>
 </html>
