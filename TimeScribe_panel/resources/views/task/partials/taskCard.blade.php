@@ -1,20 +1,20 @@
 
 <!-- TITULO DE LA TAREA -->
-<div data-taskid="{{$task->id}}" class="item card border-fat shadow mb-4 item p-2">
+<div data-taskid="{{$task->id}}" class="item card border-fat shadow mb-4 item p-3">
 
 
     {{-- CARD BODY --}}
-    <div class="d-flex flex-row">
+    <div class="row">
 
 
         <!-- CABECERA -->
-        <div class="col-sm-11 no-gutters align-items-center ">
+        <div class="col-sm-11 no-gutters">
 
             <!-- TITULO Y DESCRIPCION -->
-            <div data-chronofunt="taskname" class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+            <div data-name="{{ $task->name }}" class="font-weight-bold text-primary text-uppercase mb-1">
                 {{ $task->name }}
             </div>
-            <div class="text-xs font-weight-bold mb-1">{{ $task->description }}</div>
+            <div class="font-weight-bold mb-1">{{ $task->description }}</div>
 
 
             <!-- TASK DATA -->

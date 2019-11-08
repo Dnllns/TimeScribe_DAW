@@ -16,6 +16,8 @@
     <!-- Primero las peticiones al server -->
     <script src="/js/pr_dashboard/ajax_updates.js"></script>
     <script src="/js/pr_dashboard/chrono.js"></script>
+    <script src="/js/pr_dashboard/chronoSticky.js"></script>
+
     <!-- Para hacer drag and drop -->
     <!-- <script src="/js/pr_dashboard/draggable.js"></script> -->
 
@@ -27,23 +29,23 @@
     <!-- Plantilla de sticky chrono -->
     @include('task.partials.StickyChrono' )
 
+    {{-- <h1>Project dashboard</h1> --}}
 
-    <div class="p-10 col-sm-10">
-
-        <!-- PROYECTOS ASIGNADOS -->
-        <div id="assigned-projects" class="card shadow pb-0 col-sm-10">
-            <div class="card-header py-3">
-                <p class="m-0 font-weight-bold text-primary">{{$project->name}}</p>
-                <p>{{$project->description}}</p>
-            </div>
-            <div class="card-body">
-                @foreach ($taskGroups as $taskGroup)
-                    @include('taskGroup.partials.taskGroupItem', ['taskGroup' => $taskGroup])
-                @endforeach
-            </div>
+    <!-- PROYECTOS ASIGNADOS -->
+    <div id="assigned-projects" class="card shadow col-sm-10 mx-auto pb-0">
+        <div class="card-header p-2 mt-3">
+            <p class="m-0 font-weight-bold text-primary">{{$project->name}}</p>
+            <p>{{$project->description}}</p>
         </div>
-
-
+        <div class="card-body">
+            @foreach ($taskGroups as $taskGroup)
+                @include('taskGroup.partials.taskGroupItem', ['taskGroup' => $taskGroup])
+            @endforeach
+        </div>
     </div>
+
+    
+
+
 
 @endsection

@@ -1,21 +1,15 @@
 
 <!-- STICKY CHRONO -->
-<div 
-    id="sticky-chrono" data-taskid=""
-    class="sticky-chrono col-sm-12 row justify-content-center d-none">
-
-    {{-- NOMBRE DE LA TAREA ACTUAL --}}
-    <div class="m-2 align-self-center">
-        <p id="task_name" class="font-weight-bold"></p>
-    </div>
+<div id="sticky-chrono" data-current-taskid="" class="row col-sm-12 d-none sticky">
 
 
     <!-- CHRONO -->
-    <div class="m-2 d-flex flex-column justify-content-center chrono-container"  data-taskid="NONE">
-        <p id="task_name" class="styckychrono-title-font"></p>
-        <p id="chronotime" class="m-0 chrono-font font-weight-bold">00:00:00</p>
+    <div class="column chrono-container mx-auto my-2">
+        {{-- NOMBRE DE LA TAREA ACTUAL --}}
+        <p id="task_name" class="m-0 text-center styckychrono-title-font "></p>
+        <p id="chronotime" class="m-0 text-center chrono-font font-weight-bold">00:00:00</p>
         <!-- BOTONES -->
-        <div class="">
+        <div class="text-center">
 
             <!-- START -->
             <!-- Ruta con parametro id vacio -->
@@ -59,8 +53,14 @@
                 type="button" class="btn btn-sm btn-info m-1 d-none">
                 <i class="fas fa-save icon-white"></i>
             </button>
+
+            <button 
+                id="chrono-close"
+                type="button"  class="btn btn-sm btn-dark m-1">
+                <i class="fas fa-times icon-white"></i>
+            </button>
         </div>
     </div>
   
-
 </div>
+

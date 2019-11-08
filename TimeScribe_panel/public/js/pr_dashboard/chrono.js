@@ -12,31 +12,34 @@ $(function() {
 
     $("i[data-funct='select']").click(function() {
 
-
         //OBTENER DATOS QUE VAMOS A USAR
-        var taskName = $(this).closest("div[data-chronofunct='taskname']").text()
-        var taskElement = $(this).closest("div[data-taskid]")
+        var taskElement = $(this).closest("[data-taskid]")
+        var taskName = taskElement.find("[data-name]").text().trim()
         var taskId = taskElement.attr("data-taskid")
 
         //Mostrar sticky chrono
         $("#sticky-chrono").removeClass("d-none")
-        $("#sticky-chrono").addClass("d-flex")
+
+        //Resetear tiempo en el cronometro
+        $('#chronotime').html("00:00:00")
 
         //Añadir el nombre de la tarea en el cronometro
         $("#task_name").text(taskName);
 
         //Añadir el id de la tarea como atributo
-        $("#sticky-chrono").attr("data-taskid", taskId)
+        $("#sticky-chrono").attr("data-current-taskid", taskId)
+
+        // Mostrar el boton de start
+
+        $("#chrono-start").attr("disabled", false)
+        $("#chrono-start").removeClass("d-none")
 
         //ocultar el boton de select task
         $(this).addClass("d-none");
 
         //Actualizar la interface de la tarea seleccionada
-        taskElement.find("div.card").css("background", "yellow")
-        taskElement.find("div.card").addClass("border-dark")
-
-        // $("#task_" + id + " > div.card").css("background", "yellow")
-        // $("#task_" + id + " > div.card").addClass("border-dark")
+        taskElement.css("background", "yellow")
+        taskElement.addClass("border-dark")
 
     })
 
@@ -68,6 +71,12 @@ $(function() {
         $("#chrono-stop").attr("disabled", false)
         $("#chrono-stop").removeClass("d-none")
 
+        // Deshabilitar y ocultar el boton de cerrar
+        $("#chrono-close").attr("disabled", true)
+        if (!$("#chrono-close").hasClass('d-none')) {
+            $("#chrono-close").addClass("d-none")
+        }
+
     })
 
     //CLICK STOP
@@ -90,6 +99,10 @@ $(function() {
         // Habilitar y mostrar el boton de guardar
         $("#chrono-finish").attr("disabled", false) //enable close button
         $("#chrono-finish").removeClass("d-none")
+
+        // Habilitar y mostrar el boton de cerrar
+        $("#chrono-close").attr("disabled", false) //enable close button
+        $("#chrono-close").removeClass("d-none")
     })
 
 
@@ -115,6 +128,12 @@ $(function() {
             $("#chrono-resume").addClass("d-none")
         }
 
+        // Deshabilitar y ocultar el boton de cerrar
+        $("#chrono-close").attr("disabled", true)
+        if (!$("#chrono-close").hasClass('d-none')) {
+            $("#chrono-close").addClass("d-none")
+        }
+
     })
 
 
@@ -125,7 +144,7 @@ $(function() {
         chronoReset()
 
         // habilitar y mostar el boton de iniciar
-        $("#chrono-finish").attr("disabled", false)
+        $("#chrono-start").attr("disabled", false)
         $("#chrono-start").removeClass("d-none")
 
         // Deshabilitar y ocultar el boton de guardar
@@ -133,26 +152,74 @@ $(function() {
             $("#chrono-finish").addClass("d-none")
         }
 
+        // Deshabilitar y ocultar el boton de resume
+        if (!$("#chrono-resume").hasClass('d-none')) {
+            $("#chrono-resume").addClass("d-none")
+        }
+
+        // Habilitar y mostrar el boton de cerrar
+        $("#chrono-close").attr("disabled", false) //enable close button
+        $("#chrono-close").removeClass("d-none")
+
     })
 
     //CLICK GUARDAR (STICKYCHRONO)
     $("#chrono-finish").click(function() {
 
+
         // Obtener el id de la tarea actual
-        var id = $("#sticky-chrono").attr("data-taskid")
+        var id = $("#sticky-chrono").attr("data-current-taskid")
+
+        //Resetear el cronómetrto
+        chronoReset()
 
         // Actualizar la interface de la tarea seleccionada (RESETEAR)
-        $("div[data-taskid='" + id + "'] > div.card")
+        $("div[data-taskid='" + id + "']")
             .css("background", "#fff")
             .removeClass("border-dark")
 
         // Actualizar la interface del cronometro (ocultar)
-        $("#sticky-chrono")
-            .removeClass("d-flex")
-            .addClass("d-none")
+        $("#sticky-chrono").addClass("d-none")
 
         // Mostrar el boton de seleccionar tarea (de la tarea seleccionada)
-        $("div[data-taskid='" + id + "']").find("button[data-funct='select']").removeClass("d-none");
+        $("div[data-taskid='" + id + "']").find("i[data-funct='select']").removeClass("d-none");
+
+    })
+
+
+    //CLICK CLOSE (STICKYCHRONO)
+    $("#chrono-close").click(function() {
+
+
+        // Obtener el id de la tarea actual
+        var id = $("#sticky-chrono").attr("data-current-taskid")
+
+        //Resetear el cronómetrto
+        chronoReset()
+
+        // Actualizar la interface de la tarea seleccionada (RESETEAR)
+        $("div[data-taskid='" + id + "']")
+            .css("background", "#fff")
+            .removeClass("border-dark")
+
+        // Actualizar la interface del cronometro (ocultar)
+        $("#sticky-chrono").addClass("d-none")
+
+        // Mostrar el boton de seleccionar tarea (de la tarea seleccionada)
+        $("div[data-taskid='" + id + "']").find("i[data-funct='select']").removeClass("d-none");
+
+
+        // Ocultar todos los botones menos el de start
+        // Deshabilitar y ocultar el boton de resume
+        if (!$("#chrono-resume").hasClass('d-none')) {
+            $("#chrono-resume").addClass("d-none")
+        }
+        // Deshabilitar y ocultar el boton de guardar
+        if (!$("#chrono-finish").hasClass('d-none')) {
+            $("#chrono-finish").addClass("d-none")
+        }
+
+
 
     })
 

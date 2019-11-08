@@ -34,19 +34,47 @@
 
 </head>
 <body>
-    <div id="app" class="">
-        
-        @include('layouts.navbar')
 
-        <main class="d-flex">
 
-            @include('layouts.sidebar')
-            <div class="content col-sm-10 row justify-content-center mt-5 mb-5">
-                @yield('content')
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @include('layouts.sidebar')
+        <!-- End of Sidebar -->
+    
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+    
+            <!-- Main Content -->
+            <div id="content">
+    
+                <!-- TOP BAR NAVBAR -->
+                @include('layouts.navbar') 
+
+    
+                <!-- Begin Page Content -->
+                <div class="container-fluid pt-5">
+                        @yield('content')                      
+                </div>
+                <!-- /.container-fluid -->
+    
             </div>
-            
-        </main>
-
+            <!-- End of Main Content -->
+    
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                    <span>Copyright © TimeScribe@dnllns 2019</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+    
+        </div>
+        <!-- End of Content Wrapper -->
+    
     </div>
 
 

@@ -32,10 +32,8 @@ $(function() {
         } else {
 
             //set the taskid to the attr (not necesary)
-            var taskId = $(this).closest("div[data-taskid]").attr("data-taskid")
-            $("#sticky-chrono").attr("data-taskid", taskId)
-
-            //actualizar las rutas con el id de la tarea
+            var taskId = $("#sticky-chrono").attr("data-current-taskid")
+                //actualizar las rutas con el id de la tarea
             var startRoute = $("#chrono-start").attr("data-start-route") + "/" + taskId
             $("#chrono-start").attr("data-start-route", startRoute)
             var resetRoute = $("#chrono-reset").attr("data-reset-route") + "/" + taskId

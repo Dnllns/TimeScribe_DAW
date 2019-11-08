@@ -31,7 +31,11 @@
 /* Tamaño de los iconos del task card */
 
 .item.card i[class ^='fa'] {
-    font-size: 12px;
+    font-size: 16px;
+}
+
+.item.card i[class ^='fa']:hover {
+    text-shadow: 2px 2px 10px #000000;
 }
 
 
@@ -41,12 +45,9 @@
     font-size: 2em;
 }
 
-.sticky-chrono {
-    position: sticky;
-    background-color: mediumvioletred;
-    top: 0;
+#sticky-chrono {
     z-index: 1;
-    text-align: center;
+    background: cornflowerblue;
 }
 
 .chrono-container {
