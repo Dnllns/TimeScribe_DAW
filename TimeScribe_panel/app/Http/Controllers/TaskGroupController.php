@@ -85,8 +85,6 @@ class TaskGroupController extends Controller
 
     #endregion
 
-
-
     /**
      * INICIAR TASK GROUP
      * -------------------
@@ -112,6 +110,8 @@ class TaskGroupController extends Controller
         }
 
     }
+
+
 
     /**
      * -----------------------------------------------------------------
@@ -156,7 +156,5 @@ class TaskGroupController extends Controller
     }
 
     #endregion
-
-    
 
 }

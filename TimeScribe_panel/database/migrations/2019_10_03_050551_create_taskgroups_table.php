@@ -31,6 +31,9 @@ class CreateTaskgroupsTable extends Migration
             //ESTADO
             $table->tinyInteger('status')->default(TaskGroup::STATUS_TODO);
 
+            //VISIBLE
+            $table->tinyInteger('visible')->default(TaskGroup::VISIBLE);
+
             //FECHA DE INICIO
             $table->dateTime('start_date')->nullable()->default(null);
 

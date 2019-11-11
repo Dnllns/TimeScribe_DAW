@@ -67,6 +67,12 @@ class Task extends Model
         return $totalTime->format('H:i:s');
     }
 
+
+    public function getDeveloper(){
+
+        
+    }
+
     #endregion
 
     /**
