@@ -24,7 +24,7 @@
         @break
 
     @case('DONE')
-        <i  data-funct="done" 
+        <i  data-funct="done"
             data-ajax-route="{{route('taskCard-setDone', $task->id)}}"
             class="far fa-check-circle text-success pb-1"
             data-tooltip="tooltip" data-placement="bottom" title="Set done">
@@ -32,7 +32,7 @@
         @break
 
     @case('DELETE')
-        <i  data-funct="delete" 
+        <i  data-funct="delete"
             data-ajax-route="{{route('taskCard-setDelete', $task->id)}}"
             class="far fa-trash-alt text-danger pb-1"
             data-tooltip="tooltip" data-placement="bottom" title="Remove task">

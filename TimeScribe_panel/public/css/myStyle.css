@@ -19,8 +19,11 @@
     background: mediumspringgreen;
 }
 
-.card {
-    padding-bottom: 2em;
+.icon-sm{
+
+    height: 1.6rem;
+    width: 1.4rem;
+    font-size: .7rem;
 }
 
 .icon-white {

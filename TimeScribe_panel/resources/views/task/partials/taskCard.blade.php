@@ -1,14 +1,14 @@
 
 <!-- TITULO DE LA TAREA -->
-<div data-taskid="{{$task->id}}" class="item card border-fat shadow mb-4 item p-3">
+<div data-taskid="{{$task->id}}" class="card border-fat shadow mb-2">
 
 
     {{-- CARD BODY --}}
-    <div class="row">
+    <div class="row m-2">
 
 
         <!-- CABECERA -->
-        <div class="col-sm-11 no-gutters">
+        <div class="col-md-11 p-0 no-gutters">
 
             <!-- TITULO Y DESCRIPCION -->
             <div data-name="{{ $task->name }}" class="font-weight-bold text-primary text-uppercase mb-1">
@@ -18,25 +18,25 @@
 
 
             <!-- TASK DATA -->
-            <div id="task-data-{{$task->id}}" class="col mr-2 pt-1 collapse text-xs">
+            <div id="task-data-{{$task->id}}" class="row collapse text-xs">
 
-                <div class="d-flex"
+                <div class="col-12 m-1"
                     data-tooltip="tooltip" data-placement="bottom" title="Worked time">
-                    <i class="fas fa-business-time pr-3"></i>
-                    <p>{{ $task->getWorkedTime($task->id) }}</p>
+                    <i class="fas fa-business-time mr-1"></i>
+                    {{ $task->getWorkedTime($task->id) }}
                 </div>
 
-                <div class="d-flex"
+                <div class="col-12 m-1"
                     data-tooltip="tooltip" data-placement="bottom" title="Start date">
-                    <i class="fas fa-calendar-day pr-3"></i>
-                    <p>{{ $task->start_date }}</p>
+                    <i class="fas fa-calendar-day mr-1"></i>
+                    {{ $task->start_date }}
                 </div>
 
                 @if($task->status == $task::STATUS_DONE)
-                    <div class="d-flex"
+                    <div class="col-12 m-1"
                         data-tooltip="tooltip" data-placement="bottom" title="Finish date">
-                        <i class="fas fa-calendar-check pr-3"></i>
-                        <p>{{ $task->finish_date }}</p>
+                        <i class="fas fa-calendar-check mr-1"></i>
+                        {{ $task->finish_date }}
                     </div>
                 @endif
             </div>
@@ -44,7 +44,7 @@
         </div>
 
         <!-- BOTONES -->
-        <div class="col-sm-1 d-flex flex-column align-items-center">
+        <div class="col-md-1 p-0 d-flex flex-column align-items-center">
 
             @if ($task->status == $task::STATUS_TODO)
                 @include('task.partials.cardButton', ['type' => 'START'] )
@@ -72,5 +72,5 @@
         </div>
 
     </div>
-    
+
 </div>
