@@ -52,6 +52,32 @@ class TaskGroup extends Model
         return $searchedTasks;
     }
 
+
+    public function getDevelopers(){
+
+        $developers_array = array();
+        
+        // Obtener las tareas del grupo
+        $tasks = $this->tasks();
+
+        foreach ($tasks as $task) {
+            // Obtener los desarrolladores de cada tarea
+            $devs = $task->getDevelopers();
+            foreach ($devs as $dev){
+                // Añadir el desarrollador al array si no se ha añadido ya
+                if(!in_array($dev, $developers_array)){
+                    array_push($developers_array, $dev);
+                }
+            }
+        }
+
+        return $developers_array;
+
+    }
+
+
+    
+
     /**
      * OBTENER EL PORCENTAJE DE COMPLETO DEL GRUPO
      * -------------------------------------------

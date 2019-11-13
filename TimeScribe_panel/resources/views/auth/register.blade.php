@@ -11,6 +11,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
+                        {{-- NOMBRE --}}
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -25,6 +26,7 @@
                             </div>
                         </div>
 
+                        {{-- EMAIL --}}
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -39,6 +41,7 @@
                             </div>
                         </div>
 
+                        {{-- CONTRASEÑA --}}
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -53,6 +56,7 @@
                             </div>
                         </div>
 
+                        {{-- REPETIR CONTRASEÑA --}}
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -61,15 +65,13 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group row">
-                            <label for="is_customer" class="col-md-4 col-form-label text-md-right">{{ __('Are you a customer?') }}</label>
-
-                            <div class="col-md-6 checkbox">
-                                <input id="is_customer" type="checkbox" class="" name="is_customer" >
-                            </div>      
-
-
+                        {{-- WORKGROUP --}}
+                        <label for="wg_inputgroup">Create a workgroup</label>
+                        <div class="form-group row" name="wg_inputgroup">
+                            <label for="workgroupname" class="col-md-4 col-form-label text-md-right">{{ __('WorkGroup name') }}</label>
+                            <div class="input-goup col-md-6">
+                                <input type="text" class="form-control" name="workgroupname" required autofocus>
+                            </div>  
                         </div>
 
 

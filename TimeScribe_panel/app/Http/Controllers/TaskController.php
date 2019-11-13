@@ -6,6 +6,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskGroupController;
 use App\Task;
 use App\TimeRecord;
+use App\WorkGroup;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -35,6 +37,13 @@ class TaskController extends Controller
             'name' => $data['name'],
             'description' => $data['description'],
         ]);
+
+        // Obtener la tarea
+        $task = Task::find($insert->id);
+        $user = auth()->user();
+
+        //Añadir la relacion en TASK_USER
+        $task->users()->attach($user->id);
 
         return TaskController::view_editTask($insert->id);
     }
@@ -229,7 +238,22 @@ class TaskController extends Controller
      */
     public function view_editTask($taskId)
     {
-        return view('task/Ts_Edit', ['task' => Task::find($taskId)]);
+
+
+        // Obtener desarrolladores asignados a la tarea
+        //-------
+
+        $userId = auth()->user()->id;
+        $workGroup = WorkGroup::find($userId);
+        $workGroupDevelopers = $workGroup->getAllDevelopers();
+
+        return view(
+            'task/edit', 
+            [
+                'task' => Task::find($taskId),
+                'workGroupDevelopers' => $workGroupDevelopers
+            ]
+        );
     }
 
     #endregion

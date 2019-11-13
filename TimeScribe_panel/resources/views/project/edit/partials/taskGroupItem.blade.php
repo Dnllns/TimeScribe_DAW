@@ -14,6 +14,13 @@
         </div>
 
         <div class="row">
+            Developers: 
+
+            @foreach ( $taskGroup->getDevelopers() as $dev )
+
+            devvvvvvvvvvvvvvvvvvvvvvvv
+                
+            @endforeach
 
 
             

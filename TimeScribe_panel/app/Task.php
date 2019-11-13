@@ -45,9 +45,7 @@ class Task extends Model
     public static function getWorkedTime($taskId)
     {
         // $taskId = $this->id;
-        $timeRecords = TimeRecord::
-            where('task_id', $taskId )
-            ->where('user_id', auth()->user()->id)->get();
+        $timeRecords = TimeRecord::where('task_id', $taskId)->where('user_id', auth()->user()->id)->get();
 
         $totalTime = new \DateTime('2000-01-01');
 
@@ -68,9 +66,23 @@ class Task extends Model
     }
 
 
-    public function getDeveloper(){
 
-        
+    public function setDeveloper($idDeveloper){
+
+        $this->user_id = $idDeveloper;
+        $this->save();
+
+
+    }
+
+    public function getDevelopers()
+    {
+
+        $developers = $this->users()->get();
+        $a = 0;
+
+        return $developers;
+
     }
 
     #endregion

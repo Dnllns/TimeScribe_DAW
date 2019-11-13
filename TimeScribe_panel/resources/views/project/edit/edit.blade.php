@@ -159,6 +159,13 @@
 
                 @endforeach
 
+
+
+
+                @foreach ($taskGroups as $taskGroup)
+                    @include('project.edit.partials.taskGroupItem', ['taskGroup' => $taskGroup])
+                @endforeach
+
                 <br>
                 <a class="btn btn-primary" href="{{ route('rt_tg_new', $project->id ) }}">Add new task group</a>
 

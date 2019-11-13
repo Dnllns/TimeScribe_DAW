@@ -161,7 +161,7 @@ class ProjectController extends Controller
         $client = User::find($project->client_id);
         $taskGroups = $project->taskGroups;
         return view(
-            'project/edit',
+            'project/edit/edit',
             [
                 'project' => $project,
                 'client' => $client,

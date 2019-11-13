@@ -65,26 +65,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //Parse iscustomer field to bool
-
-        if (!isset($data['is_customer'])) {
-
-            $data['is_customer'] = false;
-
-        } else {
-
-            if ($data['is_customer'] == 'on') {
-                $data['is_customer'] = true;
-            } else {
-                $data['is_customer'] = false;
-            }
-        }
-
-        return User::create([
+        //Insertar usuario en BD
+        $newUser =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'is_customer' => $data['is_customer'],
         ]);
+
+        //Crear grupo de trabajo e insertarlo en BD
+        $newWorkGroup = Workgroup::create([
+            'name' => $data['workgroupname'],
+            'admin_id' => $newUser->id
+        ]);
+
+        //Añadir al usuario el workgroup
+        $newUser->workgroup_id = $newWorkGroup->id;
+        $newWorkGroup->save();
+
+        return $newUser;
     }
 }

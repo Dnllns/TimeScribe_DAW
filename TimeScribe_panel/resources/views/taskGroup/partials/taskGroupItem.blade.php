@@ -11,35 +11,39 @@
 
         <div class="row mx-auto">
             {{-- BARRA --}}
-            <div class="progress col-9 p-0">
-                <div class="progress-bar progress-bar-striped progress-bar-animated
+            <div class="col-9 p-0">
+                 <div class="progress">
+                    <div class=" progress-bar progress-bar-striped progress-bar-animated 
 
-                @if ($taskGroup->getPercentCompleted() < 20 )
-                    bg-danger
-                @elseif ($taskGroup->getPercentCompleted() >= 20 && $taskGroup->getPercentCompleted() < 40)
-                    bg-warning
-                @elseif ($taskGroup->getPercentCompleted() >= 40 && $taskGroup->getPercentCompleted() < 60)
-                    bg-primary
-                @elseif ($taskGroup->getPercentCompleted() >= 60 && $taskGroup->getPercentCompleted() < 80)
-                    bg-info
-                @elseif ($taskGroup->getPercentCompleted() >= 80 && $taskGroup->getPercentCompleted() == 100)
-                    bg-success
-                @endif
+                    @if ($taskGroup->getPercentCompleted() < 20 )
+                        bg-danger
+                    @elseif ($taskGroup->getPercentCompleted() >= 20 && $taskGroup->getPercentCompleted() < 40)
+                        bg-warning
+                    @elseif ($taskGroup->getPercentCompleted() >= 40 && $taskGroup->getPercentCompleted() < 60)
+                        bg-primary
+                    @elseif ($taskGroup->getPercentCompleted() >= 60 && $taskGroup->getPercentCompleted() < 80)
+                        bg-info
+                    @elseif ($taskGroup->getPercentCompleted() >= 80 && $taskGroup->getPercentCompleted() == 100)
+                        bg-success
+                    @endif
 
-                " role="progressbar"
-                style="width: {{$taskGroup->getPercentCompleted()}}%"
-                aria-valuenow="{{$taskGroup->getPercentCompleted()}}"
-                aria-valuemin="0" aria-valuemax="100" ></div>
+                    " role="progressbar"
+                    style="width: {{$taskGroup->getPercentCompleted()}}%"
+                    aria-valuenow="{{$taskGroup->getPercentCompleted()}}"
+                    aria-valuemin="0" aria-valuemax="100" ></div>
+
+                </div>
             </div>
+            
             {{-- PORCENTAJE --}}
-            <div class="small font-weight-bold col-3">{{$taskGroup->getPercentCompleted()}}%</div>
+            <div class="small font-weight-bold col-3 pr-0">{{$taskGroup->getPercentCompleted()}}%</div>
 
         </div>
 
     </div>
 
     <!-- ICONOS DE TODO DOING DONE -->
-    <div class="col-5 col-md-3 my-auto text-center" >
+    <div class="col-4 col-md-3 my-auto text-center" >
         <span
             class="btn btn-circle icon-sm bg-warning mb-1"
             data-tooltip="tooltip" data-placement="bottom" title="To do">
