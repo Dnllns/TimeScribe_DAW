@@ -11,6 +11,21 @@ class UserController extends Controller
 
 
 
+    /**
+    * Mostrar el workgroup al que pertenece el usuario en el sidebar
+    */
+
+    public function prepareSidebar(){
+
+        $user = auth()->user();
+        $workGroup = WorkGroup::find($user->workgroup_id);
+
+
+    }
+
+
+
+
     public function view_clientDashboard()
     {
         $clientProjects = $this->getClientProjects();

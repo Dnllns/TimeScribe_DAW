@@ -145,6 +145,7 @@ class ProjectController extends Controller
      */
     public function view_selectProject()
     {
+
         $userProjects = auth()->user()->projects;
         return view('project/select', ['userProjects' => $userProjects]);
     }
@@ -229,10 +230,10 @@ class ProjectController extends Controller
     }
 
 
-    
+
 
     #endregion
-    
+
 
 }
 

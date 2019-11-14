@@ -139,7 +139,7 @@ Route::get('/client-dashboard', 'UserController@view_clientDashboard')
 
 
 //----------------------------------------------------------------
-//-----------------------------WORKGROUP--------------------------   
+//-----------------------------WORKGROUP--------------------------
 //----------------------------------------------------------------
 
 
@@ -148,18 +148,20 @@ Route::get('/client-dashboard', 'UserController@view_clientDashboard')
     #region vistas
 
         //CREAR
-        Route::get('/create-workgroup', 'workGroupController@view_createWorkGroup')->name('create-workgroup')->middleware('auth');
+        Route::get('/create-workgroup', 'WorkGroupController@view_createWorkGroup')->name('create-workgroup')->middleware('auth');
         //EDITAR
-        Route::post('/edit-workgroup/{workgroupId}', 'workGroupController@view_editWorkGroup')->name('edit-workgroup')->middleware('auth');
+        Route::post('/edit-workgroup/{workgroupId}', 'WorkGroupController@view_editWorkGroup')->name('edit-workgroup')->middleware('auth');
 
     #endregion
 
     #region acciones
 
         //Insertar workgroup
-        Route::post('/action-create-workgroup', 'workGroupController@create')->name('workgroup-f-create')->middleware('auth');
+        Route::post('/action-create-workgroup', 'WorkGroupController@create')
+        ->name('workgroup-f-create')->middleware('auth');
         //Editar workgroup
-        Route::post('/action-edit-workgroup/{workGroupId}', 'workGroupController@edit')->name('workgroup-f-edit')->middleware('auth');
+        Route::post('/action-edit-workgroup/{workGroupId}', 'WorkGroupController@edit')
+        ->name('workgroup-f-edit')->middleware('auth');
 
 
     #endregion

@@ -65,17 +65,6 @@
                             </div>
                         </div>
 
-                        {{-- WORKGROUP --}}
-                        <label for="wg_inputgroup">Create a workgroup</label>
-                        <div class="form-group row" name="wg_inputgroup">
-                            <label for="workgroupname" class="col-md-4 col-form-label text-md-right">{{ __('WorkGroup name') }}</label>
-                            <div class="input-goup col-md-6">
-                                <input type="text" class="form-control" name="workgroupname" required autofocus>
-                            </div>  
-                        </div>
-
-
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

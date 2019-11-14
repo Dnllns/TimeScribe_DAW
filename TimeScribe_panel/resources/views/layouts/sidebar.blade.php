@@ -14,20 +14,19 @@
 
       <!-- Heading -->
       <!-- <div class="sidebar-heading">
-        User 
+        User
       </div> -->
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-briefcase"></i>
-          <span>Projects</span>
+          <span>Workgroup 1</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <p class="collapse-header">Project menu:</p>
-            <a class="collapse-item" href="{{route('rt_pr_select')}}" >My own projects</a>
-            <a class="collapse-item" href="{{route('rt_pr_select')}}" >Assigned projects</a>
+            <p class="collapse-header">Workgroup menu:</p>
+            <a class="collapse-item" href="{{route('rt_pr_select')}}" >Select project</a>
           </div>
         </div>
       </li>

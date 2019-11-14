@@ -50,13 +50,14 @@ class WorkGroupController extends Controller
 
         //Return to the project editor view
         return view(
-            'workgroup/edit', 
-            [
-                'workGroup' => $workGroup,
-                'isNew' => true
-            ]);
+            'workgroup/edit',
+            [ 'workGroup' => $workGroup, 'isNew' => true ]
+        );
 
     }
+
+
+
 
     /**
      * Actualiza el registro con el id pasado por parametro
@@ -66,6 +67,31 @@ class WorkGroupController extends Controller
         $workGroup = WorkGroup::find($workGroupId);
         $workGroup->name = $data['name'];
         $workGroup->save();
+
+    }
+
+    protected function webSelectProject( $workGroupId ){
+
+        $userId = auth()->user()->id;
+        $workGroup = WorkGroup::find($workGroupId);
+        $projects = $workGroup->projects()->where('user_id', $userId )->get();
+
+
+
+
+
+
+
+    }
+
+
+    /**
+     * Obtiene los proyectos pertenecientes a un workgroup
+     */
+    public function getProjects($workGroupId){
+
+
+        return $projects;
 
     }
 
