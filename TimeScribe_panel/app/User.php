@@ -18,16 +18,18 @@ class User extends Authenticatable
 
     // -------------------------------RELATIONS--------------------------------------
 
-    /** N:1 Workgroup **/
-    public function workgroup()
+    /** N:N Workgroup **/
+    public function workgroups()
     {
-        return $this->belongsTo('App\WorkGroup');
+        return $this->belongsToMany('App\WorkGroup', 'workgroups_users', 'workgroup_id', 'user_id');
+
     }
 
     //N:N PROJECTS
     public function projects()
     {
-        return $this->belongsToMany('App\Project');
+        return $this->belongsToMany('App\Project', 'users_projects', 'user_id', 'project_id');
+
     }
 
     //N:N TAREAS

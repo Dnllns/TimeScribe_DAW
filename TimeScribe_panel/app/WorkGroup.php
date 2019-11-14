@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class WorkGroup extends Model
 {
     //
+    protected $table = 'workgroups';
+    protected $fillable = ['name'];
+    public $timestamps = false;
 
-    protected $fillable = ['name', 'admin_id'];
 
     // -------------------------------RELATIONS--------------------------------------
 
     #region Relations 
 
-    /** 1:N users **/
+    /** N:N users **/
     public function users()
     {
-        return $this->hasMany('App\User');
+        return $this->belongsToMany('App\User', 'workgroups_users', 'workgroup_id', 'user_id');
     }
 
 

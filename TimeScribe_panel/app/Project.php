@@ -42,7 +42,8 @@ class Project extends Model
     //N:N USERS
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'users_projects', 'user_id', 'project_id');
+
     }
 
     //1:N TASKGROUP

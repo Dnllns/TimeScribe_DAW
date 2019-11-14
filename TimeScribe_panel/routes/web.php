@@ -36,18 +36,13 @@ Route::get('/project-delete/{projectId}', 'ProjectController@deleteProject')->na
 #end region
 
 //VISTA NUEVO PROYECTO
-Route::get('/project-new', 'ProjectController@view_newProject')
-    ->name('rt_pr_new')
-    ->middleware('auth');
+Route::get('/project-new', 'ProjectController@view_newProject')->name('rt_pr_new')->middleware('auth');
 
 //VISTA SELECCIONAR PROYECTO
-Route::get('/project-select', 'ProjectController@view_selectProject')
-    ->name('rt_pr_select');
+Route::get('/project-select', 'ProjectController@view_selectProject')->name('rt_pr_select');
 
 //BD INSERTAR NUEVO PROYECTO
-Route::post('/project-register', 'ProjectController@create')
-    ->name('rt_pr_register')
-    ->middleware('auth');
+Route::post('/project-register', 'ProjectController@create')->name('rt_pr_register')->middleware('auth');
 
 // BD MODIFICAR DATOS DE UN PROYECTO
 Route::post('/project-update/{projectId}', 'ProjectController@updateProject')
@@ -141,3 +136,32 @@ Route::get('/chrono-finish/{taskId}', 'TimeRecordController@setFinalTimerecordsI
 
 Route::get('/client-dashboard', 'UserController@view_clientDashboard')
     ->name('client_dashboard')->middleware('auth');
+
+
+//----------------------------------------------------------------
+//-----------------------------WORKGROUP--------------------------   
+//----------------------------------------------------------------
+
+
+#region workgroup
+
+    #region vistas
+
+        //CREAR
+        Route::get('/create-workgroup', 'workGroupController@view_createWorkGroup')->name('create-workgroup')->middleware('auth');
+        //EDITAR
+        Route::post('/edit-workgroup/{workgroupId}', 'workGroupController@view_editWorkGroup')->name('edit-workgroup')->middleware('auth');
+
+    #endregion
+
+    #region acciones
+
+        //Insertar workgroup
+        Route::post('/action-create-workgroup', 'workGroupController@create')->name('workgroup-f-create')->middleware('auth');
+        //Editar workgroup
+        Route::post('/action-edit-workgroup/{workGroupId}', 'workGroupController@edit')->name('workgroup-f-edit')->middleware('auth');
+
+
+    #endregion
+
+#endregion

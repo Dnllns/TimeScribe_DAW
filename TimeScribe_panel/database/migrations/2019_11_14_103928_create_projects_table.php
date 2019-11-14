@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Project;
 
-class CreateProjectTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +15,9 @@ class CreateProjectTable extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
+            
             $table->increments('id');
-            $table->timestamps();
-
-            // //ID DESARROLLADOR
-            // $table->unsignedInteger('user_id');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            
             //ID CLIENTE
             $table->unsignedInteger('client_id');
             $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade');

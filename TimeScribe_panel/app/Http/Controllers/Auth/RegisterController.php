@@ -72,16 +72,6 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        //Crear grupo de trabajo e insertarlo en BD
-        $newWorkGroup = Workgroup::create([
-            'name' => $data['workgroupname'],
-            'admin_id' => $newUser->id
-        ]);
-
-        //Añadir al usuario el workgroup
-        $newUser->workgroup_id = $newWorkGroup->id;
-        $newWorkGroup->save();
-
         return $newUser;
     }
 }
