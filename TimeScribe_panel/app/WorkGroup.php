@@ -23,6 +23,13 @@ class WorkGroup extends Model
     }
 
 
+    /** N:N workgroupinvitations **/
+    public function workGroupInvitations()
+    {
+        return $this->belongsToMany('App\WorkGroupInvitation', 'workgroups_workgroupinvitations', 'workgroup_id', 'invitation_id');
+    }
+
+
     #endregion 
 
 

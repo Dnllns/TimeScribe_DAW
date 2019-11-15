@@ -150,7 +150,10 @@ Route::get('/client-dashboard', 'UserController@view_clientDashboard')
         //CREAR
         Route::get('/create-workgroup', 'WorkGroupController@view_createWorkGroup')->name('create-workgroup')->middleware('auth');
         //EDITAR
-        Route::post('/edit-workgroup/{workgroupId}', 'WorkGroupController@view_editWorkGroup')->name('edit-workgroup')->middleware('auth');
+        Route::get('/edit-workgroup/{workGroupId}', 'WorkGroupController@view_editWorkGroup')->name('edit-workgroup')->middleware('auth');
+        //DASHBOARD
+        Route::get('/workgroup-dashboard/{workGroupId}', 'WorkGroupController@view_dashboard')->name('dashboard-workgroup')->middleware('auth');
+
 
     #endregion
 
@@ -162,6 +165,10 @@ Route::get('/client-dashboard', 'UserController@view_clientDashboard')
         //Editar workgroup
         Route::post('/action-edit-workgroup/{workGroupId}', 'WorkGroupController@edit')
         ->name('workgroup-f-edit')->middleware('auth');
+        //Insertar invitacion al workgroup y enviar email
+        Route::post('/invite-workgroup/{workGroupId}/{developerEmail}', 'WorkGroupController@createInvitation')
+        ->name('workgroup-f-invite')->middleware('auth');
+
 
 
     #endregion

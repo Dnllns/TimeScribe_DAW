@@ -25,12 +25,12 @@ class Project extends Model
     protected $table = 'projects';
 
     protected $fillable = [
-        'client_id',
         'name',
         'description',
         'status',
         'visible',
-        'created_by_id',
+        'client_id',
+        'workgroup_id',
         'start_date',
         'finish_date',
     ];
