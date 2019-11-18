@@ -10,7 +10,7 @@
 
             <h2>Create new project</h2>
 
-            <form class="form-horizontal" method="post" action="{{ route('rt_pr_register') }}">
+            <form class="form-horizontal" method="post" action="{{ route('f-pj-new') }}">
 
                 @csrf <!-- {{ csrf_field() }} -->
 

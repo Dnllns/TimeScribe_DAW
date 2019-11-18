@@ -8,9 +8,9 @@
                 <div class="card-header"><strong>Create workgroup</strong></div>
 
                 <div class="card-body m-4">
-                    
 
-                    <form method="post" action="{{ route('workgroup-f-create') }}">
+
+                    <form method="post" action="{{ route('f-wg-new') }}">
                         @csrf
 
                         <div class="row">
@@ -18,7 +18,7 @@
                         </div>
 
                         <!-- Text input-->
-                        
+
 
                         <div class="row">
                             <div class="col-12">
@@ -36,7 +36,7 @@
                         </div>
 
                     </form>
-                    
+
                 </div>
             </div>
         </div>

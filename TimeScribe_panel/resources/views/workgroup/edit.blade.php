@@ -9,7 +9,7 @@
         <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
             Hey {{auth()->user()->name}}!
             <br>
-            The workgroup <strong>{{$workGroup->name}}</strong> has been successfully created.
+            The workgroup <strong>{{$workGroup->name}}</strong> has been successfully created. Now you can start creating a new project.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -24,12 +24,12 @@
                 <div class="card-body m-4">
 
 
-                    
 
-                    <form method="post" action="{{ route('workgroup-f-edit', ['workGroupId'=>$workGroup->id]) }}">
+
+                    <form method="post" action="{{ route('f-wg-mod', ['workGroupId'=>$workGroup->id]) }}">
                         @csrf
 
-                        
+
                         {{-- NOMBRE --}}
                         <div class="row pb-2">
                             <div class="col-12">
@@ -47,26 +47,43 @@
                         {{-- AÑADIR USUARIOS --}}
                         <div class="row pb-2">
 
-                            
+
                             {{-- Lista de usuarios --}}
-                            
                             <div class="col-12 pb-4">
                                 <p><strong>Developer list</strong></p>
 
-                                <ul>
-                                    @foreach ($workGroupDevelopers as $developer)
 
-                                        <li>
-                                            <div class="row">
-                                                <div class="col">{{$developer->name}}, {{$developer->email}}</div>
-                                                <div class="col">
-                                                    <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                @if (!isset($workGroupDevelopers))
+                                {{-- Sin developers asignados --}}
+
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        Currently no developer has been added.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                @else
+                                {{-- Existen developers --}}
+
+                                    <ul>
+                                        @foreach ($workGroupDevelopers as $developer)
+
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col">{{$developer->name}}, {{$developer->email}}</div>
+                                                    <div class="col">
+                                                        <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                            
-                                    @endforeach
-                                </ul>
+                                            </li>
+
+                                        @endforeach
+                                    </ul>
+
+                                @endif
+
+
 
                             </div>
 
@@ -87,31 +104,45 @@
                                 </div>
 
                                 <a href="" class="btn btn-warning mt-2">Enviar invitacion</a>
-    
+
                             </div>
 
                             {{-- Invitaciones pendientes --}}
                             <div class="col-12 pb-4">
                                 <p><strong>Pending invitations</strong></p>
-                                <ul>
-                                    @foreach ($workGroupInvitations as $invitation)
+
+                                @if (!isset($workGroupInvitations))
+
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        Currently no invitation is pending.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                @else
+
+                                    <ul>
+                                        @foreach ($workGroupInvitations as $invitation)
 
 
-                                        <li>
-                                            <div class="row">
-                                                <div class="col">{{$invitation->email}}</div>
-                                                <div class="col">
-                                                    <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col">{{$invitation->email}}</div>
+                                                    <div class="col">
+                                                        <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        
-                                    @endforeach
+                                            </li>
 
-                                </ul>
-                                
+                                        @endforeach
+
+                                    </ul>
+
+                                @endif
+
                             </div>
-                            
+
 
 
 
@@ -125,7 +156,7 @@
                         </div>
 
                     </form>
-                    
+
                 </div>
             </div>
         </div>
