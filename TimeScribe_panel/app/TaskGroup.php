@@ -19,6 +19,7 @@ class TaskGroup extends Model
 
     protected $table = 'taskgroups';
     protected $fillable = ['project_id', 'name', 'description', 'status', 'visble', 'start_date', 'finish_date'];
+    public $timestamps = false;
 
     /**
      * -------------------------------------------------------------

@@ -30,15 +30,15 @@ Route::get('/home', 'HomeController@index')->name('home');
     #region VISTAS
 
         // ALTA
-        Route::get('/workgroup-new', 'WorkGroupController@view_createWorkGroup')
+        Route::get('/workgroup-new', 'WorkGroupController@view_newWorkGroup')
         ->name('v-wg-new')->middleware('auth');
 
         // MOD
-        Route::get('/workgroup-mod/{workGroupId}', 'WorkGroupController@view_editWorkGroup')
+        Route::get('/workgroup-mod/{workGroupId}', 'WorkGroupController@view_modWorkGroup')
         ->name('v-wg-mod')->middleware('auth');
 
         // SELECCIONAR PROYECTO
-        Route::get('/workgroup-show/{workGroupId}', 'WorkGroupController@view_dashboard')
+        Route::get('/workgroup-show/{workGroupId}', 'WorkGroupController@view_show')
         ->name('v-wg-show')->middleware('auth');
 
     #endregion
@@ -46,7 +46,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     #region BD
 
         //Insertar workgroup
-        Route::post('/workgroup-new-bd', 'WorkGroupController@create')
+        Route::post('/workgroup-new-bd', 'WorkGroupController@insertWorkgroup')
         ->name('f-wg-new')->middleware('auth');
 
         //Editar workgroup
@@ -70,7 +70,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
         // ALTA
         // Vista de crear un proyecto
-        Route::get('/project-new', 'ProjectController@view_newProject')
+        Route::get('/project-new/{workGroupId}', 'ProjectController@view_newProject')
         ->name('v-pj-new')->middleware('auth');
 
         // MOD
@@ -91,7 +91,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     #region BD
 
         // ALTA
-        Route::post('/project-new-bd', 'ProjectController@create')
+        Route::post('/project-new-bd/{workGroupId}', 'ProjectController@insertProject')
         ->name('f-pj-new')->middleware('auth');
 
         // BAJA

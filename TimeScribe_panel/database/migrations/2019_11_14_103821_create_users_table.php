@@ -20,8 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->unsignedInteger('workgroup_id')->nullable();
+            $table->foreign('workgroup_id')->references('id')->on('workgroups')->onDelete('cascade');
+            $table->unsignedInteger('is_admin')->nullable();
 
-            
+
             //EXTRA
             $table->rememberToken();
             $table->timestamps();

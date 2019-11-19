@@ -7,7 +7,6 @@ use App\Http\Controllers\TaskGroupController;
 use App\Task;
 use App\TimeRecord;
 use App\WorkGroup;
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -31,21 +30,29 @@ class TaskController extends Controller
      */
     protected function create(Request $data, $taskGroupId)
     {
-        //Insert in taskgroup table
-        $insert = Task::create([
+        //Insert in task table
+        $newTask = Task::create([
             'task_group_id' => $taskGroupId,
             'name' => $data['name'],
             'description' => $data['description'],
         ]);
 
         // Obtener la tarea
-        $task = Task::find($insert->id);
         $user = auth()->user();
 
         //Añadir la relacion en TASK_USER
-        $task->users()->attach($user->id);
+        $newTask->users()->attach(
+            $user->id,
+            [
+                'user_id' => $user->id,
+                'task_id' => $newTask->id
+            ]
 
-        return TaskController::view_editTask($insert->id);
+        );
+
+
+
+        return TaskController::view_editTask($newTask->id);
     }
 
     /**
@@ -227,7 +234,7 @@ class TaskController extends Controller
      */
     public function view_newTask($taskGroupId)
     {
-        return view('task/Ts_Create', ['taskGroupId' => $taskGroupId]);
+        return view('task/new', ['taskGroupId' => $taskGroupId]);
     }
 
     /**
@@ -239,7 +246,6 @@ class TaskController extends Controller
     public function view_editTask($taskId)
     {
 
-
         // Obtener desarrolladores asignados a la tarea
         //-------
 
@@ -248,10 +254,10 @@ class TaskController extends Controller
         $workGroupDevelopers = $workGroup->getAllDevelopers();
 
         return view(
-            'task/edit', 
+            'task/edit',
             [
                 'task' => Task::find($taskId),
-                'workGroupDevelopers' => $workGroupDevelopers
+                'workGroupDevelopers' => $workGroupDevelopers,
             ]
         );
     }

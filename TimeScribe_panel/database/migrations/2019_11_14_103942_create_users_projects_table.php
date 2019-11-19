@@ -22,8 +22,8 @@ class CreateUsersProjectsTable extends Migration
             //ID PROJECT
             $table->unsignedInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            //Es admin
-            $table->unsignedInteger('admin')->default(0);
+            //PERMISOS
+            $table->unsignedInteger('permissions')->nullable();
 
         });
     }

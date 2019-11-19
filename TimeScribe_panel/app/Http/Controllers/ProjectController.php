@@ -38,39 +38,40 @@ class ProjectController extends Controller
      * @param Request $data, los datos decibidos de la vista
      * @return View project/Pr_Select, la vista de seleccionar proyecto
      */
-    protected function create(Request $data)
+    protected function insertProject(Request $data, $workGroupId)
     {
         $user = auth()->user();
 
-        if ($user->is_customer == User::CUSTOMER) {
+        //Insert in projects table
+        $newProject = Project::create([
+            // 'user_id' => $user->id,
+            'client_id' => $data['client_id'],
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'workgroup_id' => $workGroupId,
+        ]);
 
-            // SIN ACCESO
-            // SOLO USUARIOS DESARROLLADORES
-            return abort('403');
+        //Attach to project_user table
+        $user->projects()->attach(
+            $newProject->id,
+            [
+                'project_id' => $newProject->id,
+                'user_id' => $user->id,
+                'permissions' => 1,                       
+            ]
+        );
 
-        } else {
-
-            //Insert in projects table
-            $insert = Project::create([
-                // 'user_id' => $user->id,
-                'client_id' => $data['client_id'],
-                'name' => $data['name'],
-                'description' => $data['description'],
-                'created_by_id' => $user->id,
-            ]);
-
-            //Attach to project_user table
-            $user->projects()->attach(
-                $insert->id,
-                [
-                    'project_id' => $insert->id,
-                    'user_id' => $user->id,
-                    'permissions' => Project::PERM_ALL,
-                ]
-            );
-
-            return $this->view_selectProject(); //Show the project selection view
-        }
+        //Devolver la vista de editar proyecto
+        $projectClient = User::find($data['client_id']);
+        $projectTaskGroups = null;  // Al ser recien creado no tiene TaskGroups
+        return view(
+            'project/edit/edit', 
+            [
+                'project' => $newProject,
+                'client' => $projectClient,
+                'taskGroups' => $projectTaskGroups
+            ]
+        );
 
     }
 
@@ -133,9 +134,9 @@ class ProjectController extends Controller
      * ----------------
      * @return View
      */
-    public function view_newProject()
+    public function view_newProject($workGroupId)
     {
-        return view('project/new');
+        return view('project/new', [ 'workGroupId' => $workGroupId]);
     }
 
     /**
@@ -229,11 +230,6 @@ class ProjectController extends Controller
         }
     }
 
-
-
-
     #endregion
 
-
 }
-

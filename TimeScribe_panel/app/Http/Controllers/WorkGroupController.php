@@ -11,12 +11,12 @@ class WorkGroupController extends Controller
 
     #region vistas
 
-    public function view_createWorkGroup()
+    public function view_newWorkGroup()
     {
         return view('workgroup/create');
     }
 
-    public function view_editWorkGroup($workGroupId)
+    public function view_modWorkGroup($workGroupId)
     {
 
         $workGroup = WorkGroup::find($workGroupId);
@@ -35,18 +35,32 @@ class WorkGroupController extends Controller
     }
 
     /**
-     * SELECCIONAR PROYECTO
+     * VISUALIZAR WORKGROUP
      * ----------------------
+     * 
      * @return View
      */
-    public function view_dashboard($workGroupId)
+    public function view_show($workGroupId)
     {
+
         $workGroup = WorkGroup::find($workGroupId);
-        $userProjects = auth()->user()->projects;
-        $isAdmin = auth()->user()->workGroups()->get()[0]->dd();
+
+        //Si el usuario logeado es admin puede ver todos los proyectos
+        //Sinó solo podra ver los proyectos en los que tenga permisos
+
+        $currentUser =  auth()->user();
+        $projects = null;
+
+        if( $currentUser->is_admin == 1){
+            $projects = $workGroup->projects()->get();
+        }
+        else{
+            $projects = $currentUser->projects()->where('visible', 1)->get();
+        }
+
         return view(
-            'workgroup/dashboard', 
-            ['workGroup' =>$workGroup , 'userProjects' => $userProjects]
+            'workgroup/show', 
+            ['workGroup' =>$workGroup , 'userProjects' => $projects]
         );
     }
 
@@ -86,7 +100,7 @@ class WorkGroupController extends Controller
     /**
      * Inserta en bd un nuevo workgroup y lo relaciona con el usuario mediante la tabla workgroups_users
      */
-    protected function create(Request $data)
+    protected function insertWorkgroup(Request $data)
     {
 
         //Insert in workgroups table
@@ -94,15 +108,13 @@ class WorkGroupController extends Controller
             'name' => $data['name'],
         ]);
 
-        //insert in workgroups_users table
-        $workGroup->users()->attach(
-            $workGroup->id,
-            [
-                'workgroup_id' => $workGroup->id,
-                'user_id' => auth()->user()->id,
-                'admin' => 1,
-            ]
-        );
+
+        // Añadir el workgroup al usuario que lo ha creado
+        $currentUser = auth()->user();
+        $currentUser->workgroup_id = $workGroup->id;
+        $currentUser->is_admin = 1;
+        $currentUser->save();
+
 
         //Return to the project editor view
         return view(

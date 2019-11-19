@@ -30,15 +30,24 @@ class TaskGroupController extends Controller
     {
 
         //Insert in taskgroup table
-        $insert = TaskGroup::create([
+        $taskGroup = TaskGroup::create([
             'project_id' => $projectId,
             'name' => $data['name'],
             'description' => $data['description'],
             // 'status' => $data['status'],
         ]);
 
-        //Return to the project editor view
-        return ProjectController::view_editProject($projectId);
+        //Devolver vista de editar taskgroup
+        $tasks = null;
+
+        return view(
+            'taskgroup/mod',
+            [
+                'taskGroup' => $taskGroup,
+                'taskList' => $tasks,
+                'projectId' => $projectId,
+            ]
+        );
 
     }
 
@@ -130,7 +139,7 @@ class TaskGroupController extends Controller
      */
     public function view_newTaskGroup($projectId)
     {
-        return view('TaskGroup/Tg_Create', ['projectId' => $projectId]);
+        return view('taskgroup/new', ['projectId' => $projectId]);
     }
 
     /**
@@ -145,7 +154,7 @@ class TaskGroupController extends Controller
         $tasks = $taskGroup->tasks;
 
         return view(
-            'TaskGroup/Tg_Edit',
+            'taskgroup/mod',
             [
                 'taskGroup' => $taskGroup,
                 'taskList' => $tasks,

@@ -12,7 +12,7 @@
         <h2>TaskGroup Id {{ $taskGroup->id }}</h2>
 
 
-        <form class="form-horizontal" method="post" action="{{route('rt_tg_update', $taskGroup->id)}}">
+        <form class="form-horizontal" method="post" action="{{route('f-tg-mod', $taskGroup->id)}}">
 
             @csrf <!-- {{ csrf_field() }} -->
 
@@ -43,29 +43,42 @@
             <fieldset class="border p-2">
                 <legend  class="w-auto">Task list</legend>
 
-                @foreach ($taskList as $task)
+                @if ( $taskList != null )
+                
+                    @foreach ($taskList as $task)
 
-                    <div class="d-flex ">
-                        <div class="col-sm-6">
-                            <ul>
-                                <li><h3>{{ $task->name }}</h3></li>
-                                <li>{{ $task->description }}</li>
-                                <li>Status: {{ $task->status }}</li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4">
-                            <a class="btn btn-primary" href="{{ route('rt_ts_edit', $task->id) }}" >Edit</a>
-                            <a class="btn btn-primary" href="{{ route('rt_ts_delete', $task->id) }}" onclick="return confirm('Are you sure?')">Delete</a>
-                        </div>
+                        <div class="d-flex ">
+                            <div class="col-sm-6">
+                                <ul>
+                                    <li><h3>{{ $task->name }}</h3></li>
+                                    <li>{{ $task->description }}</li>
+                                    <li>Status: {{ $task->status }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-4">
+                                <a class="btn btn-primary" href="{{ route('rt_ts_edit', $task->id) }}" >Edit</a>
+                                <a class="btn btn-primary" href="{{ route('rt_ts_delete', $task->id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+                            </div>
 
+                        </div>
+                        
+                        <hr style="color: #0056b2;" />
+
+                    @endforeach
+                
+                @else    
+
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Currently no task has been added.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    
-                    <hr style="color: #0056b2;" />
 
-                @endforeach
+                @endif
 
                 <br>
-                <a class="btn btn-primary" href="{{ route('rt_ts_new', $taskGroup->id)}}">Add new task</a>
+                <a class="btn btn-primary" href="{{ route('v-ts-new', $taskGroup->id)}}">Add new task</a>
                 <br>
 
                 

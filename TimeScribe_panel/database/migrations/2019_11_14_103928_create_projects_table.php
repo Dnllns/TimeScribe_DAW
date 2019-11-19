@@ -34,15 +34,15 @@ class CreateProjectsTable extends Migration
             //VISIBLE
             $table->tinyInteger('visible')->default(Project::VISIBLE);
 
-            //CREADO POR
-            $table->unsignedInteger('workgroup_id')->nullable()->default(null);
+            //Workgroup
+            $table->unsignedInteger('workgroup_id')->nullable();
             $table->foreign('workgroup_id')->references('id')->on('workgroups')->onDelete('cascade');
 
             //FECHA DE INICIO
-            $table->dateTime('start_date')->nullable()->default(null);
+            $table->dateTime('start_date')->nullable();
 
             //FECHA DE FINALIZACION
-            $table->dateTime('finish_date')->nullable()->default(null);
+            $table->dateTime('finish_date')->nullable();
 
         });
     }

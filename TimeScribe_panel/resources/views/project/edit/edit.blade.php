@@ -16,7 +16,7 @@
         
 
 
-        <form class="" method="post" action="{{ route('rt_pr_update', $project->id) }}">
+        <form class="" method="post" action="{{ route('f-pj-mod', $project->id) }}">
 
             @csrf <!-- {{ csrf_field() }} -->
 
@@ -124,50 +124,64 @@
 
             <div id="taskgroup-data" class="collapse mb-3">
 
-                @foreach ($taskGroups as $group)
 
-                    <div class="d-flex ">
-                        <div class="col-sm-10">
-                            <h4>{{ $group->name }}</h4>
-                            <p>{{ $group->description }}</p>
-                            <ul>
-                                <li>Status: {{ $group->status }}</li>
-                                <li>
-                                    % Completed: 
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Assigned Developers</p>
-                                    <ul>
-                                        <li>AAA</li>
-                                        <li>AAA</li>
-                                        <li>AAA</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-primary" href="{{route('rt_tg_edit', $group->id)}}" >Edit</a>
-                            <a class="btn btn-primary" href="{{ route('rt_tg_delete', $group->id) }}" onclick="return confirm('Are you sure?')">Delete</a>
-                        </div>
+                {{-- Lista de grupos de tareas --}}
 
+                @if ($taskGroups->count() != 0)
+
+                    @foreach ($taskGroups as $group)
+
+                        {{-- <div class="d-flex ">
+                            <div class="col-sm-10">
+                                <h4>{{ $group->name }}</h4>
+                                <p>{{ $group->description }}</p>
+                                <ul>
+                                    <li>Status: {{ $group->status }}</li>
+                                    <li>
+                                        % Completed: 
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <p>Assigned Developers</p>
+                                        <ul>
+                                            <li>AAA</li>
+                                            <li>AAA</li>
+                                            <li>AAA</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-primary" href="{{route('f-tg-mod', $group->id)}}" >Edit</a>
+                                <a class="btn btn-primary" href="{{ route('f-tg-del', $group->id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+                            </div>
+                        </div> --}}
+                        
+                        @include('project.edit.partials.taskGroupItem', ['taskGroup' => $taskGroup])
+                        
+                        <hr style="color: #0056b2;" />
+
+                        
+
+
+                    @endforeach
+                
+                @else
+
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Currently no task group has been added.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    
-                    <hr style="color: #0056b2;" />
 
-                @endforeach
-
-
-
-
-                @foreach ($taskGroups as $taskGroup)
-                    @include('project.edit.partials.taskGroupItem', ['taskGroup' => $taskGroup])
-                @endforeach
+                @endif
+                
 
                 <br>
-                <a class="btn btn-primary" href="{{ route('rt_tg_new', $project->id ) }}">Add new task group</a>
+                <a class="btn btn-primary" href="{{ route('v-tg-new', $project->id ) }}">Add new task group</a>
 
             </div>
 

@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
@@ -23,6 +23,7 @@ class Project extends Model
 
     //DB TABLE
     protected $table = 'projects';
+    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -39,11 +40,15 @@ class Project extends Model
 
     // -------------------------------RELATIONS--------------------------------------
 
+    public function workgroups()
+    {
+        return $this->belongsTo('App\Workgroup', 'project_id', 'id');
+    }
+
     //N:N USERS
     public function users()
     {
         return $this->belongsToMany('App\User', 'users_projects', 'user_id', 'project_id');
-
     }
 
     //1:N TASKGROUP
@@ -58,11 +63,7 @@ class Project extends Model
         return $this->hasOne('App\Bill');
     }
 
-
-
     // --------------------
-
-
 
     /**
      * GET PORCENTAJE
@@ -79,16 +80,16 @@ class Project extends Model
         $result = 0;
         $count = 0;
 
-        foreach ($taskGroups as $taskgroup ) {
+        foreach ($taskGroups as $taskgroup) {
 
-            if( count($taskgroup->tasks) != 0){
+            if (count($taskgroup->tasks) != 0) {
                 $percent += $taskgroup->getPercentCompleted();
-                $count+=1;
+                $count += 1;
             }
         }
 
         try {
-            $result =  $percent / $count;
+            $result = $percent / $count;
         } catch (\Exception $e) {
             //posible division por 0
         }
@@ -96,14 +97,14 @@ class Project extends Model
         return $result;
     }
 
-
     /**
      * GET USER CREADOR
      * -------------------
      * Obtiene el usuario que ha creado el proyecto
      * @return User, el usuario que ha creado el proyecto
      */
-    public function getCreator(){
+    public function getCreator()
+    {
         return User::find($this->created_by_id);
     }
 
@@ -111,15 +112,11 @@ class Project extends Model
      * GET DESARROLLADORES
      * ----------------------
      * Obtiene los desarrolladores que pueden participar en el proyecto
-     * @return Collection[User], una coleccion con los usuarios 
+     * @return Collection[User], una coleccion con los usuarios
      */
-    public function getDevelopers(){
-        return $this->users()->where('permissions', Project::PERM_WORK )->get();
+    public function getDevelopers()
+    {
+        return $this->users()->where('permissions', Project::PERM_WORK)->get();
     }
-
-
-
-
-
 
 }

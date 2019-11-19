@@ -16,8 +16,13 @@ class CreateWorkgroupsTable extends Migration
         Schema::create('workgroups', function (Blueprint $table) {
 
             $table->increments('id');
+            
             //nombre workgroup
             $table->string('name', 100)->nullable()->default('new Workgroup');
+            
+            // // Usuario administrador
+            // $table->unsignedInteger('admin_id');
+            // $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }

@@ -110,7 +110,7 @@ class Task extends Model
     // N:N USARIOS
     public function users()
     {
-        return $this->belongsToMany('App\user');
+        return $this->belongsToMany('App\user',  'tasks_users', 'task_id', 'user_id');
     }
 
     #endregion

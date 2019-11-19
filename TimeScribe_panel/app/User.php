@@ -9,7 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'workgroup_id', 'is_customer'];
+    protected $fillable = ['name', 'email', 'password', 'workgroup_id', 'is_admin'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['email_verified_at' => 'datetime'];
 
@@ -21,7 +21,8 @@ class User extends Authenticatable
     /** N:N Workgroup **/
     public function workgroups()
     {
-        return $this->belongsToMany('App\WorkGroup', 'workgroups_users', 'workgroup_id', 'user_id');
+        // return $this->hasMany('App\WorkGroup', 'workgroups_users', 'workgroup_id', 'user_id');
+        return $this->belongsTo('App\WorkGroup');
 
     }
 
@@ -35,7 +36,7 @@ class User extends Authenticatable
     //N:N TAREAS
     public function tasks()
     {
-        return $this->belongsToMany('App\Tasks');
+        return $this->belongsToMany('App\Tasks', 'tasks_users', 'task_id', 'user_id');
     }
 
     //---------------------------------Methods------------------------------------
