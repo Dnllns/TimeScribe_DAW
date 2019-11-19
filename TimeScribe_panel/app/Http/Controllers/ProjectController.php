@@ -11,8 +11,7 @@ class ProjectController extends Controller
 {
 
     /**
-     * -----------------------------------------------------------------
-     * ---------------------ALTA BAJA MODIFICACION----------------------
+     * ----------------------------GESTION------------------------------
      * -----------------------------------------------------------------
      */
 
@@ -57,7 +56,7 @@ class ProjectController extends Controller
             [
                 'project_id' => $newProject->id,
                 'user_id' => $user->id,
-                'permissions' => 1,                       
+                'permissions' => 1,
             ]
         );
 
@@ -65,7 +64,7 @@ class ProjectController extends Controller
         $projectClient = User::find($data['client_id']);
         $projectTaskGroups = null;  // Al ser recien creado no tiene TaskGroups
         return view(
-            'project/edit/edit', 
+            'project/edit/edit',
             [
                 'project' => $newProject,
                 'client' => $projectClient,
@@ -122,7 +121,6 @@ class ProjectController extends Controller
     #endregion GESTION
 
     /**
-     * -----------------------------------------------------------------
      * ----------------------------VISTAS-------------------------------
      * -----------------------------------------------------------------
      */
@@ -161,13 +159,15 @@ class ProjectController extends Controller
     {
         $project = Project::find($projectId);
         $client = User::find($project->client_id);
-        $taskGroups = $project->taskGroups;
+        $taskGroups = $project->taskGroups()->get();
+        $devList = null;
         return view(
             'project/edit/edit',
             [
                 'project' => $project,
                 'client' => $client,
                 'taskGroups' => $taskGroups,
+                'devList' => $devList
             ]
         );
 
