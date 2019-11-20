@@ -84,15 +84,11 @@ Route::get('/home', 'HomeController@index')->name('home');
         // MOD
         // Vista de editar datos de un proyecto
         Route::get('/project-mod/{projectId}', 'ProjectController@view_editProject')
-        ->name('v-pj-mod');
-
-        // //SELECCIONAR PROYECTO
-        // Funcionalidad movida a WorkGroup
-        // Route::get('/project-select', 'ProjectController@view_selectProject')->name('rt_pr_select');
+        ->name('v-pj-mod')->middleware('auth');
 
         // VISUALIZAR PROYECTO
-        Route::get('/project-show/{projectId}', 'ProjectController@view_dashboard')
-        ->name('v-pj-show');
+        Route::get('/project-show/{projectId}', 'ProjectController@view_showProject')
+        ->name('v-pj-show')->middleware('auth');
 
     #endregion
 
@@ -204,7 +200,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
             // ELIMINADO
             Route::get('/task-setdeleted-bd/{taskId}', 'TaskController@setDelete')
-            ->name('f-ts-setdelete')->middleware('auth');
+            ->name('f-ts-setdeleted')->middleware('auth');
 
             // Route::get('/ct-getworkedtime/{taskId}', 'TaskController@getWorkedTime')
             //     ->name('ct_gwt')->middleware('auth');

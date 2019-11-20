@@ -27,7 +27,7 @@
 @section('content')
 
     <!-- Plantilla de sticky chrono -->
-    @include('task.partials.StickyChrono' )
+    @include('task.partials.sticky_chrono' )
 
     {{-- <h1>Project dashboard</h1> --}}
 
@@ -38,13 +38,19 @@
             <p>{{$project->description}}</p>
         </div>
         <div class="card-body">
-            @foreach ($taskGroups as $taskGroup)
-                @include('taskGroup.partials.taskGroupItem', ['taskGroup' => $taskGroup])
-            @endforeach
+            @if( $taskGroups != null)
+                @foreach ($taskGroups as $taskGroup)
+                    @include('taskgroup.partials.taskgroup_item', ['taskGroup' => $taskGroup])
+                @endforeach
+            @else
+                {{-- No hay grupos de tareas --}}
+                @include('common.alert', ['style' => "warning", 'content' => "Currently no task group has been added."] )
+
+            @endif
         </div>
     </div>
 
-    
+
 
 
 

@@ -29,7 +29,7 @@ class ProjectController extends Controller
                 'name' => ['required', 'string', 'max:50'],
                 'description' => ['required', 'string', 'max:250'],
                 'status' => ['required', 'tinyint'],
-            ]);        
+            ]);
         }
 
         /**
@@ -75,7 +75,7 @@ class ProjectController extends Controller
                     'client' => $projectClient,
                     'taskGroups' => $projectTaskGroups,
                     'devList' => $devList,
-                    'workgroupDevs' => $workGroupDevs   
+                    'workgroupDevs' => $workGroupDevs
                 ]
             );
 
@@ -180,7 +180,7 @@ class ProjectController extends Controller
 
 
             return view(
-                'project/edit/edit',
+                'project/mod/mod',
                 [
                     'project' => $project,
                     'client' => $client,
@@ -198,14 +198,18 @@ class ProjectController extends Controller
          * @param Integer $projectId, el id del proyecto a visualizar
          * @return View
          */
-        public function view_dashboard($projectId)
+        public function view_showProject($projectId)
         {
 
             $project = Project::find($projectId);
             $taskGroups = $project->taskGroups;
 
+            if($taskGroups->count() ==  0){
+                $taskGroups = null;
+            }
+
             return view(
-                'project/dashboard',
+                'project/show',
                 [
                     'taskGroups' => $taskGroups,
                     'project' => $project,
@@ -266,7 +270,7 @@ class ProjectController extends Controller
                 ]
             );
 
-            
+
         }
 
 

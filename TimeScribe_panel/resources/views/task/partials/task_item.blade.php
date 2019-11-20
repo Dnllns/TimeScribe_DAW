@@ -47,23 +47,23 @@
         <div class="col-md-1 p-0 d-flex flex-column align-items-center">
 
             @if ($task->status == $task::STATUS_TODO)
-                @include('task.partials.cardButton', ['type' => 'START'] )
+                @include('task.partials.task_item_buttons', ['type' => 'START'] )
             @else
                 <!-- BOTON DE VISUALIZAR -->
-                @include('task.partials.cardButton', ['type' => 'VIEW'] )
+                @include('task.partials.task_item_buttons', ['type' => 'VIEW'] )
 
                 @if ($task->status == $task::STATUS_DOING)
 
                     <!-- BOTON DE SELECT -->
-                    @include('task.partials.cardButton', ['type' => 'SELECT'] )
+                    @include('task.partials.task_item_buttons', ['type' => 'SELECT'] )
 
                     <!-- BOTON DE COMPLETADO -->
-                    @include('task.partials.cardButton', ['type' => 'DONE'] )
+                    @include('task.partials.task_item_buttons', ['type' => 'DONE'] )
 
                 @elseif ($task->status == $task::STATUS_DONE)
 
                     <!-- BOTON DE ELIMINAR -->
-                    @include('task.partials.cardButton', ['type' => 'DELETE'] )
+                    @include('task.partials.task_item_buttons', ['type' => 'DELETE'] )
 
                 @endif
 

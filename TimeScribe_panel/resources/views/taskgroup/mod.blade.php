@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Task group name:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="Enter task group name" name="name" 
+                    <input type="text" class="form-control" id="name" placeholder="Enter task group name" name="name"
                     value="{{ $taskGroup->name }}" >
                 </div>
             </div>
@@ -31,7 +31,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="description">Description:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="description" placeholder="Enter description" name="description" 
+                    <input type="text" class="form-control" id="description" placeholder="Enter description" name="description"
                     value="{{ $taskGroup->description }}">
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <legend  class="w-auto">Task list</legend>
 
                 @if ( $taskList != null )
-                
+
                     @foreach ($taskList as $task)
 
                         <div class="d-flex ">
@@ -56,24 +56,19 @@
                                 </ul>
                             </div>
                             <div class="col-sm-4">
-                                <a class="btn btn-primary" href="{{ route('rt_ts_edit', $task->id) }}" >Edit</a>
-                                <a class="btn btn-primary" href="{{ route('rt_ts_delete', $task->id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+                                <a class="btn btn-primary" href="{{ route('v-ts-mod', $task->id) }}" >Edit</a>
+                                <a class="btn btn-primary" href="{{ route('f-ts-del', $task->id) }}" onclick="return confirm('Are you sure?')">Delete</a>
                             </div>
 
                         </div>
-                        
+
                         <hr style="color: #0056b2;" />
 
                     @endforeach
-                
-                @else    
 
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        Currently no task has been added.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                @else
+
+                    @include('common.alert', ['style' => "warning", 'content' => "Currently no task has been added."] )
 
                 @endif
 
@@ -81,7 +76,7 @@
                 <a class="btn btn-primary" href="{{ route('v-ts-new', $taskGroup->id)}}">Add new task</a>
                 <br>
 
-                
+
             </fieldset>
 
             <br>

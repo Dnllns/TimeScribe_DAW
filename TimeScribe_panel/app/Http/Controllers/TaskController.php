@@ -74,7 +74,7 @@ class TaskController extends Controller
         //Update database
         $task->save();
 
-        return TaskController::view_editTask($task->task_group_id);
+        return $this->view_editTask($task->task_group_id);
 
     }
 
@@ -254,7 +254,7 @@ class TaskController extends Controller
         $workGroupDevelopers = $workGroup->getAllDevelopers();
 
         return view(
-            'task/edit',
+            'task/mod',
             [
                 'task' => Task::find($taskId),
                 'workGroupDevelopers' => $workGroupDevelopers,

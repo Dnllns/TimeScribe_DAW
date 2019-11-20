@@ -13,7 +13,7 @@
             {{-- BARRA --}}
             <div class="col-9 p-0">
                  <div class="progress">
-                    <div class=" progress-bar progress-bar-striped progress-bar-animated 
+                    <div class=" progress-bar progress-bar-striped progress-bar-animated
 
                     @if ($taskGroup->getPercentCompleted() < 20 )
                         bg-danger
@@ -34,7 +34,7 @@
 
                 </div>
             </div>
-            
+
             {{-- PORCENTAJE --}}
             <div class="small font-weight-bold col-3 pr-0">{{$taskGroup->getPercentCompleted()}}%</div>
 
@@ -84,7 +84,7 @@
                 <p class="text-center">TO DO</p>
                 @foreach ($taskGroup->getTasks(0) as $task)
                     <div class="col-sm-12 mx-auto">
-                        @include('task.partials.taskCard', ['task' => $task] )
+                        @include('task.partials.task_item', ['task' => $task] )
                     </div>
                 @endforeach
             </div>
@@ -94,7 +94,7 @@
                 <p class="text-center">DOING</p>
                 @foreach ($taskGroup->getTasks(1) as $task)
                     <div class="col-sm-12 mx-auto">
-                        @include('task.partials.taskCard', ['task' => $task] )
+                        @include('task.partials.task_item', ['task' => $task] )
                     </div>
                 @endforeach
             </div>
@@ -104,7 +104,7 @@
                 <p class="text-center">DONE</p>
                 @foreach ($taskGroup->getTasks(2) as $task)
                     <div class="col-sm-12 mx-auto">
-                        @include('task.partials.taskCard', ['task' => $task] )
+                        @include('task.partials.task_item', ['task' => $task] )
                     </div>
                 @endforeach
             </div>

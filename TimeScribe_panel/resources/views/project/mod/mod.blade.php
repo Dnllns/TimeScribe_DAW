@@ -77,9 +77,9 @@
 
                                 {{-- Seleccionar dev perteneciente al Workgroup --}}
                                 <div class="form-group col">
-                                 
+
                                     <p>Find developers in this workgroup:</p>
-                                    <div class="row"> 
+                                    <div class="row">
 
                                         {{-- Selecionar desarrollador --}}
                                         <div class="col-6">
@@ -98,7 +98,7 @@
 
                                 </div>
 
-                                
+
 
 
                             </div>
@@ -112,7 +112,7 @@
                             <p><strong>Client configuration</strong></p>
                             <div class="col-12 pb-4">
 
-                                
+
 
                                 <div class="row">
 
@@ -121,7 +121,7 @@
                                         <label class="control-label" for="client_email">Client email:</label>
                                         <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="{{ $client->email }}">
                                     </div>
-    
+
                                     <!-- CLIENT NAME  -->
                                     <div class="form-group col-6">
                                         <label class="control-label" for="client_name">Client name:</label>
@@ -130,7 +130,7 @@
 
                                 </div>
 
-                                
+
 
                             </div>
 
@@ -148,7 +148,7 @@
 
                                     @foreach ($taskGroups as $taskGroup)
 
-                                        @include('project.edit.partials.taskGroupItem', ['taskGroup' => $taskGroup])
+                                        @include('project.mod.partials.taskGroupItem', ['taskGroup' => $taskGroup])
 
                                         <hr style="color: #0056b2;" />
 

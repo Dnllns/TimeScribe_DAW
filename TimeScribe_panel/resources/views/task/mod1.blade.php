@@ -6,9 +6,9 @@
 
 <div class="container">
 
-    <h2>Create task</h2>
+    <h2>Edit task</h2>
 
-    <form class="form-horizontal" method="post" action="{{ route('rt_ts_update', $task->id) }}">
+    <form class="form-horizontal" method="post" action="{{ route('f-ts-mod', $task->id) }}">
 
         @csrf <!-- {{ csrf_field() }} -->
 
@@ -18,32 +18,32 @@
                 <input type="text" class="form-control" id="name" placeholder="Enter task name" name="name" value="{{$task->name}}">
             </div>
         </div>
-        
-        
+
+
         <div class="row">
             <label class="control-label" for="description">Description:</label>
             <div class="input-group mb-2">
-                <textarea class="form-control" id="description" rows="3"placeholder="Enter description">{{$task->description}}</textarea>
+                <textarea class="form-control" name="description" rows="3"placeholder="Enter description">{{$task->description}}</textarea>
             </div>
         </div>
-        
-        
+
+
         {{-- Desarrolladores asignados --}}
         <div class="row">
             <label class="control-label" for="asignedDevs">Asigned developers:</label>
             <div id="asignedDevs" class="input-group">
                 @foreach ( $task->getDevelopers() as $developer )
                     <div>
-                        {{$developer->name}}, {{$developer->email}}, {{$developer->id}} 
+                        {{$developer->name}}, {{$developer->email}}, {{$developer->id}}
                     </div>
                 @endforeach
             </div>
         </div>
-        
+
         <!-- Añadir desdarrolladores del Workgroup -->
         <div class="row">
 
-            
+
             <label class="control-label" for="adddev">Add developer *(Must be in te WorkGroup)</label>
             <div class="input-group">
 
@@ -54,7 +54,7 @@
                         @foreach ( $workGroupDevelopers as $developer )
                             <option value="{{$developer->id}}">{{$developer->name}}, {{$developer->email}}</option>
                         @endforeach
-                        
+
                     </select>
                 </div>
 
@@ -63,11 +63,11 @@
                     <button type="button" class="btn btn-primary"> Añadir </button>
                 </div>
 
-            </div>           
+            </div>
 
 
         </div>
-        
+
 
 
         <div class="form-group">

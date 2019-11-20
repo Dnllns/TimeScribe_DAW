@@ -14,53 +14,53 @@
             <!-- START -->
             <!-- Ruta con parametro id vacio -->
 
-            <button 
+            <button
                 id="chrono-start"
-                type="button"  class="btn btn-sm btn-primary m-1" 
-                data-start-route="{{route('chrono-start', '')}}">
+                type="button"  class="btn btn-sm btn-primary m-1"
+                data-start-route="{{route('f-ts-ch-start', '')}}">
                 <i class="fas fa-play icon-white"></i>
             </button>
 
             {{-- STOP --}}
-            <button 
+            <button
                 id="chrono-stop"
-                type="button"  class="btn btn-sm btn-primary m-1 d-none" 
-                data-stop-route="{{route('chrono-stop')}}">
+                type="button"  class="btn btn-sm btn-primary m-1 d-none"
+                data-stop-route="{{route('f-ts-ch-stop')}}">
                 <i class="fas fa-pause icon-white"></i>
             </button>
 
             {{-- RESUME --}}
-            <button 
+            <button
                 id="chrono-resume"
-                type="button"  class="btn btn-sm btn-warning m-1 d-none"> 
+                type="button"  class="btn btn-sm btn-warning m-1 d-none">
                 <i class="fas fa-play icon-white"></i>
             </button>
 
             <!-- RESET -->
             <!-- Ruta con parametro id vacio -->
-            <button 
+            <button
                 id="chrono-reset"
-                data-reset-route="{{route('chrono-reset','')}}"  
+                data-reset-route="{{route('f-ts-ch-reset','')}}"
                 type="button"  class="btn btn-sm btn-danger m-1 d-none">
                 <i class="fas fa-undo icon-white"></i>
             </button>
 
             <!-- GUARDAR CAMBIOS -->
             <!-- Ruta con parametro id vacio -->
-            <button 
-                id="chrono-finish" 
-                data-finish-route="{{route('chrono-finish','')}}"
+            <button
+                id="chrono-finish"
+                data-finish-route="{{route('f-ts-ch-finish','')}}"
                 type="button" class="btn btn-sm btn-info m-1 d-none">
                 <i class="fas fa-save icon-white"></i>
             </button>
 
-            <button 
+            <button
                 id="chrono-close"
                 type="button"  class="btn btn-sm btn-dark m-1">
                 <i class="fas fa-times icon-white"></i>
             </button>
         </div>
     </div>
-  
+
 </div>
 

@@ -25,7 +25,7 @@ class CreateTasksTable extends Migration
             $table->string('name', 50);
 
             //DESCRIPCION
-            $table->string('description', 250);
+            $table->string('description', 250)->nullable();
 
             //ESTADO
             $table->tinyInteger('status')->default(Task::STATUS_TODO);
