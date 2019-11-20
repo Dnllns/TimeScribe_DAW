@@ -34,7 +34,7 @@
                             <!-- PROJECT DESCRIPTION -->
                             <div class="form-group col-12">
                                 <label class="control-label" for="description">Description:</label>
-                                <textarea id="description" class="form-control" rows="5" placeholder="Enter description" name="description" value="{{ $project->description }}"></textarea>
+                                <textarea id="description" class="form-control" rows="5" placeholder="Enter description" name="description">{{ $project->description }}</textarea>
                             </div>
 
                         </div>
@@ -57,7 +57,7 @@
                                     {{-- Lista --}}
                                     <ul>
                                         @foreach ($devList as $dev)
-                                            <li>
+                                            <li class="mb-1">
                                                 <div class="row">
                                                     <div class="col">{{$dev->name}}, {{$dev->email}}</div>
                                                     <div class="col">
@@ -76,22 +76,30 @@
                                 <p>Add developers</p>
 
                                 {{-- Seleccionar dev perteneciente al Workgroup --}}
-                                <div class="form-group col-12">
-                                    <label class="control-label">Find developers in this workgroup:</label>
-                                    <div class="input-group-prepend">
-                                        <button type="button" class="btn btn-outline-secondary">Search</button>
-                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Find by id</a>
-                                            <a class="dropdown-item" href="#">Find by email</a>
-                                            <div role="separator" class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Find all</a>
+                                <div class="form-group col">
+                                 
+                                    <p>Find developers in this workgroup:</p>
+                                    <div class="row"> 
+
+                                        {{-- Selecionar desarrollador --}}
+                                        <div class="col-6">
+                                            <select class="browser-default custom-select">
+                                                @foreach ( $workGroupDevs as $dev)
+                                                    <option value="{{$dev->id}}">{{$dev->name}}, {{$dev->email}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+
+                                        <div class="col">
+                                            <a href="" class="btn btn-primary">Add selected</a>
+                                        </div>
+
                                     </div>
+
                                 </div>
+
+                                
+
 
                             </div>
 
@@ -101,22 +109,28 @@
 
                         {{-- Configuracion cliente --}}
                         <div class="row pb-2">
-
+                            <p><strong>Client configuration</strong></p>
                             <div class="col-12 pb-4">
 
-                                <p><strong>Client configuration</strong></p>
+                                
 
-                                <!-- CLIENT EMAIL -->
-                                <div class="form-group col">
-                                    <label class="control-label" for="client_email">Client email:</label>
-                                    <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="{{ $client->email }}">
+                                <div class="row">
+
+                                    <!-- CLIENT EMAIL -->
+                                    <div class="form-group col-6">
+                                        <label class="control-label" for="client_email">Client email:</label>
+                                        <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="{{ $client->email }}">
+                                    </div>
+    
+                                    <!-- CLIENT NAME  -->
+                                    <div class="form-group col-6">
+                                        <label class="control-label" for="client_name">Client name:</label>
+                                        <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="{{ $client->name }}">
+                                    </div>
+
                                 </div>
 
-                                <!-- CLIENT NAME  -->
-                                <div class="form-group col">
-                                    <label class="control-label" for="client_name">Client name:</label>
-                                    <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="{{ $client->name }}">
-                                </div>
+                                
 
                             </div>
 
@@ -126,9 +140,11 @@
 
                         {{-- Lista de grupos de tareas --}}
                         <div class="row pb-2">
+                            <p><strong>Task group configuration</strong></p>
+
                             <div class="col-12">
 
-                                @if ($taskGroups != null or $taskGroups->count() > 0 )
+                                @if ( $taskGroups != null )
 
                                     @foreach ($taskGroups as $taskGroup)
 

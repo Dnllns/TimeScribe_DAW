@@ -9,44 +9,59 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'workgroup_id', 'is_admin'];
-    protected $hidden = ['password', 'remember_token'];
-    protected $casts = ['email_verified_at' => 'datetime'];
+    
+    /**
+     * --------------------------CLASS--------------------------------
+     * ---------------------------------------------------------------
+     */
 
-    const DEVELOPER = 0;
-    const CUSTOMER = 1;
+    #region class
 
-    // -------------------------------RELATIONS--------------------------------------
+        protected $fillable = ['name', 'email', 'password', 'workgroup_id', 'is_admin'];
+        protected $hidden = ['password', 'remember_token'];
+        protected $casts = ['email_verified_at' => 'datetime'];
 
-    /** N:N Workgroup **/
-    public function workgroups()
-    {
-        // return $this->hasMany('App\WorkGroup', 'workgroups_users', 'workgroup_id', 'user_id');
-        return $this->belongsTo('App\WorkGroup');
+        const DEVELOPER = 0;
+        const CUSTOMER = 1;
 
-    }
+    #endregion
 
-    //N:N PROJECTS
-    public function projects()
-    {
-        return $this->belongsToMany('App\Project', 'users_projects', 'user_id', 'project_id');
+    /**
+     * --------------------------RELATIONS----------------------------
+     * ---------------------------------------------------------------
+     */
 
-    }
+     #region relations
 
-    //N:N TAREAS
-    public function tasks()
-    {
-        return $this->belongsToMany('App\Tasks', 'tasks_users', 'task_id', 'user_id');
-    }
+        /** N:N Workgroup **/
+        public function workgroups()
+        {
+            return $this->belongsTo('App\WorkGroup', 'workgroup_id', 'id');
+        }
 
-    //---------------------------------Methods------------------------------------
+        //N:N PROJECTS
+        public function projects()
+        {
+            return $this->belongsToMany('App\Project', 'users_projects', 'user_id', 'project_id');
+        }
 
-    public function getProjectPermissions($id)
-    {
+        //N:N TAREAS
+        public function tasks()
+        {
+            return $this->belongsToMany('App\Tasks', 'tasks_users', 'task_id', 'user_id');
+        }
 
-        $project_user = $this->projects()->where('project_id', $id)->get();
-        $perm = $project_user->permissions;
+    #endregion
 
-    }
+    /**
+     * --------------------------FUNCIONES----------------------------
+     * ---------------------------------------------------------------
+     */
+
+    #region funciones
+
+
+
+    #endregion
 
 }

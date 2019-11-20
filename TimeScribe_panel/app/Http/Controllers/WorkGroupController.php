@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\WorkGroup;
+use App\Project;
 use Illuminate\Http\Request;
 
 class WorkGroupController extends Controller
@@ -51,11 +52,24 @@ class WorkGroupController extends Controller
         $currentUser =  auth()->user();
         $projects = null;
 
+
         if( $currentUser->is_admin == 1){
+
+            // USUARIO ADMIN
+
+            // Obtiene todos los proyectos del Workgroup
             $projects = $workGroup->projects()->get();
+
         }
         else{
-            $projects = $currentUser->projects()->where('visible', 1)->get();
+
+            // NO ADMIN
+
+            // Obtiene los proyectos del workgroup que le han sido asignados
+            $projects = $currentUser->projects()
+            ->where('permissions', Project::PERM_ALL)
+            ->orWhere('permissions', Project::PERM_WORK )->get();
+
         }
 
         return view(

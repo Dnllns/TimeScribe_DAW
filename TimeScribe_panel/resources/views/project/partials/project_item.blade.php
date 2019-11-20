@@ -10,7 +10,7 @@
     <div class="col-sm-2">
         <p class="small font-weight-bold m-0">
             <i class="fas fa-user" data-toggle="tooltip" data-placement="top" title="Client"></i>
-            {{$project->getCreator()->name}}
+            
         </p>
     </div>
     
@@ -42,23 +42,23 @@
     <!-- BOTONES -->    
     <div class="col-sm-2" >  
         <a 
-            href="{{route('project-dashboard', $project->id)}}" 
+            href="{{route('v-pj-show', $project->id)}}" 
             class="btn btn-circle btn-sm bg-primary mb-1 " 
             data-tooltip="tooltip" data-placement="bottom" title="View">
             <i class="far fa-eye icon-white"></i>
         </a>
 
-        @if ($isOwner)
+        @if ( $perms == $project::PERM_ALL)
         
             <a 
-                href="{{route('project-edit', $project->id)}}" 
+                href="{{route('v-pj-mod', $project->id)}}" 
                 class="btn btn-circle btn-sm bg-warning mb-1"
                 data-tooltip="tooltip" data-placement="bottom" title="Edit">
                 <i class="far fa-edit icon-white"></i>
             </a>
 
             <a 
-                href="{{route('project-delete', $project->id)}}" 
+                href="{{route('f-pj-del', $project->id)}}" 
                 class="btn btn-circle btn-sm bg-danger mb-1" 
                 data-tooltip="tooltip" data-placement="bottom" title="Delete">
                 <i class="far fa-trash-alt icon-white"></i>

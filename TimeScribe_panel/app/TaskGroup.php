@@ -8,21 +8,51 @@ use \App\Task;
 class TaskGroup extends Model
 {
 
-    //STATUS
-    const STATUS_TODO = 0;
-    const STATUS_DOING = 1;
-    const STATUS_DONE = 2;
-
-    //VISIBILITY
-    const INVISIBLE = 0;
-    const VISIBLE = 1;
-
-    protected $table = 'taskgroups';
-    protected $fillable = ['project_id', 'name', 'description', 'status', 'visble', 'start_date', 'finish_date'];
-    public $timestamps = false;
 
     /**
+     * --------------------------Class------------------------------
      * -------------------------------------------------------------
+     */
+
+    #region Class
+
+        //STATUS
+        const STATUS_TODO = 0;
+        const STATUS_DOING = 1;
+        const STATUS_DONE = 2;
+
+        //VISIBILITY
+        const INVISIBLE = 0;
+        const VISIBLE = 1;
+
+        protected $table = 'taskgroups';
+        protected $fillable = ['project_id', 'name', 'description', 'status', 'visble', 'start_date', 'finish_date'];
+        public $timestamps = false;
+
+    #endregion
+
+    /**
+     * --------------------------RELATIONS----------------------------
+     * ---------------------------------------------------------------
+     */
+
+    #region RELATIONS BD
+
+        //N:1 PROJECT
+        public function project()
+        {
+            return $this->belongsTo('App\Project');
+        }
+
+        //1:N TASK
+        public function tasks()
+        {
+            return $this->hasMany('App\Task');
+        }
+
+    #endregion
+
+    /**
      * --------------------------FUNCTIONS--------------------------
      * -------------------------------------------------------------
      */
@@ -143,25 +173,5 @@ class TaskGroup extends Model
 
     #endregion
 
-    /**
-     * ---------------------------------------------------------------
-     * --------------------------RELATIONS----------------------------
-     * ---------------------------------------------------------------
-     */
 
-    #region RELATIONS BD
-
-    //N:1 PROJECT
-    public function project()
-    {
-        return $this->belongsTo('App\Project');
-    }
-
-    //1:N TASK
-    public function tasks()
-    {
-        return $this->hasMany('App\Task');
-    }
-
-    #endregion
 }

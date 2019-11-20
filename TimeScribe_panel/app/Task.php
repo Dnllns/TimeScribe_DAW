@@ -6,31 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $table = 'tasks';
-    public $timestamps = false;
 
-    protected $fillable = [
-        // 'user_id',
-        'task_group_id',
-        'name',
-        'description',
-        'status',
-        'start_date',
-        'finish_date',
-        'visible',
-    ];
-
-    //TASK STATUS
-    const STATUS_TODO = 0;
-    const STATUS_DOING = 1;
-    const STATUS_DONE = 2;
-
-    //VISIBLE
-    const VISIBLE = 1;
-    const INVISIBLE = 2;
 
     /**
+     * --------------------Class----------------------------
      * -----------------------------------------------------
+     */
+
+    #region Class
+
+        protected $table = 'tasks';
+        public $timestamps = false;
+
+        protected $fillable = [
+            // 'user_id',
+            'task_group_id',
+            'name',
+            'description',
+            'status',
+            'start_date',
+            'finish_date',
+            'visible',
+        ];
+
+        //TASK STATUS
+        const STATUS_TODO = 0;
+        const STATUS_DOING = 1;
+        const STATUS_DONE = 2;
+
+        //VISIBLE
+        const VISIBLE = 1;
+        const INVISIBLE = 2;
+
+    #endregion
+
+    /**
      * ------------------FUNCTIONS--------------------------
      * -----------------------------------------------------
      */
@@ -88,30 +98,29 @@ class Task extends Model
     #endregion
 
     /**
-     * -----------------------------------------------------
      * ------------------RELATIONS--------------------------
      * -----------------------------------------------------
      */
 
     #region RELATIONS
 
-    // N:1 TASKGROUP
-    public function taskGroup()
-    {
-        return $this->belongsTo('App\TaskGroup');
-    }
+        // N:1 TASKGROUP
+        public function taskGroup()
+        {
+            return $this->belongsTo('App\TaskGroup');
+        }
 
-    // 1:N TIMERECORDS
-    public function TimeRecords()
-    {
-        return $this->hasMany('App\TimeRecord');
-    }
+        // 1:N TIMERECORDS
+        public function TimeRecords()
+        {
+            return $this->hasMany('App\TimeRecord');
+        }
 
-    // N:N USARIOS
-    public function users()
-    {
-        return $this->belongsToMany('App\user',  'tasks_users', 'task_id', 'user_id');
-    }
+        // N:N USARIOS
+        public function users()
+        {
+            return $this->belongsToMany('App\user',  'tasks_users', 'task_id', 'user_id');
+        }
 
     #endregion
 

@@ -7,27 +7,46 @@ use Illuminate\Database\Eloquent\Model;
 class TimeRecord extends Model
 {
 
-    //DB TABLE
-    protected $table = 'timerecords';
+    /**
+     * --------------------------Class--------------------------------
+     * ---------------------------------------------------------------
+     */
 
-    public $timestamps = false;
+    #region Class
 
-    protected $fillable = [
-        'user_id',
-        'task_id',
-        'start_date',
-        'finish_date',
-        'status'
-    ];
+        //DB TABLE
+        protected $table = 'timerecords';
 
-    const STATUS_DRAFT = 0;
-    const STATUS_FINAL = 1;
+        public $timestamps = false;
+    
+        protected $fillable = [
+            'user_id',
+            'task_id',
+            'start_date',
+            'finish_date',
+            'status'
+        ];
+    
+        const STATUS_DRAFT = 0;
+        const STATUS_FINAL = 1;
 
-    public function task()
-    {
-        return $this->belongsTo('App\Task');
-    }
+    #enregion
 
 
+    
+    /**
+     * --------------------------RELATIONS----------------------------
+     * ---------------------------------------------------------------
+     */
+
+    
+    #region relations
+    
+        public function task()
+        {
+            return $this->belongsTo('App\Task');
+        }
+
+    #endregion
 
 }

@@ -18,6 +18,14 @@ Route::get('/', function () {
 //LOGIN - REGISTER
 Auth::routes();
 
+
+Route::get('/logout', function(){
+    Session::flush();
+    Auth::logout();
+    return Redirect::to("/login")
+      ->with('message', array('type' => 'success', 'text' => 'You have successfully logged out'));
+});
+
 //HOME
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -101,6 +109,12 @@ Route::get('/home', 'HomeController@index')->name('home');
         // MOD
         Route::post('/project-mod-bd/{projectId}', 'ProjectController@updateProject')
         ->name('f-pj-mod')->middleware('auth');
+
+        // ADD DEVELOPER
+        Route::get('/project-add-developer-bd/{projectId}/{developerId}/{permissionType}', 'ProjectController@addDeveloper')
+        ->name('f-pj-adddev')->middleware('auth');
+
+
 
     #endregion
 

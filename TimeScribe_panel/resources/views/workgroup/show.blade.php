@@ -22,11 +22,16 @@
 
         @else 
 
-            {{-- Lista de prollectos --}}
+            {{-- Lista de proyectos --}}
             <div class="row">
                 <div class="col-12">
                     @foreach ($userProjects as $project)
-                        @include('project.partials.project_item', ['isOwner' => true])
+
+                        @if( $project->getUserPermission(auth()->user()->id) == $project::PERM_ALL or $project->getUserPermission(auth()->user()->id) == $project::PERM_WORK )
+
+                            @include('project.partials.project_item', ['perms' => $project->getUserPermission(auth()->user()->id)])
+
+                        @endif
                     @endforeach
                 </div>
             </div>
