@@ -207,6 +207,20 @@ Route::get('/home', 'HomeController@index')->name('home');
 
         #endregion
 
+
+        #region Task Mod
+
+            // Añadir desarrollador a la tarea
+            Route::get('/task-adddev-bd/{taskId}/{devId}', 'TaskController@addDeveloper')
+            ->name('f-ts-adddev')->middleware('auth');
+
+            // Eliminar desarrollador de la tarea
+            Route::get('/task-deldev-bd/{taskId}/{devId}', 'TaskController@delDeveloper')
+            ->name('f-ts-deldev')->middleware('auth');
+
+        #region
+
+
         #region STICKY CHRONO
 
             // Iniciar cronómetro

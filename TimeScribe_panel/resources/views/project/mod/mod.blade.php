@@ -61,7 +61,7 @@
                                                 <div class="row">
                                                     <div class="col">{{$dev->name}}, {{$dev->email}}</div>
                                                     <div class="col">
-                                                        <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                                        <a href="" class="btn btn-sm text-danger"><i class="fas fa-trash-alt"></i></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -90,8 +90,8 @@
                                             </select>
                                         </div>
 
-                                        <div class="col">
-                                            <a href="" class="btn btn-primary">Add selected</a>
+                                        <div class="col my-auto">
+                                            <a href="" class="btn btn-sm btn-primary float-right">Add selected</a>
                                         </div>
 
                                     </div>
@@ -128,6 +128,11 @@
                                         <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="{{ $client->name }}">
                                     </div>
 
+
+                                    <div class="col-12 my-auto">                                    
+                                        <a class="btn btn-primary btn-sm float-right" href=""> Resend the invitation</a>
+                                    </div>
+
                                 </div>
 
 
@@ -146,33 +151,33 @@
 
                                 @if ( $taskGroups != null )
 
-                                    @foreach ($taskGroups as $taskGroup)
+                                    <ul>
+                                        @foreach ($taskGroups as $taskGroup)
+                                            <li>
+                                                @include('project.mod.partials.taskGroupItem', ['taskGroup' => $taskGroup])
+                                            </li>
 
-                                        @include('project.mod.partials.taskGroupItem', ['taskGroup' => $taskGroup])
-
-                                        <hr style="color: #0056b2;" />
-
-                                    @endforeach
-
+                                        @endforeach
+                                    </ul>
                                 @else
 
                                     {{-- Mensaje de aviso, no hay tareas --}}
                                     @include('common.alert', ['style' => "warning", 'content' => "Currently no task group has been added."] )
 
-                                @endif
-
-
-                                <br>
-                                <a class="btn btn-primary" href="{{ route('v-tg-new', $project->id ) }}">Add new task group</a>
+                                @endif                               
 
                             </div>
+                            <div class="col my-auto">
+                                <a class="btn btn-sm btn-primary float-right" href="{{ route('v-tg-new', $project->id ) }}">Add new task group</a>
+                            </div>
                         </div>
+                        <hr>
 
 
                         {{-- BOTON GUARDAR --}}
                         <div class="row">
-                            <div class="col-12">
-                                <button id="save" name="save" class="btn btn-primary float-right">Save</button>
+                            <div class="col-12 text-center">
+                                <button id="save" name="save" class="btn btn-success ">Save</button>
                             </div>
                         </div>
 

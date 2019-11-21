@@ -1,24 +1,34 @@
 @extends('layouts.app')
 
+
+@section('head')
+    <script src="/js/task/task_mod_functions.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
 
 
     {{-- Alert message for when new task is created --}}
-    @if ($isNew)
-    @include(
-        'common.alert',
-        [
-            'style' => "sucsess",
-            'content' => "The task <strong>{{$task->name}}</strong> has been successfully created."
-        ]
-    )
+    @if (isset($isNew))
+        <div class= "row">
+            <div class="col-12 mb-2">
+                @include(
+                    'common.alert',
+                    [
+                        'style' => "success",
+                        'content' => "The task <strong>"  . $task->name . "</strong> has been successfully created."
+                    ]
+                )  
+            </div>
+                      
+        </div>
     @endif
 
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><strong>Edit task</strong></div>
+            <div id="taskcard" data-taskid="{{$task->id}}" class="card-header"><strong>Edit task</strong></div>
 
                 <div class="card-body m-4">
 
@@ -42,14 +52,14 @@
                             <!-- PROJECT DESCRIPTION -->
                             <div class="form-group col-12">
                                 <label class="control-label" for="description">Description:</label>
-                                <textarea id="description" class="form-control" rows="5" placeholder="Enter description" name="description">{{ $project->description }}</textarea>
+                                <textarea id="description" class="form-control" rows="5" placeholder="Enter description" name="description">{{ $task->description }}</textarea>
                             </div>
 
                         </div>
 
                         <hr>
 
-                        {{-- AÑADIR USUARIOS --}}
+                        {{-- USUARIOS --}}
                         <div class="row pb-2">
 
 
@@ -58,7 +68,7 @@
                                 <p><strong>Developer list</strong></p>
 
 
-                                @if (!isset($workGroupDevelopers))
+                                @if (!isset($taskDevelopers))
                                 {{-- Sin developers asignados --}}
 
                                     @include('common.alert', ['style' => "warning", 'content' => "Currently no developer has been added."] )
@@ -66,14 +76,18 @@
                                 @else
                                 {{-- Existen developers --}}
 
-                                    <ul>
-                                        @foreach ($workGroupDevelopers as $developer)
+                                    <ul id="devlist">
+                                        @foreach ($taskDevelopers as $developer)
 
                                             <li>
                                                 <div class="row">
                                                     <div class="col">{{$developer->name}}, {{$developer->email}}</div>
                                                     <div class="col">
-                                                        <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                                        <a 
+                                                        data-id="{{$developer->id}}" data-funct="{{ route( 'f-ts-deldev', ['taskId' => $task->id, 'devId' => $developer->id ] ) }}" 
+                                                        href="" class="btn btn-sm text-danger f-remove">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -89,19 +103,41 @@
                             <div class="col-12 pb-4">
                                 <p><strong>Add developers</strong></p>
 
-                                {{-- Nombre --}}
-                                <label class="control-label" for="name">Name:</label>
-                                <div class="input-group mb-2">
-                                    <input id="name" name="name" type="text" placeholder="Developer name" class="form-control input-md">
-                                </div>
+                                <div class="form-group col">
 
-                                {{-- Email --}}
-                                <label class="control-label" for="email">Email:</label>
-                                <div class="input-group mb-2">
-                                    <input id="email" name="email" type="email" placeholder="Developer email" class="form-control input-md">
-                                </div>
+                                    @if ( $projectDevelopers == null)
+                                    {{-- No hay developers --}}
 
-                                <a href="" class="btn btn-warning mt-2">Enviar invitacion</a>
+                                        @include('common.alert', ['style' => "warning", 'content' => "There isn't more developers availables"] )
+
+                                    @else
+                                    {{-- Seleccionador de developers --}}
+
+                                        <p>Find developers in this project:</p>
+                                        <div id="adddevscontainer" class="row">
+    
+                                            {{-- Selecionar desarrollador --}}
+                                            <div class="col-6">
+                                                <select id="devsselector" class="browser-default custom-select">
+                                                    @foreach ( $projectDevelopers as $dev)
+                                                        <option value="{{$dev->id}}">{{$dev->name}}, {{$dev->email}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+    
+                                            <div class="col my-auto">
+                                                <a id="adddev" class="btn btn-sm btn-primary float-right"    
+                                                data-funct="{{route('f-ts-adddev', [ 'taskId' =>  $task->id , 'devId' => "devId" ] )}}" 
+                                                href="" >Add selected</a>
+                                            </div>
+    
+                                        </div>
+
+                                    @endif
+
+    
+                                    </div>
+
 
                             </div>
 
@@ -112,7 +148,7 @@
                         {{-- BOTON GUARDAR --}}
                         <div class="row">
                             <div class="col-12">
-                                <button id="save" name="save" class="btn btn-primary float-right">Save</button>
+                                <button id="save" name="save" class="btn btn-success  float-right">Save</button>
                             </div>
                         </div>
 

@@ -26,7 +26,7 @@ class TaskGroup extends Model
         const VISIBLE = 1;
 
         protected $table = 'taskgroups';
-        protected $fillable = ['project_id', 'name', 'description', 'status', 'visble', 'start_date', 'finish_date'];
+        protected $fillable = ['project_id', 'name', 'description', 'status', 'visible', 'start_date', 'finish_date'];
         public $timestamps = false;
 
     #endregion
@@ -142,15 +142,15 @@ class TaskGroup extends Model
 
         switch ($this->status) {
             case $this::STATUS_TODO:
-                echo '<i class="far fa-clipboard ml-3" data-toggle="tooltip" data-placement="right" title="To do"></i>';
+                echo '<i class="far fa-clipboard ml-3 text-info" data-toggle="tooltip" data-placement="right" title="To do"></i>';
                 break;
 
             case $this::STATUS_DOING:
-                echo '<i class="fas fa-pencil-alt ml-3" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
+                echo '<i class="fas fa-pencil-alt ml-3 text-info" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
                 break;
 
             case $this::STATUS_DONE:
-                echo '<i class="fas fa-clipboard-check ml-3" data-toggle="tooltip" data-placement="right" title="Done"></i>';
+                echo '<i class="fas fa-clipboard-check ml-3 text-info" data-toggle="tooltip" data-placement="right" title="Done"></i>';
                 break;
         }
     }
@@ -163,10 +163,10 @@ class TaskGroup extends Model
     public function getVisibilityIcon()
     {
 
-        if ($this->visible) {
-            echo '<i class="far fa-eye" data-toggle="tooltip" data-placement="right" title="Visible"></i>';
+        if ($this->visible == 1) {
+            echo '<i class="far fa-eye text-warning" data-toggle="tooltip" data-placement="right" title="Visible"></i>';
         } else {
-            echo '<i class="fas fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';
+            echo '<i class="fas fa-eye-slash text-warning" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';
         }
 
     }

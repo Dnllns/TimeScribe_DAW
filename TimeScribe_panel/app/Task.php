@@ -77,22 +77,16 @@ class Task extends Model
 
 
 
-    public function setDeveloper($idDeveloper){
+    // public function setDeveloper($idDeveloper){
 
-        $this->user_id = $idDeveloper;
-        $this->save();
+    //     $this->user_id = $idDeveloper;
+    //     $this->save();
 
-
-    }
+    // }
 
     public function getDevelopers()
     {
-
-        $developers = $this->users()->get();
-        $a = 0;
-
-        return $developers;
-
+        return $this->users()->get();
     }
 
     #endregion

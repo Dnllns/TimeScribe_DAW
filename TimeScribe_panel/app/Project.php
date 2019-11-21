@@ -121,7 +121,7 @@ class Project extends Model
          */
         public function getDevelopers()
         {
-            return $this->users()->where('permissions', Project::PERM_WORK)->get();
+            return $this->users()->where('permissions', Project::PERM_WORK)->orWhere('permissions', Project::PERM_ALL)->get();
         }
 
 

@@ -7,6 +7,10 @@ use App\Http\Controllers\TaskGroupController;
 use App\Task;
 use App\TimeRecord;
 use App\WorkGroup;
+use App\TaskGroup;
+use App\Project;
+
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -216,6 +220,28 @@ class TaskController extends Controller
         }
     }
 
+
+    public function addDeveloper( $taskId, $devId){
+
+        $task = Task::find($taskId);
+
+        $task->users()->attach(
+            $devId,
+            [
+                'task_id' => $taskId,
+                'user_id' => $devId,
+            ]
+        );
+    }
+
+
+    public function delDeveloper( $taskId, $devId){
+
+        $task = Task::find($taskId);
+        $task->users()->detach($devId);
+
+    }
+
     #endregion
 
     /**
@@ -248,16 +274,27 @@ class TaskController extends Controller
 
         // Obtener desarrolladores asignados a la tarea
         //-------
+        $task = Task::find($taskId);
+        $taskDevs = $task->getDevelopers();        
 
-        $userId = auth()->user()->id;
-        $workGroup = WorkGroup::find($userId);
-        $workGroupDevelopers = $workGroup->getAllDevelopers();
+        // Obtener desarrolladores del proyecto
+        $taskGroup = TaskGroup::find($task->task_group_id);
+        $project = Project::find($taskGroup->project_id);
+        $projectDevs = $project->getDevelopers();
+        $projectDevsNotAssigned = $projectDevs->diff($taskDevs);
+
+        if( $projectDevsNotAssigned->count() == 0){
+            $projectDevsNotAssigned = null;
+        }
+
+
 
         return view(
             'task/mod',
             [
-                'task' => Task::find($taskId),
-                'workGroupDevelopers' => $workGroupDevelopers,
+                'task' => $task,
+                'taskDevelopers' => $taskDevs,
+                'projectDevelopers' => $projectDevsNotAssigned,
             ]
         );
     }
