@@ -275,19 +275,24 @@ class TaskController extends Controller
         // Obtener desarrolladores asignados a la tarea
         //-------
         $task = Task::find($taskId);
-        $taskDevs = $task->getDevelopers();        
-
+        $taskDevs = $task->getDevelopers();  
+   
         // Obtener desarrolladores del proyecto
+        //---------
         $taskGroup = TaskGroup::find($task->task_group_id);
         $project = Project::find($taskGroup->project_id);
         $projectDevs = $project->getDevelopers();
         $projectDevsNotAssigned = $projectDevs->diff($taskDevs);
 
+
+
+        if( $taskDevs->count() == 0){
+            $taskDevs = null;
+        }   
+
         if( $projectDevsNotAssigned->count() == 0){
             $projectDevsNotAssigned = null;
         }
-
-
 
         return view(
             'task/mod',

@@ -64,11 +64,11 @@
 
 
                             {{-- Lista de usuarios --}}
-                            <div class="col-12 pb-4">
+                            <div id="devlist-container" class="col-12 pb-4">
                                 <p><strong>Developer list</strong></p>
 
 
-                                @if (!isset($taskDevelopers))
+                                @if ($taskDevelopers == null)
                                 {{-- Sin developers asignados --}}
 
                                     @include('common.alert', ['style' => "warning", 'content' => "Currently no developer has been added."] )
@@ -81,7 +81,9 @@
 
                                             <li>
                                                 <div class="row">
-                                                    <div class="col">{{$developer->name}}, {{$developer->email}}</div>
+                                                    <div class="col data-item" data-id="{{$developer->id}}">
+                                                        {{$developer->name}}, {{$developer->email}}
+                                                    </div>
                                                     <div class="col">
                                                         <a 
                                                         data-id="{{$developer->id}}" data-funct="{{ route( 'f-ts-deldev', ['taskId' => $task->id, 'devId' => $developer->id ] ) }}" 
@@ -104,45 +106,45 @@
                                 <p><strong>Add developers</strong></p>
 
                                 <div class="form-group col">
+                                    <p>Find developers in this project:</p>
 
-                                    @if ( $projectDevelopers == null)
-                                    {{-- No hay developers --}}
+                                    <div id="adddevscontainer" class="row">
+                                        <div class="col-12">
 
-                                        @include('common.alert', ['style' => "warning", 'content' => "There isn't more developers availables"] )
+                                            @if ( $projectDevelopers == null)
+                                            {{-- No hay developers --}}
 
-                                    @else
-                                    {{-- Seleccionador de developers --}}
+                                                <div id="adddevs-alert">
+                                                    @include('common.alert', ['style' => "warning", 'content' => "There isn't more developers availables"] )
+                                                </div>
 
-                                        <p>Find developers in this project:</p>
-                                        <div id="adddevscontainer" class="row">
+                                            @else
+                                            {{-- Seleccionador de developers --}}
+
+                                                <div id="adddevs-selector">
     
-                                            {{-- Selecionar desarrollador --}}
-                                            <div class="col-6">
-                                                <select id="devsselector" class="browser-default custom-select">
-                                                    @foreach ( $projectDevelopers as $dev)
-                                                        <option value="{{$dev->id}}">{{$dev->name}}, {{$dev->email}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-    
-                                            <div class="col my-auto">
-                                                <a id="adddev" class="btn btn-sm btn-primary float-right"    
-                                                data-funct="{{route('f-ts-adddev', [ 'taskId' =>  $task->id , 'devId' => "devId" ] )}}" 
-                                                href="" >Add selected</a>
-                                            </div>
-    
+                                                    <div class="col-6">
+                                                        <select id="devsselector" class="browser-default custom-select">
+                                                            @foreach ( $projectDevelopers as $dev)
+                                                                <option value="{{$dev->id}}">{{$dev->name}}, {{$dev->email}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col my-auto">
+                                                        <a id="adddev" class="btn btn-sm btn-primary float-right"    
+                                                        data-funct="{{route('f-ts-adddev', [ 'taskId' =>  $task->id , 'devId' => "devId" ] )}}" 
+                                                        href="" >Add selected</a>
+                                                    </div>
+                                                </div>
+
+
+                                            @endif
                                         </div>
-
-                                    @endif
-
-    
                                     </div>
 
-
+                                </div>
                             </div>
-
-
-
                         </div>
 
                         {{-- BOTON GUARDAR --}}
