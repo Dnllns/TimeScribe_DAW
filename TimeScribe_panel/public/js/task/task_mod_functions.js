@@ -5,102 +5,66 @@ $(function() {
     });
 
 
-    $('#devlist').on('click', "a.f-remove", function(event) {
+    $('#dev-list').on('click', "a.f-remove", function(event) {
         delDeveloperFromList(event, $(this))
     });
 
 })
+
+//-----------------------------------------------------------------------
+//
+//                             AÑADIR A LA LISTA
+//                              ---------------
+//
+//-----------------------------------------------------------------------
+
+
+// #region add to list
 
 
 function addDeveloperToList(event) {
 
 
     // Anular el efecto de click en el enlace
-    event.preventDefault();
+    event.preventDefault()
 
-    var selectedItem = $('#devsselector').children(":selected");
+    var selectedItem = $('#select-devs select').children(":selected")
 
-    ajaxAddToList(selectedItem);
+    ajaxAddToList(selectedItem)
 
     //----- Actualizar interface ---------
     //------------------------------------
 
-    addToList(selectedItem);
-
-    delFromSelect(selectedItem);
+    
+    addPrepareInterface()  // Preparar interface
+    addToList(selectedItem)
+    delFromSelect(selectedItem)
 
     //Si el select esta vacío mostrar un alert
-    if ($('#devsselector').html().trim() == "") {
-
-        //Ocultar el selector
-        $('#adddevs-selector').css("display", "none");
-
-        //Mostrar mensaje de alerta
-        $('#adddevscontainer').append(
-
-            "<div id='adddevs-alert' class='col-12'>" +
-            "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
-            "There isn't more developers availables" +
-            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-            "<span aria-hidden='true'>&times;</span>" +
-            "</button>" +
-            "</div>" +
-            "</div>"
-
-        );
+    if ($('#select-devs select').has('option').length == 0) {
+        selectShowAlert()
     }
 
 }
 
-function delDeveloperFromList(event, element) {
+function selectShowAlert(){
 
-    event.preventDefault();
+    //Eliminar el selector y el boton
+    $("#select-devs").remove()
 
-    if (confirm("Seguro que desea eliminar?")) {
+    //Mostrar mensaje de alerta
+    $('#workgroup-devs-container').append(
 
-        //Peticion al server
-        ajaxDelFromList(element)
+        "<div id='alert-select-devs'>" +
+        "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
+        "There isn't more developers availables" +
+        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+        "<span aria-hidden='true'>&times;</span>" +
+        "</button>" +
+        "</div>" +
+        "</div>"
 
-        //Añadir el dev eliminado a el select de añadir
-
-        //Comprobar si existe el select
-        var selector = $("#adddevs-selector");
-        if (selector.css("display") == "none") {
-            selector.css("display", "block");
-        }
-
-        addToSelect(element)
-
-        //ELiminar de la lista
-        delFromList(element)
-
-
-
-        //Mensaje de aviso de borrado realizado
-        $('#devlist').before(
-            "<div class='col-12 mt-2' >" +
-            "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
-            "The develloper has been deleted" +
-            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-            "<span aria-hidden='true'>&times;</span>" +
-            "</button>" +
-            "</div>" +
-            "</div>"
-        );
-    }
-}
-
-
-/////////////////////////////////////////////////////////////////
-
-/**
- * Eliminar usuario de la tarea, peticion al servidor
- */
-function ajaxDelFromList(element) {
-
-    var ruta = element.attr('data-funct'); // Obtener la tuta
-    $.ajax({ url: ruta }); // peticion al servidor
-
+    );
 }
 
 function ajaxAddToList(element) {
@@ -117,6 +81,111 @@ function ajaxAddToList(element) {
 
 }
 
+function addPrepareInterface(){
+
+    var devlist = $("#dev-list");
+
+    //Si la lista no existe se crea
+    if(devlist == undefined ){
+        
+        $("#project-devs-container").append(
+            "<div id='dev-list'><ul></ul></div>"
+        );
+    }
+
+    //Si hay un mensaje de alerta se elimina
+    $("#alert-dev-list").remove();
+
+}
+
+function addToList(element) {
+
+    // Obtener el contenido y el id
+    var itemContent = element.html();
+    var devId = element.attr("value");
+    var taskId = $('#taskcard').attr('data-taskid');
+
+    //Anadir a la lista de desarrolladores
+    $('#dev-list ul').append(
+        "<li>" +
+        "<div class='row'>" +
+        "<div class='col data-item' data-id='" + devId + "'>" + itemContent + "</div>" +
+        "<div class='col'>" +
+        "<a data-id='" + devId + "' data-funct='/task-deldev-bd/" + taskId + "/" + devId + "' href='' class='btn btn-sm text-danger f-remove'>" +
+        "<i class='fas fa-trash-alt'></i>" +
+        "</a>" +
+        "</div>" +
+        "</div>" +
+        "</li>"
+    );
+
+}
+
+function delFromSelect(element) {
+    element.remove();
+}
+
+// #endregion
+
+
+//-----------------------------------------------------------------------
+//
+//                             ELIMINAR DE LA LISTA
+//                              ------------------
+//
+//-----------------------------------------------------------------------
+
+
+function delDeveloperFromList(event, element) {
+
+    event.preventDefault();
+
+    if (confirm("Seguro que desea eliminar?")) {
+
+        //Peticion al server
+        ajaxDelFromList(element)
+
+
+        //Interface
+        delPrepareInterface()
+
+
+        //Añadir el dev eliminado a el select de añadir
+        addToSelect(element)
+
+        //ELiminar de la lista
+        delFromList(element)
+
+
+
+        //Mensaje de aviso de borrado realizado
+        $('#dev-list').before(
+            "<div class='col-12 mt-2' >" +
+            "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
+            "The develloper has been deleted" +
+            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+            "<span aria-hidden='true'>&times;</span>" +
+            "</button>" +
+            "</div>" +
+            "</div>"
+        );
+    }
+}
+
+
+
+/**
+ * Eliminar usuario de la tarea, peticion al servidor
+ */
+function ajaxDelFromList(element) {
+
+    var ruta = element.attr('data-funct'); // Obtener la tuta
+    $.ajax({ url: ruta }); // peticion al servidor
+
+}
+
+
+
 
 /**
  * Añade un desarrollador a el select
@@ -132,38 +201,11 @@ function addToSelect(element) {
 
     //Crear el nuevo elemento y añadirlo al select
     var newElement = "<option value='" + itemId + "'>" + itemContent + "</option>";
-    $('#devsselector').append(newElement);
+    $('#select-devs select').append(newElement);
 
 }
 
-function addToList(element) {
 
-    // Obtener el contenido y el id
-    var itemContent = element.html();
-    var devId = element.attr("value");
-    var taskId = $('#taskcard').attr('data-taskid');
-
-    //Anadir a la lista de desarrolladores
-    var devListContent = $('#devlist').html();
-
-    $('#devlist').html(devListContent +
-        "<li>" +
-        "<div class='row'>" +
-        "<div class='col data-item' data-id='" + devId + "'>" + itemContent + "</div>" +
-        "<div class='col'>" +
-        "<a data-id='" + devId + "' data-funct='/task-deldev-bd/" + taskId + "/" + devId + "' href='' class='btn btn-sm text-danger f-remove'>" +
-        "<i class='fas fa-trash-alt'></i>" +
-        "</a>" +
-        "</div>" +
-        "</div>" +
-        "</li>"
-    );
-
-    //var newA = $('#devlist a.f-remove').last();
-
-
-
-}
 
 
 /**
@@ -175,6 +217,23 @@ function delFromList(element) {
     element.closest("li").remove();
 }
 
-function delFromSelect(element) {
-    element.remove();
+
+function delPrepareInterface(){
+
+    //Si el select y el boton no exiten se añaden
+    if ($("#select-devs").length == 0) {
+
+        $("#workgroup-devs-container").append(
+            "<div id='select-devs' class='col-6'>" +
+            "<select class='browser-default custom-select'></select>" +
+            "</div>" +
+            "<div class='col my-auto'>" +
+            "<a id='adddev' class='btn btn-sm btn-primary float-right' data-funct='/task-adddev-bd/1/devId'>Add selected</a>" +
+            "</div>"
+        )
+    }
+
+    //Eliminar el alert
+    $("#alert-select-devs").remove()
+
 }

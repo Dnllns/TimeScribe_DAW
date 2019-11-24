@@ -66,16 +66,16 @@ class ProjectController extends Controller
             $projectClient = User::find($data['client_id']);
             $projectTaskGroups = null;  // Al ser recien creado no tiene TaskGroups
             $devList = $newProject->users()->get();
-            $workgroupDevs = WorkGroup::find($workgroupId)->users()->get();
+            $workGroupDevs = WorkGroup::find($workGroupId)->users()->get();
 
             return view(
-                'project/edit/edit',
+                'project/mod/mod',
                 [
                     'project' => $newProject,
                     'client' => $projectClient,
                     'taskGroups' => $projectTaskGroups,
                     'devList' => $devList,
-                    'workgroupDevs' => $workGroupDevs
+                    'workGroupDevs' => $workGroupDevs
                 ]
             );
 

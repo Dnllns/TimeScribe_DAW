@@ -76,25 +76,23 @@
                                 <p>Add developers</p>
 
                                 {{-- Seleccionar dev perteneciente al Workgroup --}}
-                                <div class="form-group col">
+                                <div class="row">
 
                                     <p>Find developers in this workgroup:</p>
-                                    <div class="row">
 
-                                        {{-- Selecionar desarrollador --}}
-                                        <div class="col-6">
-                                            <select class="browser-default custom-select">
-                                                @foreach ( $workGroupDevs as $dev)
-                                                    <option value="{{$dev->id}}">{{$dev->name}}, {{$dev->email}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="col my-auto">
-                                            <a href="" class="btn btn-sm btn-primary float-right">Add selected</a>
-                                        </div>
-
+                                    {{-- Selecionar desarrollador --}}
+                                    <div class="col-6">
+                                        <select class="browser-default custom-select">
+                                            @foreach ( $workGroupDevs as $dev)
+                                                <option value="{{$dev->id}}">{{$dev->name}}, {{$dev->email}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+
+                                    <div class="col-6">
+                                        <a href="" class="btn btn-sm btn-primary float-right">Add selected</a>
+                                    </div>
+
 
                                 </div>
 
