@@ -110,6 +110,9 @@ Route::get('/home', 'HomeController@index')->name('home');
         Route::get('/project-add-developer-bd/{projectId}/{developerId}/{permissionType}', 'ProjectController@addDeveloper')
         ->name('f-pj-adddev')->middleware('auth');
 
+        // DEL DEVELOPER
+        Route::get('/project-del-developer-bd/{projectId}/{developerId}', 'ProjectController@delDeveloper')
+        ->name('f-pj-deldev')->middleware('auth');
 
 
     #endregion

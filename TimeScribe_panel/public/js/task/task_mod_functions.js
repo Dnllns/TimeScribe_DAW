@@ -1,13 +1,45 @@
 $(function() {
 
-    $('#adddev').click(function(event) {
+    $('#workgroup-devs-container').on('click', "a.btn", function(event) {
         addDeveloperToList(event)
-    });
+    })
 
 
-    $('#dev-list').on('click', "a.f-remove", function(event) {
+    $('#project-devs-container').on('click', "a.f-remove", function(event) {
         delDeveloperFromList(event, $(this))
-    });
+
+        window.setTimeout(
+            function() {
+                $("#project-devs-container .alert.alert-success").fadeTo(500, 0).slideUp(
+                    500,
+                    function() { $(this).remove() })
+            },
+            2000
+        )
+
+        if ($('#dev-list ul li').length == 0) {
+
+            $('#project-devs-container').append(
+
+                "<div id='alert-dev-list'>" +
+                "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
+                "Currently no developer has been added." +
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+                "<span aria-hidden='true'>×</span>" +
+                "</button>" +
+                "</div>" +
+                "</div>"
+
+            )
+        }
+
+    })
+
+
+
+
+
+
 
 })
 
@@ -35,8 +67,8 @@ function addDeveloperToList(event) {
     //----- Actualizar interface ---------
     //------------------------------------
 
-    
-    addPrepareInterface()  // Preparar interface
+
+    addPrepareInterface() // Preparar interface
     addToList(selectedItem)
     delFromSelect(selectedItem)
 
@@ -47,7 +79,7 @@ function addDeveloperToList(event) {
 
 }
 
-function selectShowAlert(){
+function selectShowAlert() {
 
     //Eliminar el selector y el boton
     $("#select-devs").remove()
@@ -81,13 +113,13 @@ function ajaxAddToList(element) {
 
 }
 
-function addPrepareInterface(){
+function addPrepareInterface() {
 
     var devlist = $("#dev-list");
 
     //Si la lista no existe se crea
-    if(devlist == undefined ){
-        
+    if (devlist.length == 0) {
+
         $("#project-devs-container").append(
             "<div id='dev-list'><ul></ul></div>"
         );
@@ -218,18 +250,17 @@ function delFromList(element) {
 }
 
 
-function delPrepareInterface(){
+function delPrepareInterface() {
 
     //Si el select y el boton no exiten se añaden
     if ($("#select-devs").length == 0) {
 
         $("#workgroup-devs-container").append(
-            "<div id='select-devs' class='col-6'>" +
-            "<select class='browser-default custom-select'></select>" +
-            "</div>" +
-            "<div class='col my-auto'>" +
-            "<a id='adddev' class='btn btn-sm btn-primary float-right' data-funct='/task-adddev-bd/1/devId'>Add selected</a>" +
+            "<div id='select-devs' class='row'>" +
+            "<div class='col-6'>" + "<select class='browser-default custom-select'></select>" + "</div>" +
+            "<div class='col my-auto'>" + "<a id='adddev' class='btn btn-sm btn-primary float-right' data-funct='/task-adddev-bd/1/devId' href>Add selected</a>" + "</div>" +
             "</div>"
+
         )
     }
 

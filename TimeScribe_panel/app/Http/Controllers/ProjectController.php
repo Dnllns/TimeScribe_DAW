@@ -166,18 +166,26 @@ class ProjectController extends Controller
         {
             $project = Project::find($projectId);
             $client = User::find($project->client_id);
-            $taskGroups = $project->taskGroups()->get();
-            //Si no hay taskgroups pasarlo como null
-            if($taskGroups->count() == 0){
-                $taskGroups = null;
-            }
-
+            $taskGroups = $project->taskGroups()->get();      
             $devList = $project->users()->get();
 
             // Obtener los desarrolladores del grupo que no se han asignado al proyecto
             $workGroupDevs = WorkGroup::find($project->workgroup_id)->users()->get();
             $notAsignedDevs = $workGroupDevs->diff($devList);
+            
+            //SET TO NULL
 
+            if($notAsignedDevs->count() == 0){
+                $notAsignedDevs = null;
+            }
+
+            if($devList->count() == 0){
+                $devList = null;
+            }
+
+            if($taskGroups->count() == 0){
+                $taskGroups = null;
+            }
 
             return view(
                 'project/mod/mod',
@@ -270,9 +278,18 @@ class ProjectController extends Controller
                 ]
             );
 
-
         }
 
+
+        /**
+         * Elimina a un developer de un proyecto
+         */
+        public function delDeveloper($projectId, $developerId){
+
+            $project = Project::find($projectId);
+            $project->users()->detach($developerId);
+
+        }
 
 
 

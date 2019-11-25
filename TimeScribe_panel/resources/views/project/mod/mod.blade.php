@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+    <script src="/js/project/project_mod_functions.js"></script>
+@endsection
+
 @section('content')
 
 
@@ -7,7 +11,7 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+        <div id="project-container" data-projectid="{{$project->id}}" class="card">
                 <div class="card-header">
                     <strong>Edit project</strong>
                     <i class="far fa-id-card float-right">{{ $project->id }}</i>
@@ -41,32 +45,40 @@
                         <hr>
 
                         {{-- Configuracion de developers --}}
-                        <div class="row pb-2">
+                        <div id="dev-config-container" class="row pb-2">
                             <p><strong>Developers config</strong></p>
 
                             {{-- Lista de devs --}}
-                            <div class="col-12 pb-4">
+                            <div id="project-devs-container" class="col-12 pb-4">
                                 <p>Developers list</p>
 
                                 @if ($devList == null)
+                                {{-- Lista vacía --}}
 
-                                    {{-- Lista vacía --}}
+                                <div id="dev-list-alert">
                                     @include('common.alert', ['style' => "warning", 'content' => "Currently no developer has been added."] )
+                                </div>
 
                                 @else
-                                    {{-- Lista --}}
+                                {{-- Lista --}}
+
+                                <div id="dev-list">
                                     <ul>
                                         @foreach ($devList as $dev)
-                                            <li class="mb-1">
-                                                <div class="row">
-                                                    <div class="col">{{$dev->name}}, {{$dev->email}}</div>
-                                                    <div class="col">
-                                                        <a href="" class="btn btn-sm text-danger"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
+                                        <li class="mb-1">
+                                            <div class="row">
+                                                <div data-id="{{$dev->id}}" class="col">{{$dev->name}}, {{$dev->email}}</div>
+                                                <div class="col">
+                                                    <a class="btn btn-sm text-danger f-remove" href
+                                                    data-funct="{{route('f-pj-deldev', ['projectId' => $project->id, 'developerId' => $dev->id])}}" >
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
                                                 </div>
-                                            </li>
+                                            </div>
+                                        </li>
                                         @endforeach
                                     </ul>
+                                </div>
                                 @endif
 
                             </div>
@@ -78,26 +90,61 @@
                                 {{-- Seleccionar dev perteneciente al Workgroup --}}
                                 <div class="row">
 
-                                    <p>Find developers in this workgroup:</p>
+                                    <div id="add-devs-container" class="col-12">
+                                        
 
-                                    {{-- Selecionar desarrollador --}}
-                                    <div class="col-6">
-                                        <select class="browser-default custom-select">
-                                            @foreach ( $workGroupDevs as $dev)
-                                                <option value="{{$dev->id}}">{{$dev->name}}, {{$dev->email}}</option>
-                                            @endforeach
-                                        </select>
+                                        @if ($workGroupDevs == null)
+                                        {{-- Mensaje de alerta VACIO--}}
+
+                                        <div id="add-devs-alert">
+                                            @include('common.alert', ['style' => "warning", 'content' => "There isn't more developers availables"] )
+                                        </div>
+
+                                        
+                                        @else
+                                        {{-- Selecionar desarrollador --}}
+
+                                        <div id="add-devs" class="col-12">
+                                            <div class="row">
+
+                                                <div class="col-6">
+                                                    <p>Find developers in this workgroup:</p>
+
+                                                    <select class="browser-default custom-select">
+                                                    @foreach ( $workGroupDevs as $dev)
+                                                    <option value="{{$dev->id}}"
+                                                        data-funct={{route('f-pj-adddev', ["projectId"=> $project->id, "developerId" => $dev->id, "permissionType" => "permissionType" ] )}} >
+                                                        {{$dev->name}}, {{$dev->email}}
+                                                    </option>
+                                                    @endforeach
+                                                    </select> 
+                                                </div>
+
+                                                <div id="permissions" class="col-6 mt-2">
+                                                    <p>Permissions</p>
+                                                    <div class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input" id="r1" name="radio" value="{{$project::PERM_WORK}}" checked>
+                                                        <label class="custom-control-label" for="r1">Work</label>
+                                                    </div>
+                                                    
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="r2" name="radio" value="{{$project::PERM_ALL}}">
+                                                        <label class="custom-control-label" for="r2">All</label>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                <div class="col-12">
+                                                    <a  class="btn btn-sm btn-primary float-right" href >Add selected</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        @endif
+
                                     </div>
-
-                                    <div class="col-6">
-                                        <a href="" class="btn btn-sm btn-primary float-right">Add selected</a>
-                                    </div>
-
-
                                 </div>
-
-
-
 
                             </div>
 
