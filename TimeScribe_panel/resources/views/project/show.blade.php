@@ -12,11 +12,11 @@
     <script src="/JqueryUi/jquery-ui.min.js"></script>
 
     <!-- -------------SCRIPTS---------------- -->
-    <script src="/js/funcionesComunes.js"></script>
+    {{-- <script src="/js/funcionesComunes.js"></script> --}}
     <!-- Primero las peticiones al server -->
-    <script src="/js/pr_dashboard/ajax_updates.js"></script>
-    <script src="/js/pr_dashboard/chrono.js"></script>
-    <script src="/js/pr_dashboard/chronoSticky.js"></script>
+    <script src="/js/project/show/ajax_updates.js"></script>
+    <script src="/js/project/show/chrono.js"></script>
+    <script src="/js/project/show/chronoSticky.js"></script>
 
     <!-- Para hacer drag and drop -->
     <!-- <script src="/js/pr_dashboard/draggable.js"></script> -->

@@ -1,10 +1,10 @@
 /**
  * Script de actualizaciones Ajax
  * ----------------------------------
- * 
+ *
  * Hace las peticiones al servidor relacionadas con la vista de project dashboard
- * 
- * 
+ *
+ *
  */
 
 $(function() {
@@ -23,21 +23,21 @@ $(function() {
 
     $("i[data-funct]").click(function() {
 
-        var ruta = $(this).attr('data-ajax-route')
-        $.get(ruta)
 
-        //EL Boton de seleccionar no recarga la página
-        if ($(this).attr("data-funct") != "select" && $(this).attr("data-funct") != "view") {
-            location.reload()
-        } else {
+        switch ($(this).attr("data-funct")) {
 
-            //set the taskid to the attr (not necesary)
-            var taskId = $("#sticky-chrono").attr("data-current-taskid")
-                //actualizar las rutas con el id de la tarea
-            var startRoute = $("#chrono-start").attr("data-start-route") + "/" + taskId
-            $("#chrono-start").attr("data-start-route", startRoute)
-            var resetRoute = $("#chrono-reset").attr("data-reset-route") + "/" + taskId
-            $("#chrono-reset").attr("data-reset-route", resetRoute)
+            case "done":
+            case "start":
+            case "delete":
+
+                $.get($(this).attr('data-ajax-route'))  // Peticion a servidor
+
+                // ACTUALIZAR INTERFACE
+                //---------------------
+                // DE MOMENTO reload Lo suyo seria Ajax para añadir los task a su nuevo espacio de estado (DOING, DONE)
+                location.reload()
+
+                break
 
         }
 
@@ -51,22 +51,29 @@ $(function() {
     $("#chrono-start").click(function() {
 
         var currentFunction = $(this).attr("data-chronofunct")
+        var taskId = $(this).closest("div[data-taskid]").attr("data-taskid")
+        var ruta
 
         switch (currentFunction) {
 
             case "start" || "resume":
-                // Actualiza en BD la tabla tasks, 
+                // Actualiza en BD la tabla tasks,
                 // inserta en el campo start_date la fecha actual
-                $.get($(this).attr("data-start-route"))
+
+                ruta = $("#chrono-start").attr("data-start-route") + taskId
                 break
 
             case "stop":
-                // Inserta en BD en la tabla timerecords, 
+                // Inserta en BD en la tabla timerecords,
                 // inserta un registro nuevo, con los ides y la fecha de comienzo
-                $.get($(this).attr("data-stop-route"))
+                ruta =  $("#chrono-reset").attr("data-reset-route") + taskId
                 break
 
         }
+
+        //Peticion al server
+        $.get(ruta)
+
     })
 
     // CLICK BTN RESET (STYKYCHRONO)

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <script src="/js/project/project_mod_functions.js"></script>
+    <script src="/js/project/mod/project_mod_functions.js"></script>
 @endsection
 
 @section('content')
@@ -91,7 +91,7 @@
                                 <div class="row">
 
                                     <div id="add-devs-container" class="col-12">
-                                        
+
 
                                         @if ($workGroupDevs == null)
                                         {{-- Mensaje de alerta VACIO--}}
@@ -100,7 +100,7 @@
                                             @include('common.alert', ['style' => "warning", 'content' => "There isn't more developers availables"] )
                                         </div>
 
-                                        
+
                                         @else
                                         {{-- Selecionar desarrollador --}}
 
@@ -117,7 +117,7 @@
                                                         {{$dev->name}}, {{$dev->email}}
                                                     </option>
                                                     @endforeach
-                                                    </select> 
+                                                    </select>
                                                 </div>
 
                                                 <div id="permissions" class="col-6 mt-2">
@@ -126,14 +126,14 @@
                                                     <input type="radio" class="custom-control-input" id="r1" name="radio" value="{{$project::PERM_WORK}}" checked>
                                                         <label class="custom-control-label" for="r1">Work</label>
                                                     </div>
-                                                    
+
                                                     <div class="custom-control custom-radio">
                                                         <input type="radio" class="custom-control-input" id="r2" name="radio" value="{{$project::PERM_ALL}}">
                                                         <label class="custom-control-label" for="r2">All</label>
                                                     </div>
                                                 </div>
-                                                
-                                                
+
+
                                                 <div class="col-12">
                                                     <a  class="btn btn-sm btn-primary float-right" href >Add selected</a>
                                                 </div>
@@ -174,7 +174,7 @@
                                     </div>
 
 
-                                    <div class="col-12 my-auto">                                    
+                                    <div class="col-12 my-auto">
                                         <a class="btn btn-primary btn-sm float-right" href=""> Resend the invitation</a>
                                     </div>
 
@@ -209,7 +209,7 @@
                                     {{-- Mensaje de aviso, no hay tareas --}}
                                     @include('common.alert', ['style' => "warning", 'content' => "Currently no task group has been added."] )
 
-                                @endif                               
+                                @endif
 
                             </div>
                             <div class="col my-auto">

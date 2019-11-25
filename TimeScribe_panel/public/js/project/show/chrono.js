@@ -1,8 +1,8 @@
 /**
- * 
- * Script de control (visual) del cronometro, 
+ *
+ * Script de control (visual) del cronometro,
  * usado en la vista de Dashboard del proyecto
- * 
+ *
  */
 
 $(function() {
@@ -49,7 +49,7 @@ $(function() {
 
     //#endregion
 
-    //CLICK START 
+    //CLICK START
     $("#chrono-start").click(function() {
 
         // Iniciar el cronometro

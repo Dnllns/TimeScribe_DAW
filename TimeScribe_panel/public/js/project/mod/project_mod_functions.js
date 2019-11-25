@@ -43,10 +43,10 @@ function delDeveloperFromList(event, element) {
     if (confirm("Seguro que desea eliminar?")) {
 
 
-        ajaxDelFromList(element) //Peticion al server
-        delPrepareInterface() //Interface
-        addToSelect(element) //Añadir el dev eliminado a el select de añadir
-        delFromList(element) //ELiminar de la lista
+        ajaxDelFromList(element)    //Peticion al server
+        delPrepareInterface()       //Preparar interface para hacer los cambios
+        addToSelect(element)        //Añadir el dev eliminado a el select de añadir
+        delFromList(element)        //ELiminar de la lista
 
         //Mensaje de aviso de borrado realizado
         $('#dev-list').before(
@@ -60,21 +60,22 @@ function delDeveloperFromList(event, element) {
             "</div>"
         );
 
-        // Mensaje de aviso no hay mas desarrolladores
-        // if ($("#dev-list ul li").length == 0) {
+        //Mensaje de aviso no hay mas desarrolladores
+        if ($("#dev-list ul li").length == 0 && $('#dev-list-alert').length == 0 ) {
+            //La lista esta vacía y no hay mensaje mostrandose
 
-        //     $('#dev-list').before(
-        //         "<div class='col-12 mt-2' >" +
-        //         "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
-        //         "There isn't more developers availables" +
-        //         "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-        //         "<span aria-hidden='true'>&times;</span>" +
-        //         "</button>" +
-        //         "</div>" +
-        //         "</div>"
-        //     );
+            $('#dev-list').before(
+                "<div id='dev-list-alert' class='col-12 mt-2' >" +
+                "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
+                "There isn't developers asigned to the project" +
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+                "<span aria-hidden='true'>&times;</span>" +
+                "</button>" +
+                "</div>" +
+                "</div>"
+            );
 
-        // }
+        }
 
     }
 }
@@ -173,7 +174,7 @@ function addToSelect(element) {
     //Crear el nuevo elemento y añadirlo al select
     var newElement =
         "<option" +
-        " data-funct='/project-add-developer-bd/'" + projectId + "/" + developerId + "/permissionType" +
+        " data-funct='/project-add-developer-bd/" + projectId + "/" + developerId + "/permissionType'" +
         " value='" + developerId + "'>" + itemContent +
         "</option>";
 
@@ -245,7 +246,7 @@ function selectShowAlert() {
 function ajaxAddToList(element) {
 
     //Obtener el id del dev seleccionado
-    var permission = $("#permissions input[checked]").attr("value");
+    var permission = $("#permissions input[name='radio']:checked").attr("value");
 
     // Obtener la ruta de la peticion
     var ruta = element.attr('data-funct');
@@ -290,7 +291,7 @@ function addToList(element) {
         "<div class='row'>" +
         "<div class='col data-item' data-id='" + devId + "'>" + itemContent + "</div>" +
         "<div class='col'>" +
-        "<a data-id='" + devId + "data-funct='/project-del-developer-bd/" + projectId + "/" + devId + "' href='' class='btn btn-sm text-danger f-remove'>" +
+        "<a data-id='" + devId + "' data-funct='/project-del-developer-bd/" + projectId + "/" + devId + "' href='' class='btn btn-sm text-danger f-remove'>" +
         "<i class='fas fa-trash-alt'></i>" +
         "</a>" +
         "</div>" +
