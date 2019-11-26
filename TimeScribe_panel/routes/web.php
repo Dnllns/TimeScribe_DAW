@@ -261,3 +261,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
+//------------------------------USER------------------------------
+//----------------------------------------------------------------
+
+#region User
+
+Route::get('/remove-developer/{userId}', 'UserController@deleteUser')
+->name('f-wg-removedev')->middleware('auth');
+
+#endregion
+
+
+
+

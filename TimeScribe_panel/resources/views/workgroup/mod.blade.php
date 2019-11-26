@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+
+@section('head')
+    <script src="/js/workgroup/workgroup_mod_interface.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
 
@@ -51,7 +56,7 @@
 
 
                             {{-- Lista de usuarios --}}
-                            <div class="col-12 pb-4">
+                            <div id="dev-list" class="col-12 pb-4">
                                 <p><strong>Developer list</strong></p>
 
 
@@ -71,7 +76,10 @@
                                                     <div class="col-10">{{$developer->name}}, {{$developer->email}}</div>
                                                     <div class="col-2">
                                                         <div class="float-right">
-                                                            <a href="" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                                            <a href=""  class="text-danger f-remove"
+                                                            data-funct="{{route('f-wg-removedev', ['userId' => $developer->id])}}">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -87,7 +95,7 @@
                             </div>
 
                             {{-- Añadir --}}
-                            <div class="col-12 pb-4">
+                            <div id="add-developers" class="col-12 pb-4">
                                 <p><strong>Add developers</strong></p>
 
                                 <div class="row">
@@ -97,7 +105,7 @@
                                         {{-- Nombre --}}
                                         <label class="control-label" for="name">Name:</label>
                                         <div class="input-group mb-2">
-                                            <input id="name" name="name" type="text" placeholder="Developer name" class="form-control input-md">
+                                            <input name="adddev-name" type="text" placeholder="Developer name" class="form-control input-md">
                                         </div>
 
                                     </div>
@@ -107,14 +115,14 @@
                                         {{-- Email --}}
                                         <label class="control-label" for="email">Email:</label>
                                         <div class="input-group mb-2">
-                                            <input id="email" name="email" type="email" placeholder="Developer email" class="form-control input-md">
+                                            <input name="addev-email" type="email" placeholder="Developer email" class="form-control input-md">
                                         </div>
 
                                     </div>
 
                                     <div class="col-12">
                                         <div class="float-right">
-                                            <a href="" class="btn btn-warning mt-2">Enviar invitacion</a>
+                                            <a id="add-developers-btn" href="" class="btn btn-primary btn-sm mt-2">Enviar invitacion</a>
                                         </div>
                                     </div>
 
@@ -126,41 +134,43 @@
                             </div>
 
                             {{-- Invitaciones pendientes --}}
-                            <div class="col-12 pb-4">
+                            <div id="invitations" class="col-12 pb-4">
                                 <p><strong>Pending invitations</strong></p>
 
                                 @if ($workGroupInvitations == null)
                                 {{-- Mensaje de alerta de sin invitaciones --}}
-                                    <div id="invitation-alert">
-                                        @include('common.alert', ['style' => "warning", 'content' => "Currently no invitation is pending."] )
-                                    </div>
+                                    
+                                <div id="invitation-alert">
+                                    @include('common.alert', ['style' => "warning", 'content' => "Currently no invitation is pending."] )
+                                </div>
 
                                 @else
                                 {{-- Lista de invitaciones --}}
 
+                                <div id="invitation-list">
+
                                     <ul class="list-group">
                                         @foreach ($workGroupInvitations as $invitation)
-
-
-                                            <li class="list-group-item">
-                                                <div class="row">
-                                                    <div class="col">{{$invitation->email}}</div>
-                                                    <div class="col">
-                                                        <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-10">{{$invitation->email}}</div>
+                                                <div class="col">
+                                                    <div class="float-right">
+                                                        <a href="" class="text-danger">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            </li>
-
+                                            </div>
+                                        </li>
                                         @endforeach
-
                                     </ul>
+
+                                </div>    
 
                                 @endif
 
                             </div>
-
-
-
 
                         </div>
 
