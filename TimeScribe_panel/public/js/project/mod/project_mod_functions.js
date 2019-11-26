@@ -1,19 +1,19 @@
-$(function() {
+$(function () {
 
 
     // LISTA ELIMINAR
     //---------------
-    $('#dev-config-container').on('click', "#dev-list a.f-remove", function(event) {
+    $('#dev-config-container').on('click', "#dev-list a.f-remove", function (event) {
 
         // Eliminar el developer de la lista
         delDeveloperFromList(event, $(this))
 
         // Ocultar el alert de aviso de eliminacion
         window.setTimeout(
-            function() {
+            function () {
                 $("#dev-config-container .alert.alert-success").fadeTo(500, 0).slideUp(
                     500,
-                    function() { $(this).remove() })
+                    function () { $(this).remove() })
             },
             2000
         )
@@ -22,12 +22,19 @@ $(function() {
 
     })
 
-
     // LISTA AÑADIR
     //--------------
-    $('#dev-config-container').on('click', "#add-devs a.btn", function(event) {
+    $('#dev-config-container').on('click', "#add-devs a.btn", function (event) {
         addDeveloperToList(event)
     })
+
+
+    // TASKGROUP LISTA ELIMINAR
+    //--------------
+    $('#taskgroup-list').on('click', "a[data-del]", function (event) {
+        delTaskGroup(event, $(this))
+    })
+
 
 })
 
@@ -61,7 +68,7 @@ function delDeveloperFromList(event, element) {
         );
 
         //Mensaje de aviso no hay mas desarrolladores
-        if ($("#dev-list ul li").length == 0 && $('#dev-list-alert').length == 0 ) {
+        if ($("#dev-list ul li").length == 0 && $('#dev-list-alert').length == 0) {
             //La lista esta vacía y no hay mensaje mostrandose
 
             $('#dev-list').before(
@@ -306,3 +313,69 @@ function delFromSelect(element) {
 }
 
 // #endregion
+
+// -----------------------------------------------------------
+//                      TASKGROUP LISTA ELIMINAR
+// -----------------------------------------------------------
+
+function delTaskGroup(event, element) {
+
+    event.preventDefault()
+
+    // Peticion al servidor
+    //----------------------
+    $.get(element.attr('data-funct'))
+
+    //Eliminar de la lista
+    //-----------------------
+    element.closest("li").remove();
+
+    //Mostrar mensaje de eliminado
+    $('#taskgroup-list').append(
+
+        "<div class='col-12'>" +
+        "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
+        "The task group has been deleted." +
+        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+        "<span aria-hidden='true'>&times;</span>" +
+        "</button>" +
+        "</div>" +
+        "</div>"
+    )
+
+    //Ocultar mensaje 2 segundos despues
+    window.setTimeout(
+        function () {$("#taskgroup-list .alert.alert-success").fadeTo(500, 0).slideUp( 500, function () { $(this).remove() }) }, 2000
+    )
+
+
+
+
+    //Preparar interface
+    //------------------------
+    if ($('#taskgroup-list ul li').length == 0) {
+
+        // La lista esta vacia
+        // Eliminar la lista
+        $('#taskgroup-list ul').remove()
+
+        // Mostrar aviso de lista vacía
+
+        $('#taskgroup-list').append(
+
+            "<div id='taskgroup-list-alert' class='col-12'>" +
+            "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
+            "Currently no task group has been added." +
+            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+            "<span aria-hidden='true'>&times;</span>" +
+            "</button>" +
+            "</div>" +
+            "</div>"
+
+        )
+
+    }
+
+
+
+}

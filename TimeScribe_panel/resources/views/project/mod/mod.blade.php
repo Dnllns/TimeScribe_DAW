@@ -189,30 +189,33 @@
                         <hr>
 
                         {{-- Lista de grupos de tareas --}}
-                        <div class="row pb-2">
+                        <div  class="row pb-2">
                             <p><strong>Task group configuration</strong></p>
 
-                            <div class="col-12">
+
+                            <div id="taskgroup-list" class="col-12">
 
                                 @if ( $taskGroups != null )
 
-                                    <ul>
+                                    <ul class="list-group">
                                         @foreach ($taskGroups as $taskGroup)
-                                            <li>
+                                            <li class="list-group-item">
                                                 @include('project.mod.partials.taskGroupItem', ['taskGroup' => $taskGroup])
                                             </li>
 
                                         @endforeach
                                     </ul>
                                 @else
+                                {{-- Mensaje de aviso, no hay tareas --}}
 
-                                    {{-- Mensaje de aviso, no hay tareas --}}
+                                <div id="taskgroup-list-alert">
                                     @include('common.alert', ['style' => "warning", 'content' => "Currently no task group has been added."] )
+                                </div>
 
                                 @endif
 
                             </div>
-                            <div class="col my-auto">
+                            <div class="col my-auto pt-3">
                                 <a class="btn btn-sm btn-primary float-right" href="{{ route('v-tg-new', $project->id ) }}">Add new task group</a>
                             </div>
                         </div>
