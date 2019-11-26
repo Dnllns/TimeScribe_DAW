@@ -19,7 +19,7 @@
 
                 <div class="card-body m-4">
 
-                    <form method="post" aaction="{{ route('f-pj-mod', $project->id) }}">
+                    <form method="post" action="{{ route('f-pj-mod', $project->id) }}">
                         @csrf
 
                         {{-- Datos del proyecto --}}

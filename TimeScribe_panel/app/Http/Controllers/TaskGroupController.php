@@ -34,7 +34,7 @@ class TaskGroupController extends Controller
             'project_id' => $projectId,
             'name' => $data['name'],
             'description' => $data['description'],
-            // 'status' => $data['status'],
+            'visble' => TaskGroup::VISIBLE,
         ]);
 
         //Devolver vista de editar taskgroup
@@ -85,10 +85,11 @@ class TaskGroupController extends Controller
     {
         $taskGroup = TaskGroup::find($taskGroupId);
         // $taskGroup->delete();
-        $taskGroup->visible = TaskGroup::INVISIBLE;
+        $taskGroup->visible = 0;
         $taskGroup->save();
 
         $projectId = $taskGroup->project_id;
+        
         return ProjectController::view_editProject($projectId);
     }
 

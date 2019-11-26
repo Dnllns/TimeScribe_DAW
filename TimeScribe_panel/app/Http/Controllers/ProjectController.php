@@ -166,7 +166,7 @@ class ProjectController extends Controller
         {
             $project = Project::find($projectId);
             $client = User::find($project->client_id);
-            $taskGroups = $project->taskGroups()->get();      
+            $taskGroups = $project->taskGroups()->get();      //->where("visible", 0)
             $devList = $project->users()->get();
 
             // Obtener los desarrolladores del grupo que no se han asignado al proyecto

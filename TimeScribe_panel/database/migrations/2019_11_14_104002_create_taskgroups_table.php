@@ -15,6 +15,7 @@ class CreateTaskgroupsTable extends Migration
     public function up()
     {
         Schema::create('taskgroups', function (Blueprint $table) {
+
             $table->increments('id');
             
             //ID PROYECTO
@@ -25,13 +26,13 @@ class CreateTaskgroupsTable extends Migration
             $table->string('name', 50);
 
             //DESCRIPCION
-            $table->string('description', 250);
+            $table->string('description', 250)->nullable();
 
             //ESTADO
             $table->tinyInteger('status')->default(TaskGroup::STATUS_TODO);
 
             //VISIBLE
-            $table->tinyInteger('visible')->default(TaskGroup::VISIBLE);
+            $table->tinyInteger('visible')->default(TaskGroup::VISIBLE); // 1
 
             //FECHA DE INICIO
             $table->dateTime('start_date')->nullable()->default(null);

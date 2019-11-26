@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
 use App\Task;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTasksTable extends Migration
 {
@@ -21,23 +21,17 @@ class CreateTasksTable extends Migration
             $table->unsignedInteger('task_group_id');
             $table->foreign('task_group_id')->references('id')->on('taskgroups')->onDelete('cascade');
 
-            //NOMBRE
-            $table->string('name', 50);
+            $table->string('name', 50); //NOMBRE
 
-            //DESCRIPCION
-            $table->string('description', 250)->nullable();
+            $table->string('description', 250)->nullable(); //DESCRIPCION
 
-            //ESTADO
-            $table->tinyInteger('status')->default(Task::STATUS_TODO);
+            $table->dateTime('start_date')->nullable()->default(null); //FECHA DE INICIO
 
-            //FECHA DE INICIO
-            $table->dateTime('start_date')->nullable()->default(null);
+            $table->dateTime('finish_date')->nullable()->default(null); //FECHA DE FINALIZACION
 
-            //FECHA DE FINALIZACION
-            $table->dateTime('finish_date')->nullable()->default(null);
+            $table->tinyInteger('status')->default(Task::STATUS_TODO); //ESTADO
 
-            //VISIBLE
-            $table->tinyInteger('visible')->default(Task::VISIBLE);
+            $table->tinyInteger('visible')->default(Task::VISIBLE); //VISIBLE
 
         });
     }

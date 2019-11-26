@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use \App\Task;
 
 class TaskGroup extends Model
 {
-
 
     /**
      * --------------------------Class------------------------------
@@ -16,18 +14,18 @@ class TaskGroup extends Model
 
     #region Class
 
-        //STATUS
-        const STATUS_TODO = 0;
-        const STATUS_DOING = 1;
-        const STATUS_DONE = 2;
+    //STATUS
+    const STATUS_TODO = 0;
+    const STATUS_DOING = 1;
+    const STATUS_DONE = 2;
 
-        //VISIBILITY
-        const INVISIBLE = 0;
-        const VISIBLE = 1;
+    //VISIBILITY
+    const INVISIBLE = 0;
+    const VISIBLE = 1;
 
-        protected $table = 'taskgroups';
-        protected $fillable = ['project_id', 'name', 'description', 'status', 'visible', 'start_date', 'finish_date'];
-        public $timestamps = false;
+    protected $table = 'taskgroups';
+    protected $fillable = ['project_id', 'name', 'description', 'status', 'visible', 'start_date', 'finish_date'];
+    public $timestamps = false;
 
     #endregion
 
@@ -38,17 +36,17 @@ class TaskGroup extends Model
 
     #region RELATIONS BD
 
-        //N:1 PROJECT
-        public function project()
-        {
-            return $this->belongsTo('App\Project');
-        }
+    //N:1 PROJECT
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 
-        //1:N TASK
-        public function tasks()
-        {
-            return $this->hasMany('App\Task');
-        }
+    //1:N TASK
+    public function tasks()
+    {
+        return $this->hasMany('App\Task');
+    }
 
     #endregion
 
@@ -83,20 +81,23 @@ class TaskGroup extends Model
         return $searchedTasks;
     }
 
-
-    public function getDevelopers(){
+    public function getDevelopers()
+    {
 
         $developers_array = array();
-        
+
         // Obtener las tareas del grupo
         $tasks = $this->tasks();
 
         foreach ($tasks as $task) {
             // Obtener los desarrolladores de cada tarea
+
             $devs = $task->getDevelopers();
-            foreach ($devs as $dev){
+
+            foreach ($devs as $dev) {
                 // Añadir el desarrollador al array si no se ha añadido ya
-                if(!in_array($dev, $developers_array)){
+
+                if (!in_array($dev, $developers_array)) {
                     array_push($developers_array, $dev);
                 }
             }
@@ -105,9 +106,6 @@ class TaskGroup extends Model
         return $developers_array;
 
     }
-
-
-    
 
     /**
      * OBTENER EL PORCENTAJE DE COMPLETO DEL GRUPO
@@ -142,15 +140,15 @@ class TaskGroup extends Model
 
         switch ($this->status) {
             case $this::STATUS_TODO:
-                echo '<i class="far fa-clipboard ml-3 text-info" data-toggle="tooltip" data-placement="right" title="To do"></i>';
+                echo '<i class="far fa-clipboard ml-3" data-toggle="tooltip" data-placement="right" title="To do"></i>';
                 break;
 
             case $this::STATUS_DOING:
-                echo '<i class="fas fa-pencil-alt ml-3 text-info" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
+                echo '<i class="fas fa-pencil-alt ml-3" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
                 break;
 
             case $this::STATUS_DONE:
-                echo '<i class="fas fa-clipboard-check ml-3 text-info" data-toggle="tooltip" data-placement="right" title="Done"></i>';
+                echo '<i class="fas fa-clipboard-check ml-3" data-toggle="tooltip" data-placement="right" title="Done"></i>';
                 break;
         }
     }
@@ -164,14 +162,13 @@ class TaskGroup extends Model
     {
 
         if ($this->visible == 1) {
-            echo '<i class="far fa-eye text-warning" data-toggle="tooltip" data-placement="right" title="Visible"></i>';
+            echo '<i class="far fa-eye" data-toggle="tooltip" data-placement="right" title="Visible"></i>';
         } else {
-            echo '<i class="fas fa-eye-slash text-warning" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';
+            echo '<i class="fas fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';
         }
 
     }
 
     #endregion
-
 
 }

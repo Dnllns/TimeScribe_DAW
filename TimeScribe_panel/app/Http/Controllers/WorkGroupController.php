@@ -14,7 +14,7 @@ class WorkGroupController extends Controller
 
     public function view_newWorkGroup()
     {
-        return view('workgroup/create');
+        return view('workgroup/new');
     }
 
     public function view_modWorkGroup($workGroupId)
@@ -24,8 +24,12 @@ class WorkGroupController extends Controller
         $workGroupDevelopers = $workGroup->users()->get();
         $workGroupInvitations = $workGroup->workGroupInvitations()->get();
 
+        if($workGroupInvitations->count() == 0){
+            $workGroupInvitations = null;
+        }
+
         return view(
-            'workgroup/edit',
+            'workgroup/mod',
             [
                 'workGroup' => $workGroup,
                 'isNew' => false,
@@ -132,7 +136,7 @@ class WorkGroupController extends Controller
 
         //Return to the project editor view
         return view(
-            'workgroup/edit',
+            'workgroup/mod',
             ['workGroup' => $workGroup, 'isNew' => true]
         );
 

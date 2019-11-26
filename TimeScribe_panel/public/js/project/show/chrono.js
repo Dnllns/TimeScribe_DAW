@@ -29,6 +29,9 @@ $(function() {
         //Añadir el id de la tarea como atributo
         $("#sticky-chrono").attr("data-current-taskid", taskId)
 
+        //Añadir la funcion al boton
+        $("#chrono-start").attr("data-chronofunct", "start")
+
         // Mostrar el boton de start
 
         $("#chrono-start").attr("disabled", false)
@@ -44,10 +47,10 @@ $(function() {
     })
 
 
+    //-------------------------------------------------
+    // STICKY CHRONO
 
-    //#region Botones StickyChrono
-
-    //#endregion
+    // #region Botones StickyChrono
 
     //CLICK START
     $("#chrono-start").click(function() {
@@ -136,7 +139,6 @@ $(function() {
 
     })
 
-
     //CLICK RESET (STICKYCHRONO)
     $("#chrono-reset").click(function() {
 
@@ -222,6 +224,11 @@ $(function() {
 
 
     })
+
+    // #endregion
+
+
+
 
 });
 

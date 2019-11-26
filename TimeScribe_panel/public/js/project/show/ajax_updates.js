@@ -9,6 +9,17 @@
 
 $(function() {
 
+
+    botonesTarea();
+
+    botonesChrono();
+
+
+});
+
+
+function botonesTarea() {
+
     // CLICK BTN STARTNEW (TODO)
     // Actualiza en BD la tabla tasks,
     // inserta en el campo start_date la fecha actual
@@ -30,7 +41,7 @@ $(function() {
             case "start":
             case "delete":
 
-                $.get($(this).attr('data-ajax-route'))  // Peticion a servidor
+                $.get($(this).attr('data-ajax-route')) // Peticion a servidor
 
                 // ACTUALIZAR INTERFACE
                 //---------------------
@@ -44,14 +55,16 @@ $(function() {
     })
 
 
+}
 
-    ////---------------STYKYCHRONO-------------------
+
+function botonesChrono() {
 
     //Evento start para los buttons que encienden el crono
     $("#chrono-start").click(function() {
 
         var currentFunction = $(this).attr("data-chronofunct")
-        var taskId = $(this).closest("div[data-taskid]").attr("data-taskid")
+        var taskId = $("#sticky-chrono").attr("data-current-taskid")
         var ruta
 
         switch (currentFunction) {
@@ -60,19 +73,18 @@ $(function() {
                 // Actualiza en BD la tabla tasks,
                 // inserta en el campo start_date la fecha actual
 
-                ruta = $("#chrono-start").attr("data-start-route") + taskId
+                ruta = $("#chrono-start").attr("data-start-route") + "/" + taskId
                 break
 
             case "stop":
                 // Inserta en BD en la tabla timerecords,
                 // inserta un registro nuevo, con los ides y la fecha de comienzo
-                ruta =  $("#chrono-reset").attr("data-reset-route") + taskId
+                ruta = $("#chrono-reset").attr("data-reset-route") + "/" + taskId
                 break
 
         }
 
-        //Peticion al server
-        $.get(ruta)
+        $.get(ruta) //Peticion al server
 
     })
 
@@ -95,6 +107,4 @@ $(function() {
         // Marcar los timerecords como finalizado
         $.get($(this).attr("data-finish-route") + "/" + taskId)
     })
-
-
-});
+}

@@ -78,7 +78,7 @@ class TaskController extends Controller
         //Update database
         $task->save();
 
-        return $this->view_editTask($task->task_group_id);
+        return TaskGroupController::view_editTaskGroup($task->task_group_id);
 
     }
 
@@ -197,28 +197,7 @@ class TaskController extends Controller
 
     }
 
-    /**
-     * GET ICONO DE ESTADO
-     * ---------------------
-     * Obtiene el icono de el estado en el que se encuentra la tarea paa mostrarlo en la vista
-     */
-    public function getStatusIcon()
-    {
 
-        switch ($this->status) {
-            case $this::STATUS_TODO:
-                echo '<i class="far fa-clipboard ml-3" data-toggle="tooltip" data-placement="right" title="To do"></i>';
-                break;
-
-            case $this::STATUS_DOING:
-                echo '<i class="fas fa-pencil-alt ml-3" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
-                break;
-
-            case $this::STATUS_DONE:
-                echo '<i class="fas fa-clipboard-check ml-3" data-toggle="tooltip" data-placement="right" title="Done"></i>';
-                break;
-        }
-    }
 
 
     public function addDeveloper( $taskId, $devId){
