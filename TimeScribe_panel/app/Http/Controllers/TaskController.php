@@ -114,6 +114,36 @@ class TaskController extends Controller
 
     #region FUNCIONES
 
+        /**
+     * Obtiene el tiempo trabajado en la tarea
+     * @param Integer $taskId, el id de la tarea
+     * @return DateTime, el tiempo trabajado
+     */
+    public function getWorkedTime($taskId)
+    {
+        // $taskId = $this->id;
+        $timeRecords = TimeRecord::where('task_id', $taskId)->where('user_id', auth()->user()->id)->get();
+
+        $totalTime = new \DateTime('2000-01-01');
+
+        foreach ($timeRecords as $timeRecord) {
+
+            $start = new \DateTime($timeRecord->start_date);
+            $finish = new \DateTime($timeRecord->finish_date);
+
+            // Obtener el tiempo que se ha trabajado en cada timerecord
+            $interval = $start->diff($finish);
+
+            //Sumar el tiempo
+            $totalTime->add($interval);
+
+        }
+        
+
+        $response = json_encode($totalTime->format('H:i:s'));
+        return $response;
+    }
+
     /**
      * COMENZAR A CONTAR TIEMPO
      * -------------------------
@@ -169,15 +199,18 @@ class TaskController extends Controller
         $task->status = Task::STATUS_DOING;
         $task->save();
 
+
         // Actualizar el grupo de tareas
-        TaskGroupController::startTaskGroup($task->taskGroup()->id);
+        $taskGroupId = $task->taskGroup()->first()->id;
+        TaskGroupController::startTaskGroup($taskGroupId);
 
         // Actualizar el proyecto en BD (tabla project)
         // Solo si no se ha empezado ya
-        ProjectController::startProject($task->taskGroup()->project_id);
+        $projectId = $task->taskGroup()->first()->project_id;
+        ProjectController::startProject($projectId);
 
         // Redireccionar a la ruta de dashboard del proyecto
-        return ProjectController::view_dashboard($task->taskGroup()->project_id);
+        return ProjectController::view_dashboard($projectId);
     }
 
     /**
@@ -196,8 +229,6 @@ class TaskController extends Controller
         $task->save();
 
     }
-
-
 
 
     public function addDeveloper( $taskId, $devId){

@@ -14,13 +14,13 @@
             <div data-name="{{ $task->name }}" class="font-weight-bold text-primary text-uppercase mb-1">
                 {{ $task->name }}
             </div>
-            <div class="font-weight-bold mb-1">{{ $task->description }}</div>
+            <div data-description class="font-weight-bold mb-1">{{ $task->description }}</div>
 
 
             <!-- TASK DATA -->
             <div id="task-data-{{$task->id}}" class="row collapse text-xs">
 
-                <div class="col-12 m-1"
+                <div data-workedtime class="col-12 m-1"
                     data-tooltip="tooltip" data-placement="bottom" title="Worked time">
                     <i class="fas fa-business-time mr-1"></i>
                     {{ $task->getWorkedTime($task->id) }}

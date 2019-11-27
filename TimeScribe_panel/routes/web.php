@@ -205,8 +205,9 @@ Route::get('/home', 'HomeController@index')->name('home');
             Route::get('/task-setdeleted-bd/{taskId}', 'TaskController@setDelete')
             ->name('f-ts-setdeleted')->middleware('auth');
 
-            // Route::get('/ct-getworkedtime/{taskId}', 'TaskController@getWorkedTime')
-            //     ->name('ct_gwt')->middleware('auth');
+            //Obtener tiempo trabajado
+            Route::get('/ct-getworkedtime/{taskId}', 'TaskController@getWorkedTime')
+            ->name('ct_gwt')->middleware('auth');
 
         #endregion
 

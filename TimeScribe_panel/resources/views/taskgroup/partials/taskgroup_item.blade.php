@@ -3,7 +3,7 @@
 
     <!-- NOMBRE DEL GRUPO -->
     <div class="col-12 mb-1 text-center col-md-4 my-md-auto text-md-left">
-        <p class="font-weight-bold m-0 text-uppercase" data-tooltip="tooltip" data-placement="top" title="Task group name">{{$taskGroup->name}}</p>
+        <p data-taskgroup-name class="font-weight-bold m-0 text-uppercase" data-tooltip="tooltip" data-placement="top" title="Task group name">{{$taskGroup->name}}</p>
     </div>
 
     <!-- BARRA DE PROGRESO -->
@@ -80,7 +80,7 @@
         <div class="row">
 
             {{-- TODO --}}
-            <div class="col-sm-4 border-right border-fat">
+            <div data-todo class="col-sm-4 border-right border-fat">
                 <p class="text-center">TO DO</p>
                 @foreach ($taskGroup->getTasks(0) as $task)
                     <div class="col-sm-12 mx-auto">
@@ -90,7 +90,7 @@
             </div>
 
             {{-- DOING --}}
-            <div class="col-sm-4 border-right border-fat">
+            <div data-doing class="col-sm-4 border-right border-fat">
                 <p class="text-center">DOING</p>
                 @foreach ($taskGroup->getTasks(1) as $task)
                     <div class="col-sm-12 mx-auto">
@@ -100,7 +100,7 @@
             </div>
 
             {{-- DONE --}}
-            <div class="col-sm-4 border-fat">
+            <div data-done class="col-sm-4 border-fat">
                 <p class="text-center">DONE</p>
                 @foreach ($taskGroup->getTasks(2) as $task)
                     <div class="col-sm-12 mx-auto">

@@ -34,23 +34,23 @@ function botonesTarea() {
 
     $("i[data-funct]").click(function() {
 
+        var funct = $(this).attr("data-funct")
 
-        switch ($(this).attr("data-funct")) {
+        if (
+            funct == "done" ||
+            funct == "start" ||
+            funct == "delete"
+        ) {
 
-            case "done":
-            case "start":
-            case "delete":
+            $.get($(this).attr('data-ajax-route')) // Peticion a servidor
 
-                $.get($(this).attr('data-ajax-route')) // Peticion a servidor
-
-                // ACTUALIZAR INTERFACE
-                //---------------------
-                // DE MOMENTO reload Lo suyo seria Ajax para añadir los task a su nuevo espacio de estado (DOING, DONE)
-                location.reload()
-
-                break
+            // ACTUALIZAR INTERFACE
+            //---------------------
+            // DE MOMENTO reload Lo suyo seria Ajax para añadir los task a su nuevo espacio de estado (DOING, DONE)
+            //location.reload()
 
         }
+
 
     })
 
@@ -60,27 +60,21 @@ function botonesTarea() {
 
 function botonesChrono() {
 
-    //Evento start para los buttons que encienden el crono
-    $("#chrono-start").click(function() {
+    //Peticion ajax de los botones que interactuan con bd
+    $("#sticky-chrono button").click(function() {
 
-        var currentFunction = $(this).attr("data-chronofunct")
-        var taskId = $("#sticky-chrono").attr("data-current-taskid")
-        var ruta
+        var ruta = $(this).attr("data-ajax")
+        var elementId = $(this).attr('id');
 
-        switch (currentFunction) {
+        if (
+            elementId == "chrono-start" ||
+            elementId == "chrono-reset" ||
+            elementId == "chrono-finish" ||
+            elementId == "chrono-resume"
+        ) {
 
-            case "start" || "resume":
-                // Actualiza en BD la tabla tasks,
-                // inserta en el campo start_date la fecha actual
-
-                ruta = $("#chrono-start").attr("data-start-route") + "/" + taskId
-                break
-
-            case "stop":
-                // Inserta en BD en la tabla timerecords,
-                // inserta un registro nuevo, con los ides y la fecha de comienzo
-                ruta = $("#chrono-reset").attr("data-reset-route") + "/" + taskId
-                break
+            var taskId = $("#sticky-chrono").attr("data-current-taskid")
+            ruta += "/" + taskId
 
         }
 
@@ -88,23 +82,69 @@ function botonesChrono() {
 
     })
 
+    // Actualizr el tiempo trabajado de la tarea
+    $("#chrono-finish").click(function() {
+
+        //Obtener el id de la tarea
+        var taskId = $("#sticky-chrono").attr("data-current-taskid")
+
+        //Obtener el tiempo del servidor
+        var ajaxRoute = "/ct-getworkedtime/" + taskId
+
+
+
+        // var xmlhttp = new XMLHttpRequest()
+        // xmlhttp.onreadystatechange = function() {
+        //     if (this.readyState == 4 && this.status == 200) {
+        //         var response = JSON.parse(this.responseText);
+
+        //         //Actualizar interface (Añadir el tiempo obtenido del server)
+        //         $("div[data-taskid='" + taskId + "']").find("div[data-workedtime]").innerText(response)
+
+        //         // document.getElementById("demo").innerHTML = myObj.name;
+        //     }
+        // }
+        // xmlhttp.open("GET", ajaxRoute, true)
+        // xmlhttp.send()
+
+
+        $.get(ajaxRoute, function(data, status) {
+
+            if (status == "success") {
+
+
+                var time = data.split('"')
+
+                $("div[data-taskid='" + taskId + "']").find("div[data-workedtime]").html(
+                    "<i class='fas fa-business-time mr-1'></i>" + time[1]
+                )
+            }
+        })
+
+
+
+
+    })
+
+
+
     // CLICK BTN RESET (STYKYCHRONO)
     // Actualiza en BD la tabla timerecords,
     // Elimina los registros que no tienen el campo status a 1 (Los que no se han confirmado)
 
-    $("#chrono-reset").click(function() {
-        $.get($(this).attr("data-reset-route"))
-    })
+    // $("#chrono-reset").click(function() {
+    //     $.get($(this).attr("data-reset-route"))
+    // })
 
 
     //CLICK X (STICKYCHRONO)
-    $("#chrono-finish").click(function() {
+    // $("#chrono-finish").click(function() {
 
-        // Obtener el id de la tarea actual
-        var taskId = $("#sticky-chrono").attr("data-taskid")
+    //     // Obtener el id de la tarea actual
+    //     var taskId = $("#sticky-chrono").attr("data-taskid")
 
-        // Peticion al server
-        // Marcar los timerecords como finalizado
-        $.get($(this).attr("data-finish-route") + "/" + taskId)
-    })
+    //     // Peticion al server
+    //     // Marcar los timerecords como finalizado
+    //     $.get($(this).attr("data-finish-route") + "/" + taskId)
+    // })
 }

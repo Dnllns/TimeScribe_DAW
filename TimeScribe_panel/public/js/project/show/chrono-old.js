@@ -12,6 +12,8 @@ $(function() {
 
     $("i[data-funct='select']").click(function() {
         seleccionarTarea($(this))
+
+        // moveToDoing($(this))
     })
 
 
@@ -185,6 +187,8 @@ $(function() {
 
 })
 
+
+
 function toggleElement(element, action) {
 
 
@@ -244,6 +248,46 @@ function seleccionarTarea(element) {
 
 }
 
+
+// function moveToDoing(element) {
+
+//     //Obtener los Datos
+//     //-----------------
+
+//     var taskElement = element.closest("[data-taskid]")
+//     var name = taskElement.find("[data-name]").attr("data-name")
+//     var description = taskElement.find("[data-description]").text()
+//     var f = new Date()
+//     var date = f.getDate() + "-" + (f.getMonth() + 1) + "-" + f.getFullYear()
+//     var taskId = element.closest("[data-taskid]").attr("data-taskid")
+
+
+//     //Generar el nuevo elemento
+//     var newTask = "<div data-taskid='" + taskId + "' class='card border-fat shadow mb-2'>" +
+//         "<div class='row m-2'>" +
+//         "<div class='col-md-11 p-0 no-gutters'>" +
+//         "<div data-name='" + name + "' class='font-weight-bold text-primary text-uppercase mb-1'>" + name + "</div>" +
+//         "<div class='font-weight-bold mb-1'>" + description + "</div>" +
+//         "<div id='task-data-" + taskId + "' class='row text-xs collapse show' >" +
+//         "<div data-workedtime class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Worked time'><i class='fas fa-business-time mr-1'></i>00:00:00</div>" +
+//         "<div class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Start date'>" +
+//         "<i class='fas fa-calendar-day mr-1'></i>" + date +
+//         "</div>" +
+//         "</div>" +
+//         "</div>" +
+//         "<div class='col-md-1 p-0 d-flex flex-column align-items-center'>" +
+//         "<i data-funct='view' class='far fa-eye text-info pb-1' data-tooltip='tooltip' data-placement='bottom' data-toggle='collapse' data-target='#task-data-" + taskId + "' data-original-title='View task' aria-expanded='true'></i>" +
+//         "<i data-funct='select' data-chronofunct='start' class='fas fa-hourglass-start text-warning pb-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Select task'></i>" +
+//         "<i data-funct='done' data-ajax-route='task-setdone-bd/" + taskId + "' class='far fa-check-circle text-success pb-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Set done'></i>" +
+//         "</div>" +
+//         "</div>" +
+//         "</div>"
+
+//     //Añadirlo a la columna de doing
+//     element.closest("[data-taskid]").find("[data-doing]").append(newTask)
+
+// }
+
 // #endregion
 
 
@@ -254,6 +298,9 @@ function seleccionarTarea(element) {
  * ------------------- FUNCIONES AUXILIARES ------------------
  * -----------------------------------------------------------
  */
+
+
+// #region Chrono
 
 var startTime = 0
 var start = 0
@@ -320,3 +367,7 @@ function chronoReset() {
     $('#chronotime').html("00:00:00")
     start = new Date()
 }
+
+
+
+// #endregion
