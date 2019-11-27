@@ -83,7 +83,7 @@
             <div data-todo class="col-sm-4 border-right border-fat">
                 <p class="text-center">TO DO</p>
                 @foreach ($taskGroup->getTasks(0) as $task)
-                    <div class="col-sm-12 mx-auto">
+                    <div data-taskid="{{$task->id}}" class="col-sm-12 mx-auto">
                         @include('task.partials.task_item', ['task' => $task] )
                     </div>
                 @endforeach
@@ -93,7 +93,7 @@
             <div data-doing class="col-sm-4 border-right border-fat">
                 <p class="text-center">DOING</p>
                 @foreach ($taskGroup->getTasks(1) as $task)
-                    <div class="col-sm-12 mx-auto">
+                    <div data-taskid="{{$task->id}}" class="col-sm-12 mx-auto">
                         @include('task.partials.task_item', ['task' => $task] )
                     </div>
                 @endforeach
@@ -103,7 +103,7 @@
             <div data-done class="col-sm-4 border-fat">
                 <p class="text-center">DONE</p>
                 @foreach ($taskGroup->getTasks(2) as $task)
-                    <div class="col-sm-12 mx-auto">
+                    <div data-taskid="{{$task->id}}" class="col-sm-12 mx-auto">
                         @include('task.partials.task_item', ['task' => $task] )
                     </div>
                 @endforeach

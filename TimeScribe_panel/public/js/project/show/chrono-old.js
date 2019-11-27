@@ -10,13 +10,22 @@ $(function() {
     // CLICK SELECT TASK (DOING)
     // Muestra el cronómetro y realiza los cambios visuales relacionados
 
-    $("i[data-funct='select']").click(function() {
+    $("[data-taskgroup]").on("click", "i[data-funct='select']", function() {
         seleccionarTarea($(this))
 
-        // moveToDoing($(this))
     })
 
 
+    $("[data-taskgroup]").on("click", "i[data-funct='start']", function() {
+        //Mover la tarea a Doing
+        moveTask($(this), "doing")
+    })
+
+
+    $("[data-taskgroup]").on("click", "i[data-funct='done']", function() {
+        //Mover la tarea a Doing
+        moveTask($(this), "done")
+    })
 
 
     //-------------------------------------------------
@@ -40,7 +49,6 @@ $(function() {
         toggleElement($("#chrono-reset"), "hide")
         toggleElement($("#chrono-finish"), "hide")
         toggleElement($("#chrono-close"), "hide")
-
         toggleElement($("#chrono-stop"), "show") // Habilitar y mostrar el boton de parar
 
     })
@@ -124,14 +132,14 @@ $(function() {
         //-------------------------
         chronoReset()
 
-        // Actualizar la interface 
+        // Actualizar la interface
         //-------------------------
         // Resetear la tarea seleccionada
         $("div[data-taskid='" + id + "']")
             .css("background", "#fff")
             .removeClass("border-dark")
 
-        // Ocultar los botones    
+        // Ocultar los botones
         toggleElement($("#chrono-resume"), "hide")
         toggleElement($("#chrono-reset"), "hide")
         toggleElement($("#chrono-finish"), "hide")
@@ -160,10 +168,10 @@ $(function() {
         chronoReset()
 
 
-        // Actualizar la interface 
+        // Actualizar la interface
         //-------------------------
 
-        // Resetear la interface la tarea seleccionada 
+        // Resetear la interface la tarea seleccionada
         $("div[data-taskid='" + id + "']")
             .css("background", "#fff")
             .removeClass("border-dark")
@@ -195,7 +203,7 @@ function toggleElement(element, action) {
     switch (action) {
         case "show":
 
-            // habilitar y mostar 
+            // habilitar y mostar
             element.attr("disabled", false)
             element.removeClass("d-none")
 
@@ -234,7 +242,7 @@ function seleccionarTarea(element) {
     //-----------------------
 
     $("#sticky-chrono").removeClass("d-none") //Mostrar sticky chrono
-    $('#chronotime').html("00:00:00") //Resetear tiempo 
+    $('#chronotime').html("00:00:00") //Resetear tiempo
     $("#ch-task-name").text(taskName); //Añadir el nombre de la tarea en el cronometro
     $('#ch-taskgroup-name').text(taskgroupName) //Añadir el nombre del taskgroup en el cronometro
     $("#sticky-chrono").attr("data-current-taskid", taskId) //Añadir el id de la tarea como atributo
@@ -249,44 +257,119 @@ function seleccionarTarea(element) {
 }
 
 
-// function moveToDoing(element) {
+function moveToDoing(element) {
 
-//     //Obtener los Datos
-//     //-----------------
+    //Obtener los Datos
+    //-----------------
 
-//     var taskElement = element.closest("[data-taskid]")
-//     var name = taskElement.find("[data-name]").attr("data-name")
-//     var description = taskElement.find("[data-description]").text()
-//     var f = new Date()
-//     var date = f.getDate() + "-" + (f.getMonth() + 1) + "-" + f.getFullYear()
-//     var taskId = element.closest("[data-taskid]").attr("data-taskid")
+    var taskElement = element.closest("[data-taskid]")
+    var name = taskElement.find("[data-name]").attr("data-name")
+    var description = taskElement.find("[data-description]").text()
+    var taskId = element.closest("[data-taskid]").attr("data-taskid")
+
+    //Obtener Fecha y hora
+    var f = new Date()
+    var dia = f.getDate()
+    var mes = (f.getMonth() + 1)
+    var ano = f.getFullYear()
+    var hora = Math.log10(f.getHours()) < 1 ? "0" + f.getHours() : f.getHours()
+    var min =  Math.log10(f.getMinutes()) < 1 ? "0" + f.getMinutes() : f.getMinutes()
+    var sec = Math.log10(f.getSeconds()) < 1 ? "0" + f.getSeconds() : f.getSeconds()
+    var date =  ano + "-" + dia + "-" + mes + " " + hora +  ":" + min + ":" + sec
 
 
-//     //Generar el nuevo elemento
-//     var newTask = "<div data-taskid='" + taskId + "' class='card border-fat shadow mb-2'>" +
-//         "<div class='row m-2'>" +
-//         "<div class='col-md-11 p-0 no-gutters'>" +
-//         "<div data-name='" + name + "' class='font-weight-bold text-primary text-uppercase mb-1'>" + name + "</div>" +
-//         "<div class='font-weight-bold mb-1'>" + description + "</div>" +
-//         "<div id='task-data-" + taskId + "' class='row text-xs collapse show' >" +
-//         "<div data-workedtime class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Worked time'><i class='fas fa-business-time mr-1'></i>00:00:00</div>" +
-//         "<div class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Start date'>" +
-//         "<i class='fas fa-calendar-day mr-1'></i>" + date +
-//         "</div>" +
-//         "</div>" +
-//         "</div>" +
-//         "<div class='col-md-1 p-0 d-flex flex-column align-items-center'>" +
-//         "<i data-funct='view' class='far fa-eye text-info pb-1' data-tooltip='tooltip' data-placement='bottom' data-toggle='collapse' data-target='#task-data-" + taskId + "' data-original-title='View task' aria-expanded='true'></i>" +
-//         "<i data-funct='select' data-chronofunct='start' class='fas fa-hourglass-start text-warning pb-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Select task'></i>" +
-//         "<i data-funct='done' data-ajax-route='task-setdone-bd/" + taskId + "' class='far fa-check-circle text-success pb-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Set done'></i>" +
-//         "</div>" +
-//         "</div>" +
-//         "</div>"
+    //Generar el nuevo elemento
+    var newTask =
+        "<div data-taskid='" + taskId + "' class='col-sm-12 mx-auto'>" +
+        "<div class='card border-fat shadow mb-2'>" +
+        "<div class='row m-2'>" +
+        "<div class='col-md-11 p-0 no-gutters'>" +
+        "<div data-name='" + name + "' class='font-weight-bold text-primary text-uppercase mb-1'>" + name + "</div>" +
+        "<div class='font-weight-bold mb-1'>" + description + "</div>" +
+        "<div id='task-data-" + taskId + "' class='row text-xs collapse show' >" +
+        "<div data-workedtime class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Worked time'><i class='fas fa-business-time mr-1'></i>00:00:00</div>" +
+        "<div class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Start date'>" +
+        "<i class='fas fa-calendar-day mr-1'></i>" + date +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "<div class='col-md-1 p-0 d-flex flex-column align-items-center'>" +
+        "<i data-funct='view' class='far fa-eye text-info pb-1' data-tooltip='tooltip' data-placement='bottom' data-toggle='collapse' data-target='#task-data-" + taskId + "' data-original-title='View task' aria-expanded='true'></i>" +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
 
-//     //Añadirlo a la columna de doing
-//     element.closest("[data-taskid]").find("[data-doing]").append(newTask)
+    //Añadirlo a la columna de doing
+    element.closest("[data-taskgroup]").find("[data-doing]").append(newTask)
 
-// }
+    //Eliminarlo de todo
+    element.closest("[data-taskid]").remove()
+
+
+
+}
+
+
+function moveTask(element, statuss) {
+
+    //Obtener los Datos
+    //-----------------
+
+    var taskElement = element.closest("[data-taskid]")
+    var name = taskElement.find("[data-name]").attr("data-name")
+    var description = taskElement.find("[data-description]").text()
+    var taskId = element.closest("[data-taskid]").attr("data-taskid")
+
+    //Obtener Fecha y hora
+    var f = new Date()
+    var dia = f.getDate()
+    var mes = (f.getMonth() + 1)
+    var ano = f.getFullYear()
+    var hora = Math.log10(f.getHours()) < 1 ? "0" + f.getHours() : f.getHours()
+    var min =  Math.log10(f.getMinutes()) < 1 ? "0" + f.getMinutes() : f.getMinutes()
+    var sec = Math.log10(f.getSeconds()) < 1 ? "0" + f.getSeconds() : f.getSeconds()
+    var date =  ano + "-" + dia + "-" + mes + " " + hora +  ":" + min + ":" + sec
+
+
+    var doneButtons = "<i data-funct='delete' data-ajax-route='/task-setdeleted-bd/" + taskId + "' class='far fa-trash-alt text-danger pb-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Remove task'></i>"
+
+    var doingButtons = "<i data-funct='select' data-chronofunct='start' class='fas fa-hourglass-start text-warning pb-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Select task'></i>" +
+    "<i data-funct='done' data-ajax-route='task-setdone-bd/" + taskId + "' class='far fa-check-circle text-success pb-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Set done'></i>"
+
+
+    //Generar el nuevo elemento
+    var newTask =
+        "<div data-taskid='" + taskId + "' class='col-sm-12 mx-auto'>" +
+        "<div class='card border-fat shadow mb-2'>" +
+        "<div class='row m-2'>" +
+        "<div class='col-md-11 p-0 no-gutters'>" +
+        "<div data-name='" + name + "' class='font-weight-bold text-primary text-uppercase mb-1'>" + name + "</div>" +
+        "<div class='font-weight-bold mb-1'>" + description + "</div>" +
+        "<div id='task-data-" + taskId + "' class='row text-xs collapse show' >" +
+        "<div data-workedtime class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Worked time'><i class='fas fa-business-time mr-1'></i>00:00:00</div>" +
+        "<div class='col-12 m-1' data-tooltip='tooltip' data-placement='bottom' data-original-title='Start date'>" +
+        "<i class='fas fa-calendar-day mr-1'></i>" + date +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "<div class='col-md-1 p-0 d-flex flex-column align-items-center'>" +
+        "<i data-funct='view' class='far fa-eye text-info pb-1' data-tooltip='tooltip' data-placement='bottom' data-toggle='collapse' data-target='#task-data-" + taskId + "' data-original-title='View task' aria-expanded='true'></i>" +
+        (statuss == "done" ? doneButtons : doingButtons) +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+
+    //Añadirlo a la columna de doing
+    element.closest("[data-taskgroup]").find("[data-"+ statuss +"]").append(newTask)
+
+    //Eliminarlo de todo
+    element.closest("[data-taskid]").remove()
+
+
+
+}
 
 // #endregion
 

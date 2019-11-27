@@ -15,7 +15,7 @@
     {{-- <script src="/js/funcionesComunes.js"></script> --}}
     <!-- Primero las peticiones al server -->
     <script src="/js/project/show/ajax_updates.js"></script>
-    <script src="/js/project/show/chrono.js"></script>
+    <script src="/js/project/show/chrono-old.js"></script>
     <script src="/js/project/show/chronoSticky.js"></script>
 
     <!-- Para hacer drag and drop -->
@@ -29,10 +29,9 @@
     <!-- Plantilla de sticky chrono -->
     @include('task.partials.sticky_chrono' )
 
-    {{-- <h1>Project dashboard</h1> --}}
 
-    <!-- PROYECTOS ASIGNADOS -->
-    <div id="assigned-projects" class="card shadow col-sm-10 mx-auto pb-0">
+
+    <div class="card shadow col-sm-10 mx-auto pb-0">
         <div class="card-header p-2 mt-3">
             <p class="m-0 font-weight-bold text-primary">{{$project->name}}</p>
             <p>{{$project->description}}</p>
@@ -40,7 +39,9 @@
         <div class="card-body">
             @if( $taskGroups != null)
                 @foreach ($taskGroups as $taskGroup)
+                <div data-taskgroup='{{$taskGroup->id}}'>
                     @include('taskgroup.partials.taskgroup_item', ['taskGroup' => $taskGroup])
+                </div>
                 @endforeach
             @else
                 {{-- No hay grupos de tareas --}}

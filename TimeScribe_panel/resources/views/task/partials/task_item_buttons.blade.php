@@ -12,7 +12,7 @@
         <i  data-funct="view"
             class="far fa-eye text-info pb-1"
             data-tooltip="tooltip" data-placement="bottom" title="View task"
-            data-toggle="collapse" data-target="[data-taskid] [data-collapse]">
+            data-toggle="collapse" data-target="#task-data-{{$task->id}}">
         </i>
         @break
 

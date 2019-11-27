@@ -1,6 +1,6 @@
 
 <!-- TITULO DE LA TAREA -->
-<div data-taskid="{{$task->id}}" class="card border-fat shadow mb-2">
+<div class="card border-fat shadow mb-2">
 
 
     {{-- CARD BODY --}}

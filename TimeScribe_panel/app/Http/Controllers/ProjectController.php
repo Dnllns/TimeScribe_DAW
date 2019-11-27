@@ -172,7 +172,7 @@ class ProjectController extends Controller
             // Obtener los desarrolladores del grupo que no se han asignado al proyecto
             $workGroupDevs = WorkGroup::find($project->workgroup_id)->users()->get();
             $notAsignedDevs = $workGroupDevs->diff($devList);
-            
+
             //SET TO NULL
 
             if($notAsignedDevs->count() == 0){
@@ -243,7 +243,7 @@ class ProjectController extends Controller
          * Actualiza el stado del proyecto a haciendose (DOING)
          * @param Integer $projectId, el id del proyecto
          */
-        public function startProject($projectId)
+        public static function startProject($projectId)
         {
 
             // Actualizar el proyecto en BD (tabla project)

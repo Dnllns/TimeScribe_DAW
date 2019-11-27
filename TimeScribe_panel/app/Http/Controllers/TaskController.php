@@ -138,7 +138,7 @@ class TaskController extends Controller
             $totalTime->add($interval);
 
         }
-        
+
 
         $response = json_encode($totalTime->format('H:i:s'));
         return $response;
@@ -210,7 +210,7 @@ class TaskController extends Controller
         ProjectController::startProject($projectId);
 
         // Redireccionar a la ruta de dashboard del proyecto
-        return ProjectController::view_dashboard($projectId);
+        //return ProjectController::view_dashboard($projectId);
     }
 
     /**
@@ -285,8 +285,8 @@ class TaskController extends Controller
         // Obtener desarrolladores asignados a la tarea
         //-------
         $task = Task::find($taskId);
-        $taskDevs = $task->getDevelopers();  
-   
+        $taskDevs = $task->getDevelopers();
+
         // Obtener desarrolladores del proyecto
         //---------
         $taskGroup = TaskGroup::find($task->task_group_id);
@@ -298,7 +298,7 @@ class TaskController extends Controller
 
         if( $taskDevs->count() == 0){
             $taskDevs = null;
-        }   
+        }
 
         if( $projectDevsNotAssigned->count() == 0){
             $projectDevsNotAssigned = null;
