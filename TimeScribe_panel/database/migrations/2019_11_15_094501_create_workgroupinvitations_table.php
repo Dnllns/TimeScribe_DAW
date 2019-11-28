@@ -14,7 +14,7 @@ class CreateWorkgroupinvitationsTable extends Migration
     public function up()
     {
         Schema::create('workgroupinvitations', function (Blueprint $table) {
-            
+
             $table->increments('id');
             //ID INVITACION
             $table->string('email');

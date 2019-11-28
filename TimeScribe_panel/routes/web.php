@@ -42,7 +42,7 @@ Route::get('/home', 'HomeController@index')->name('home');
         ->name('v-wg-new')->middleware('auth');
 
         // MOD
-        Route::get('/workgroup-mod/{workGroupId}', 'WorkGroupController@view_modWorkGroup')
+        Route::get('/workgroup-mod/{workGroupId}/{isNew?}', 'WorkGroupController@view_modWorkGroup')
         ->name('v-wg-mod')->middleware('auth');
 
         // SELECCIONAR PROYECTO
@@ -62,19 +62,23 @@ Route::get('/home', 'HomeController@index')->name('home');
         ->name('f-wg-mod')->middleware('auth');
 
         //Insertar invitacion al workgroup y enviar email
-        Route::post('/workgroup-invite-bd/{workGroupId}/{developerEmail}', 'WorkGroupController@createInvitation')
-        ->name('f-wg-invite')->middleware('auth');
+        // Route::post('/workgroup-invite-bd/{workGroupId}/{developerEmail}', 'WorkGroupController@createInvitation')
+        // ->name('f-wg-invite')->middleware('auth');
 
     #endregion
 
 
     #region email
 
-        //(Invitacion de email) Unirse a un grupo 
-        Route::post('/email/accept-invitation/{hash}', 'WorkGroupInvitationController@acceptInvitation');
+        //(Invitacion de email) Unirse a un grupo
+        Route::post('/email/accept-invitation/{invitationId}/{hash}', 'WorkGroupInvitationController@acceptInvitation')
+        ->name('f-wg-acceptinvitation')->middleware('auth');
 
-        //Enviar invitacion 
-        Route::post('/email/send-workgroup-invitation', 'WorkGroupInvitationController@inviteUser');
+
+        //Enviar invitacion
+        Route::post('/email/send-workgroup-invitation', 'WorkGroupInvitationController@inviteUser')
+        ->name('f-wg-invite')->middleware('auth');
+
 
     #endregion
 

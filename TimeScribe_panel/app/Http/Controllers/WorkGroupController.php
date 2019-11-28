@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\WorkGroup;
 use App\Project;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\WorkgroupInvitationMail;
+
 
 class WorkGroupController extends Controller
 {
@@ -19,7 +18,7 @@ class WorkGroupController extends Controller
         return view('workgroup/new');
     }
 
-    public function view_modWorkGroup($workGroupId, $isNew)
+    public function view_modWorkGroup($workGroupId, $isNew=false)
     {
 
         $workGroup = WorkGroup::find($workGroupId);
@@ -44,7 +43,7 @@ class WorkGroupController extends Controller
     /**
      * VISUALIZAR WORKGROUP
      * ----------------------
-     * 
+     *
      * @return View
      */
     public function view_show($workGroupId)
@@ -79,7 +78,7 @@ class WorkGroupController extends Controller
         }
 
         return view(
-            'workgroup/show', 
+            'workgroup/show',
             ['workGroup' =>$workGroup , 'userProjects' => $projects]
         );
     }
@@ -107,7 +106,7 @@ class WorkGroupController extends Controller
         $currentUser->save();
 
 
-        //Return to the project editor view
+        // Return to the project editor view
         // return view(
         //     'workgroup/mod',
         //     ['workGroup' => $workGroup, 'isNew' => true]
