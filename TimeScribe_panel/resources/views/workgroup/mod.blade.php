@@ -3,6 +3,8 @@
 
 @section('head')
     <script src="/js/workgroup/workgroup_mod_interface.js"></script>
+    <script src="/js/workgroup/invitationEmail/sendInvitationEmail.js"></script>
+
 @endsection
 
 @section('content')
@@ -98,6 +100,9 @@
                             <div id="add-developers" class="col-12 pb-4">
                                 <p><strong>Add developers</strong></p>
 
+                                  
+
+
                                 <div class="row">
 
                                     <div class="col-6">
@@ -124,6 +129,12 @@
                                         <div class="float-right">
                                             <a id="add-developers-btn" href="" class="btn btn-primary btn-sm mt-2">Enviar invitacion</a>
                                         </div>
+                                        {{-- Datos necesarios en javascript --}}
+                                        <script>
+                                            var adminName = {!! json_encode(Auth::user()->name, JSON_HEX_TAG) !!}
+                                            var workgroupName = {!! json_encode($workGroup->name, JSON_HEX_TAG) !!}
+                                            var workgroupId = {!! json_encode($workGroup->id, JSON_HEX_TAG) !!}
+                                        </script>  
                                     </div>
 
                                 </div>

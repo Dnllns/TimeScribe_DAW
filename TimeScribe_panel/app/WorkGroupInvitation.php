@@ -8,7 +8,7 @@ class WorkGroupInvitation extends Model
 {
     //
     protected $table = 'workgroupinvitations';
-    protected $fillable = ['email'];
+    protected $fillable = ['email', 'hash', 'used'];
     public $timestamps = false;
 
     /** N:N Workgroup **/

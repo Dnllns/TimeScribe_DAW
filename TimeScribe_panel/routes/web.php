@@ -67,6 +67,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     #endregion
 
+
+    #region email
+
+        //(Invitacion de email) Unirse a un grupo 
+        Route::post('/email/accept-invitation/{hash}', 'WorkGroupInvitationController@acceptInvitation');
+
+        //Enviar invitacion 
+        Route::post('/email/send-workgroup-invitation', 'WorkGroupInvitationController@inviteUser');
+
+    #endregion
+
 #endregion
 
 //-----------------------------PROYECTO---------------------------

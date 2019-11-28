@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\WorkGroup;
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WorkgroupInvitationMail;
 
 class WorkGroupController extends Controller
 {
@@ -17,7 +19,7 @@ class WorkGroupController extends Controller
         return view('workgroup/new');
     }
 
-    public function view_modWorkGroup($workGroupId)
+    public function view_modWorkGroup($workGroupId, $isNew)
     {
 
         $workGroup = WorkGroup::find($workGroupId);
@@ -32,7 +34,7 @@ class WorkGroupController extends Controller
             'workgroup/mod',
             [
                 'workGroup' => $workGroup,
-                'isNew' => false,
+                'isNew' => $isNew,
                 'workGroupDevelopers' => $workGroupDevelopers,
                 'workGroupInvitations' => $workGroupInvitations,
             ]
@@ -82,36 +84,7 @@ class WorkGroupController extends Controller
         );
     }
 
-    public function createInvitation($workGroupId, $developerEmail)
-    {
 
-        //Insert in workgroupsinvitations table
-        $invitation = WorkGroupInvitation::create([
-            'email' => $developerEmail,
-        ]);
-
-        //Attach to workgroups_workgroupsinvitations table
-        $invitation->workgroups()->attach(
-            $invitation->id,
-            [
-                'workgroup_id' => $workGroupId,
-                'invitation_id' => $invitation->id,
-            ]
-        );
-
-        //timescribeteam@gmail.com
-        //admin.timescribe2019
-
-        //Send invitation email
-
-        $to_name = "RECEIVER_NAME";
-        $data = array("name" => "Ogbonna", "body" => "A test mail");
-        Mail::send("emails.mail", $data, function ($message) use ($to_name, $developerEmail) {
-            $message->to($developerEmail, $to_name)->subject("Laravel Test Mail");
-            $message->from("timescribeteam@gmail.com", "Test Mail");
-        });
-
-    }
 
     #endregion
 
@@ -135,10 +108,12 @@ class WorkGroupController extends Controller
 
 
         //Return to the project editor view
-        return view(
-            'workgroup/mod',
-            ['workGroup' => $workGroup, 'isNew' => true]
-        );
+        // return view(
+        //     'workgroup/mod',
+        //     ['workGroup' => $workGroup, 'isNew' => true]
+        // );
+
+        return $this->view_modWorkGroup($workGroup->id, true);
 
     }
 

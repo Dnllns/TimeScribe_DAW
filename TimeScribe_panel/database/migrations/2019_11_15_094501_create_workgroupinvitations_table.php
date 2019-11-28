@@ -18,6 +18,10 @@ class CreateWorkgroupinvitationsTable extends Migration
             $table->increments('id');
             //ID INVITACION
             $table->string('email');
+            // Hash
+            $table->string('hash', 60);
+            // invitation used
+            $table->boolean('used');
 
         });
     }
