@@ -38,16 +38,22 @@ class TaskGroupController extends Controller
         ]);
 
         //Devolver vista de editar taskgroup
-        $tasks = null;
+        // $tasks = null;
 
-        return view(
-            'taskgroup/mod',
-            [
-                'taskGroup' => $taskGroup,
-                'taskList' => $tasks,
-                'projectId' => $projectId,
-            ]
-        );
+        // return view(
+        //     'taskgroup/mod',
+        //     [
+        //         'taskGroup' => $taskGroup,
+        //         'taskList' => $tasks,
+        //         'projectId' => $projectId,
+        //     ]
+        // );
+
+        //Devolver la vista de mostrar proyecto
+        return ProjectController::view_showProject($taskGroup->project_id);
+
+
+
 
     }
 

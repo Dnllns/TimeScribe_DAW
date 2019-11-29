@@ -26,6 +26,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto&display=swap" rel="stylesheet">
     <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
 
     @yield('head')
@@ -40,7 +41,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('layouts.sidebar')
+        {{-- @include('layouts.sidebar') --}}
         <!-- End of Sidebar -->
     
         <!-- Content Wrapper -->
@@ -50,11 +51,18 @@
             <div id="content">
     
                 <!-- TOP BAR NAVBAR -->
-                @include('layouts.navbar') 
+
+
+
+            
+                @if ( $view_name != "auth.login" )
+                    @include('layouts.navbar') 
+                @endif
+                
 
     
                 <!-- Begin Page Content -->
-                <div class="container-fluid pt-5">
+                <div class="container pt-5">
                         @yield('content')                      
                 </div>
                 <!-- /.container-fluid -->

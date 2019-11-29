@@ -16,7 +16,11 @@ class CreateWorkgroupinvitationsTable extends Migration
         Schema::create('workgroupinvitations', function (Blueprint $table) {
 
             $table->increments('id');
-            //ID INVITACION
+
+            //Id del Workgroup
+            $table->unsignedInteger('workgroup_id');
+            $table->foreign('workgroup_id')->references('id')->on('workgroups')->onDelete('cascade');
+
             $table->string('email');
             // Hash
             $table->string('hash', 60);

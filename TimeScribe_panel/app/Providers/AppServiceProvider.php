@@ -23,6 +23,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+
+        //Compartir el nombre de la vista, {{$view_name}}
+        view()->composer('*', function($view){
+            $view_name = $view->getName();
+            view()->share('view_name', $view_name);
+        });
+
+
     }
 }

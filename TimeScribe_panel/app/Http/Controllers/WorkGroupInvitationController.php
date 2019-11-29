@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Mail\WorkgroupInvitationMail;
 use App\WorkGroupInvitation;
+use App\User;
+
 
 
 
@@ -56,24 +60,22 @@ class WorkGroupInvitationController extends Controller
 
         //Insert in workgroupsinvitations table
         $invitation = WorkGroupInvitation::create([
+            'workgroup_id' => $workGroupId,
             'email' => $developerEmail,
             'hash' => md5($developerEmail . $workGroupId . Str::random(10)),
             'used' => false,
         ]);
 
-
-
-        //Attach to workgroups_workgroupsinvitations table
-        $invitation->workgroups()->attach(
-            $invitation->id,
-            [
-                'workgroup_id' => $workGroupId,
-                'invitation_id' => $invitation->id,
-            ]
-        );
+        // //Attach to workgroups_workgroupsinvitations table
+        // $invitation->workgroups()->attach(
+        //     $invitation->id,
+        //     [
+        //         'workgroup_id' => $workGroupId,
+        //         'invitation_id' => $invitation->id,
+        //     ]
+        // );
 
         return $invitation;
-
     }
 
 
@@ -87,22 +89,50 @@ class WorkGroupInvitationController extends Controller
 
             //Actualizar registro de la invitacion
             //Marcar como usada
+            $invitation->used = true;
+            $invitation->save();
 
-            //Crear usuario manualmente
+            //Crear usuario manualmente            
+            $password = Str::random(10);
+            $user = new User;
+            $user->name = "";
+            $user->email = $invitation->email;
+            $user->password = $password;
+            $user->workgroup_id = $invitation->workgroup_id;
+            $user->is_admin = 0;
+            $user->save();
+            Auth::login($user);
 
-            //redireccionar a el formulario de editar usuario
-
-
-
+            //redireccionar a el formulario de registro
+            return view(
+                'user/mod', 
+                [ 
+                    'user' => $user, 
+                    'workgroupId' => $user->workgroup_id
+                ]
+            );
+            
+        }else{
+            
+            return redirect('/home');
 
         }
 
-
-
-
-
     }
 
+
+
+    public function registerUser( $workgroupId,Request $data){
+
+        $user = Auth::user();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->save();
+
+        return  WorkGroupController::view_show($workgroupId);
+
+    }
 
 
 

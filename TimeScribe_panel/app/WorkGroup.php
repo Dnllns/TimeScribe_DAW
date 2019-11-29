@@ -47,7 +47,9 @@ class WorkGroup extends Model
         //N:N
         public function workGroupInvitations()
         {
-            return $this->belongsToMany('App\WorkGroupInvitation', 'workgroups_workgroupinvitations', 'workgroup_id', 'invitation_id');
+            // return $this->belongsToMany('App\WorkGroupInvitation', 'workgroups_workgroupinvitations', 'workgroup_id', 'invitation_id');
+            return $this->hasMany('App\WorkGroupInvitation', 'workgroup_id', 'id');
+
         }
 
     #endregion 

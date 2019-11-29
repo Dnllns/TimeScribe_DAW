@@ -9,6 +9,9 @@ use App\WorkGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\WorkGroupController;
+
+
 class ProjectController extends Controller
 {
 
@@ -63,21 +66,25 @@ class ProjectController extends Controller
             );
 
             //Devolver la vista de editar proyecto
-            $projectClient = User::find($data['client_id']);
-            $projectTaskGroups = null;  // Al ser recien creado no tiene TaskGroups
-            $devList = $newProject->users()->get();
-            $workGroupDevs = WorkGroup::find($workGroupId)->users()->get();
+            // $projectClient = User::find($data['client_id']);
+            // $projectTaskGroups = null;  // Al ser recien creado no tiene TaskGroups
+            // $devList = $newProject->users()->get();
+            // $workGroupDevs = WorkGroup::find($workGroupId)->users()->get();
 
-            return view(
-                'project/mod/mod',
-                [
-                    'project' => $newProject,
-                    'client' => $projectClient,
-                    'taskGroups' => $projectTaskGroups,
-                    'devList' => $devList,
-                    'workGroupDevs' => $workGroupDevs
-                ]
-            );
+            // return view(
+            //     'project/mod/mod',
+            //     [
+            //         'project' => $newProject,
+            //         'client' => $projectClient,
+            //         'taskGroups' => $projectTaskGroups,
+            //         'devList' => $devList,
+            //         'workGroupDevs' => $workGroupDevs
+            //     ]
+            // );
+
+            //Devolver la vista de seleccionar proyecto
+            return WorkGroupController::view_show($workGroupId);
+
 
         }
 
@@ -206,7 +213,7 @@ class ProjectController extends Controller
          * @param Integer $projectId, el id del proyecto a visualizar
          * @return View
          */
-        public function view_showProject($projectId)
+        public static function view_showProject($projectId)
         {
 
             $project = Project::find($projectId);

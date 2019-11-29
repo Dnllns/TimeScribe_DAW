@@ -24,7 +24,7 @@ Route::get('/logout', function(){
     Auth::logout();
     return Redirect::to("/login")
       ->with('message', array('type' => 'success', 'text' => 'You have successfully logged out'));
-});
+})->name('f-logout');
 
 //HOME
 Route::get('/home', 'HomeController@index')->name('home');
@@ -71,14 +71,21 @@ Route::get('/home', 'HomeController@index')->name('home');
     #region email
 
         //(Invitacion de email) Unirse a un grupo
-        Route::post('/email/accept-invitation/{invitationId}/{hash}', 'WorkGroupInvitationController@acceptInvitation')
-        ->name('f-wg-acceptinvitation')->middleware('auth');
-
+        Route::get('/email/accept-invitation/{invitationId}/{hash}', 'WorkGroupInvitationController@acceptInvitation')
+        ->name('f-wg-acceptinvitation');
 
         //Enviar invitacion
         Route::post('/email/send-workgroup-invitation', 'WorkGroupInvitationController@inviteUser')
         ->name('f-wg-invite')->middleware('auth');
 
+
+    #endregion
+
+    #region newUser
+
+        //Enviar invitacion
+        Route::post('/register/join-workgroup/{workgroupId}', 'WorkGroupInvitationController@registerUser')
+        ->name('f-wg-registeruser')->middleware('auth');
 
     #endregion
 

@@ -10,11 +10,21 @@
 <div class="content">
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-12">
         <div id="project-container" data-projectid="{{$project->id}}" class="card">
-                <div class="card-header">
-                    <strong>Edit project</strong>
-                    <i class="far fa-id-card float-right">{{ $project->id }}</i>
+                <div class="card-header text-primary">
+                    <div class="row">
+                        <div class="col-8">
+                            <h1>Edit project</h1>
+                        </div>
+                        <div class="col-4 my-auto">
+                            <div class="float-right">
+                                <i class="far fa-id-card">{{ $project->id }}</i>
+                            </div>
+                        </div>
+
+                    </div>
+                    
                 </div>
 
                 <div class="card-body m-4">
@@ -25,7 +35,7 @@
                         {{-- Datos del proyecto --}}
                         <div class="row pb-2">
 
-                            <p><strong>Project data</strong></p>
+                            <h2 class="text-primary">Project data</h2>
 
                             {{-- NOMBRE --}}
                             <div class="col-12">
@@ -45,12 +55,17 @@
                         <hr>
 
                         {{-- Configuracion de developers --}}
-                        <div id="dev-config-container" class="row pb-2">
-                            <p><strong>Developers config</strong></p>
+                        
 
+                        <div id="dev-config-container" class="row pb-2">
+                            
+                            <h2 class="text-primary">Developers config</h2>
+
+                            
                             {{-- Lista de devs --}}
-                            <div id="project-devs-container" class="col-12 pb-4">
-                                <p>Developers list</p>
+                            
+                            <div id="project-devs-container" class="col-12 pl-0 pb-4">
+                                <h3>Developers list</h3>                               
 
                                 @if ($devList == null)
                                 {{-- Lista vacía --}}
@@ -62,17 +77,19 @@
                                 @else
                                 {{-- Lista --}}
 
-                                <div id="dev-list">
-                                    <ul>
+                                <div id="dev-list" class="col-12">
+                                    <ul class="list-group ">
                                         @foreach ($devList as $dev)
-                                        <li class="mb-1">
+                                        <li class="list-group-item mb-1">
                                             <div class="row">
                                                 <div data-id="{{$dev->id}}" class="col">{{$dev->name}}, {{$dev->email}}</div>
-                                                <div class="col">
-                                                    <a class="btn btn-sm text-danger f-remove" href
-                                                    data-funct="{{route('f-pj-deldev', ['projectId' => $project->id, 'developerId' => $dev->id])}}" >
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
+                                                <div class="col my-auto">
+                                                    <div class="float-right">
+                                                        <a class="btn btn-sm text-danger f-remove" href
+                                                        data-funct="{{route('f-pj-deldev', ['projectId' => $project->id, 'developerId' => $dev->id])}}" >
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -84,8 +101,9 @@
                             </div>
 
                             {{-- Añadir --}}
-                            <div class="col-12 pb-4">
-                                <p>Add developers</p>
+                            
+                            <div class="col-12 pl-0 pb-4">
+                                <h3>Add developers</h3>
 
                                 {{-- Seleccionar dev perteneciente al Workgroup --}}
                                 <div class="row">
@@ -120,7 +138,7 @@
                                                     </select>
                                                 </div>
 
-                                                <div id="permissions" class="col-6 mt-2">
+                                                <div id="permissions" class="col-6">
                                                     <p>Permissions</p>
                                                     <div class="custom-control custom-radio">
                                                     <input type="radio" class="custom-control-input" id="r1" name="radio" value="{{$project::PERM_WORK}}" checked>
@@ -134,7 +152,7 @@
                                                 </div>
 
 
-                                                <div class="col-12">
+                                                <div class="col-12 pt-4">
                                                     <a  class="btn btn-sm btn-primary float-right" href >Add selected</a>
                                                 </div>
 
@@ -154,27 +172,27 @@
 
                         {{-- Configuracion cliente --}}
                         <div class="row pb-2">
-                            <p><strong>Client configuration</strong></p>
-                            <div class="col-12 pb-4">
+                            <h2 class="text-primary">Client configuration</h2>
 
-
+                            <div class="col-12 pl-0 pb-4">
+                                <h3>Add client</h3>
 
                                 <div class="row">
 
                                     <!-- CLIENT EMAIL -->
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-6 mb-0">
                                         <label class="control-label" for="client_email">Client email:</label>
                                         <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="{{ $client->email }}">
                                     </div>
 
                                     <!-- CLIENT NAME  -->
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-6 mb-0">
                                         <label class="control-label" for="client_name">Client name:</label>
                                         <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="{{ $client->name }}">
                                     </div>
 
 
-                                    <div class="col-12 my-auto">
+                                    <div class="col-12 pt-4 my-auto">
                                         <a class="btn btn-primary btn-sm float-right" href=""> Resend the invitation</a>
                                     </div>
 
@@ -190,13 +208,16 @@
 
                         {{-- Lista de grupos de tareas --}}
                         <div  class="row pb-2">
-                            <p><strong>Task group configuration</strong></p>
+                            <h2 class="text-primary">Task group configuration</h2>
 
 
-                            <div id="taskgroup-list" class="col-12">
+                            <div id="taskgroup-list" class="col-12 px-0">
+                                <h3>Task group list</h3>
+
 
                                 @if ( $taskGroups != null )
 
+                                <div class="col-12">                                
                                     <ul class="list-group">
                                         @foreach ($taskGroups as $taskGroup)
                                             <li class="list-group-item">
@@ -205,6 +226,7 @@
 
                                         @endforeach
                                     </ul>
+                                </div>    
                                 @else
                                 {{-- Mensaje de aviso, no hay tareas --}}
 
@@ -215,7 +237,7 @@
                                 @endif
 
                             </div>
-                            <div class="col my-auto pt-3">
+                            <div class="col my-auto pt-4">
                                 <a class="btn btn-sm btn-primary float-right" href="{{ route('v-tg-new', $project->id ) }}">Add new task group</a>
                             </div>
                         </div>

@@ -18,7 +18,7 @@ class WorkGroupController extends Controller
         return view('workgroup/new');
     }
 
-    public function view_modWorkGroup($workGroupId, $isNew=false)
+    public static function view_modWorkGroup($workGroupId, $isNew=false)
     {
 
         $workGroup = WorkGroup::find($workGroupId);
@@ -46,7 +46,7 @@ class WorkGroupController extends Controller
      *
      * @return View
      */
-    public function view_show($workGroupId)
+    public static function view_show($workGroupId)
     {
 
         $workGroup = WorkGroup::find($workGroupId);

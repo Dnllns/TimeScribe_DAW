@@ -31,7 +31,7 @@
 
 
 
-    <div class="card shadow col-sm-10 mx-auto pb-0">
+    <div class="card shadow col-sm-12 mx-auto pb-0">
         <div class="card-header p-2 mt-3">
             <p class="m-0 font-weight-bold text-primary">{{$project->name}}</p>
             <p>{{$project->description}}</p>
@@ -45,7 +45,16 @@
                 @endforeach
             @else
                 {{-- No hay grupos de tareas --}}
-                @include('common.alert', ['style' => "warning", 'content' => "Currently no task group has been added."] )
+                @include(
+                    'common.alert', 
+                    [
+                        'style' => "warning", 
+                        'content' => 
+                            "Currently no task group has been added.".
+                            " You can start " .
+                            "<a href='/taskgroup-new/" . $project->id . "'>creating a new one</a>"
+                    ] 
+                )
 
             @endif
         </div>

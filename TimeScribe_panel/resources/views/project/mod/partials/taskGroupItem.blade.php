@@ -3,12 +3,12 @@
 
 
         <!-- NOMBRE DEL GRUPO -->
-        <div class="col-8">
+        <div class="col-6 col-md-8">
             {{$taskGroup->name}}
         </div>
 
 
-        <div class="col-4">
+        <div class="col-6 col-md-4">
 
             <div class="float-right">
 
