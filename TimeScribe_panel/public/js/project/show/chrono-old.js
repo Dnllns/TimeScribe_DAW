@@ -263,7 +263,7 @@ function moveToDoing(element) {
     //-----------------
 
     var taskElement = element.closest("[data-taskid]")
-    var name = taskElement.find("[data-name]").attr("data-name")
+    var name = taskElement.find("[data-name]").text()
     var description = taskElement.find("[data-description]").text()
     var taskId = element.closest("[data-taskid]").attr("data-taskid")
 
@@ -317,7 +317,7 @@ function moveTask(element, statuss) {
     //-----------------
 
     var taskElement = element.closest("[data-taskid]")
-    var name = taskElement.find("[data-name]").attr("data-name")
+    var name = taskElement.find("[data-name]").text()
     var description = taskElement.find("[data-description]").text()
     var taskId = element.closest("[data-taskid]").attr("data-taskid")
 

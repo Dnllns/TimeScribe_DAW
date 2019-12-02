@@ -1,0 +1,39 @@
+nav {
+    background-image: linear-gradient(#e35906, yellow) !important;
+}
+
+#content-wrapper {
+    background-image: url(/svg/15505.jpg) !important;
+}
+
+footer {
+    background-image: linear-gradient(yellow, red) !important;
+    color: black !important;
+}
+
+.card-header {
+    background: gold;
+    color: darkblue;
+    /* border: 2px solid #ffaf17; */
+}
+
+
+h1,
+h2,
+h3 {
+    font-family: "Roboto", sans-serif;
+}
+
+h1 {
+    font-size: 1.8em;
+}
+
+h2 {
+    font-size: 1.4em;
+    margin-bottom: 0.6em;
+}
+
+h3 {
+    font-size: 1.2em;
+    margin-bottom: 0.6em;
+}

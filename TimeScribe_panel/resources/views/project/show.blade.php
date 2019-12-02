@@ -31,12 +31,12 @@
 
 
 
-    <div class="card shadow col-sm-12 mx-auto pb-0">
-        <div class="card-header p-2 mt-3">
-            <p class="m-0 font-weight-bold text-primary">{{$project->name}}</p>
-            <p>{{$project->description}}</p>
+    <div class="card shadow col-sm-10 mx-auto p-0">
+        <div class="card-header">
+            <div class=""><h2  class="m-0">{{$project->name}}</h2></div>
+            <div>{{$project->description}}</div>
         </div>
-        <div class="card-body">
+        <div class="card-body m-4">
             @if( $taskGroups != null)
                 @foreach ($taskGroups as $taskGroup)
                 <div data-taskgroup='{{$taskGroup->id}}'>
@@ -46,14 +46,14 @@
             @else
                 {{-- No hay grupos de tareas --}}
                 @include(
-                    'common.alert', 
+                    'common.alert',
                     [
-                        'style' => "warning", 
-                        'content' => 
+                        'style' => "warning",
+                        'content' =>
                             "Currently no task group has been added.".
                             " You can start " .
                             "<a href='/taskgroup-new/" . $project->id . "'>creating a new one</a>"
-                    ] 
+                    ]
                 )
 
             @endif

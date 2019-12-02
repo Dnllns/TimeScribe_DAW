@@ -10,9 +10,9 @@
 <div class="content">
 
     <div class="row justify-content-center">
-        <div class="col-12">
+        <div class="col-10">
         <div id="project-container" data-projectid="{{$project->id}}" class="card">
-                <div class="card-header text-primary">
+                <div class="card-header">
                     <div class="row">
                         <div class="col-8">
                             <h1>Edit project</h1>
@@ -24,7 +24,7 @@
                         </div>
 
                     </div>
-                    
+
                 </div>
 
                 <div class="card-body m-4">
@@ -55,17 +55,17 @@
                         <hr>
 
                         {{-- Configuracion de developers --}}
-                        
+
 
                         <div id="dev-config-container" class="row pb-2">
-                            
+
                             <h2 class="text-primary">Developers config</h2>
 
-                            
+
                             {{-- Lista de devs --}}
-                            
+
                             <div id="project-devs-container" class="col-12 pl-0 pb-4">
-                                <h3>Developers list</h3>                               
+                                <h3>Developers list</h3>
 
                                 @if ($devList == null)
                                 {{-- Lista vacía --}}
@@ -101,7 +101,7 @@
                             </div>
 
                             {{-- Añadir --}}
-                            
+
                             <div class="col-12 pl-0 pb-4">
                                 <h3>Add developers</h3>
 
@@ -217,7 +217,7 @@
 
                                 @if ( $taskGroups != null )
 
-                                <div class="col-12">                                
+                                <div class="col-12">
                                     <ul class="list-group">
                                         @foreach ($taskGroups as $taskGroup)
                                             <li class="list-group-item">
@@ -226,7 +226,7 @@
 
                                         @endforeach
                                     </ul>
-                                </div>    
+                                </div>
                                 @else
                                 {{-- Mensaje de aviso, no hay tareas --}}
 
