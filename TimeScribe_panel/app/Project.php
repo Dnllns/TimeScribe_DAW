@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\User;
+use App\WorkGroup;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -52,21 +52,23 @@ class Project extends Model
         // 1:N
         public function workgroups()
         {
-            return $this->belongsTo('App\Workgroup', 'project_id', 'id');
+            return $this->belongsTo('App\WorkGroup', 'workgroup_id', 'id');
+            // return $this->belongsTo('App\WorkGroup');
+
         }
-    
+
         //N:N USERS
         public function users()
         {
             return $this->belongsToMany('App\User', 'users_projects', 'project_id', 'user_id');
         }
-    
+
         //1:N TASKGROUP
         public function taskGroups()
         {
             return $this->hasMany('App\TaskGroup');
         }
-    
+
         //1:1 BILLS
         public function bill()
         {
@@ -136,6 +138,18 @@ class Project extends Model
             $permissions = $relationData[0]["pivot"]["permissions"];
             return $permissions;
 
+        }
+
+
+        public function getBreadCrumbs(){
+
+
+            $wgroup_name = $this->workgroups()->first()->name;
+            $wgroup_id = $this->workgroups()->first()->id;
+
+            $wg_route = "<a href='/workgroup-show/" . $wgroup_id . "'>" . $wgroup_name  . "</a>";
+
+            return $wg_route . "<span class='text-secondary'>/</span>" . $this->name;
         }
 
     #endregion

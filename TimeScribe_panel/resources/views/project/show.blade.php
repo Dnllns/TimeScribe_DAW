@@ -3,13 +3,10 @@
 @section('head')
 
     <!-- STYLES -->
-    <link rel="stylesheet" href="/JqueryUi/jquery-ui.min.css">
-    <link rel="stylesheet" href="/JqueryUi/jquery-ui.structure.min.css">
-    <link rel="stylesheet" href="/JqueryUi/jquery-ui.theme.min.css">
+
 
     <!-- LIBS -->
     <script src="/js/jquery-3.4.1.js"></script>
-    <script src="/JqueryUi/jquery-ui.min.js"></script>
 
     <!-- -------------SCRIPTS---------------- -->
     {{-- <script src="/js/funcionesComunes.js"></script> --}}
@@ -19,7 +16,8 @@
     <script src="/js/project/show/chronoSticky.js"></script>
 
     <!-- Para hacer drag and drop -->
-    <!-- <script src="/js/pr_dashboard/draggable.js"></script> -->
+
+
 
 @endsection
 
@@ -29,19 +27,26 @@
     <!-- Plantilla de sticky chrono -->
     @include('task.partials.sticky_chrono' )
 
-    
+
     <div class="card shadow col-sm-10 mx-auto p-0">
 
         <div class="card-header">
 
             <div class="row">
-                <div class="col-6">
-                    <h1 class="my-auto">Show project</h1>
+                <div class="col-12 col-md-6">
+                    <h1 class="my-auto"> Show project</h1>
+
                 </div>
 
-                <div class="col-6 my-auto">
+                <div class="col-auto col-md-5 my-auto text-uppercase">
                     <div class="float-right">
-                        {{$project->name}} <i class="far fa-id-card">{{$project->id}}</i>
+                        {!! $project->getBreadCrumbs() !!}
+                    </div>
+                </div>
+
+                <div class="col-auto col-md-1 my-auto">
+                    <div class="float-right">
+                        <i class="far fa-id-card">{{$project->id}}</i>
                     </div>
                 </div>
             </div>
@@ -56,7 +61,7 @@
                     <label for="description"  class="m-0"><strong>Description:</strong></label>
                     <div name="description">{{$project->description}}</div>
                 </div>
-                
+
             </div>
 
 
