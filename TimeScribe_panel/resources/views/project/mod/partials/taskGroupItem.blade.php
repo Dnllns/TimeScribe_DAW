@@ -16,7 +16,7 @@
                 <a class="text-warning" href="{{route('v-tg-mod', [$taskGroup->id])}}">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a class="text-danger" href data-del data-funct="{{route('f-tg-del', [$taskGroup->id])}}">
+                <a class="text-warning" href data-del data-funct="{{route('f-tg-del', [$taskGroup->id])}}">
                     <i class="fas fa-trash-alt"></i>
                 </a>
 

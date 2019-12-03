@@ -55,8 +55,7 @@ class TaskController extends Controller
         );
 
 
-
-        return TaskController::view_editTask($newTask->id);
+        return TaskGroupController::view_editTaskGroup($taskGroupId);
     }
 
     /**
@@ -74,6 +73,7 @@ class TaskController extends Controller
         //Udate fields
         $task->name = $data['name'];
         $task->description = $data['description'];
+        $task->visible = $data['visible'];
 
         //Update database
         $task->save();

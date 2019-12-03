@@ -125,6 +125,7 @@ class WorkGroupController extends Controller
         $workGroup = WorkGroup::find($workGroupId);
         $workGroup->name = $data['name'];
         $workGroup->save();
+        return $this->view_show($workGroupId);
 
     }
 

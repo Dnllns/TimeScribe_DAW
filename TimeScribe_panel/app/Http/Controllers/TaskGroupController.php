@@ -73,6 +73,8 @@ class TaskGroupController extends Controller
         //Udate fields
         $taskGroup->name = $data['name'];
         $taskGroup->description = $data['description'];
+        $taskGroup['visible'] = $data['visible'];
+
 
         //Update database
         $taskGroup->save();
@@ -159,6 +161,9 @@ class TaskGroupController extends Controller
     {
         $taskGroup = TaskGroup::find($taskGroupId);
         $tasks = $taskGroup->tasks;
+        if($tasks->count()==0){
+            $tasks = null;
+        }
 
         return view(
             'taskgroup/mod',

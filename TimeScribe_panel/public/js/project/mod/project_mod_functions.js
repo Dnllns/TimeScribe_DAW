@@ -1,19 +1,19 @@
-$(function () {
+$(function() {
 
 
     // LISTA ELIMINAR
     //---------------
-    $('#dev-config-container').on('click', "#dev-list a.f-remove", function (event) {
+    $('#dev-config-container').on('click', "#dev-list a.f-remove", function(event) {
 
         // Eliminar el developer de la lista
         delDeveloperFromList(event, $(this))
 
         // Ocultar el alert de aviso de eliminacion
         window.setTimeout(
-            function () {
+            function() {
                 $("#dev-config-container .alert.alert-success").fadeTo(500, 0).slideUp(
                     500,
-                    function () { $(this).remove() })
+                    function() { $(this).remove() })
             },
             2000
         )
@@ -24,14 +24,14 @@ $(function () {
 
     // LISTA AÑADIR
     //--------------
-    $('#dev-config-container').on('click', "#add-devs a.btn", function (event) {
+    $('#dev-config-container').on('click', "#add-devs a.btn", function(event) {
         addDeveloperToList(event)
     })
 
 
     // TASKGROUP LISTA ELIMINAR
     //--------------
-    $('#taskgroup-list').on('click', "a[data-del]", function (event) {
+    $('#taskgroup-list').on('click', "a[data-del]", function(event) {
         delTaskGroup(event, $(this))
     })
 
@@ -50,10 +50,10 @@ function delDeveloperFromList(event, element) {
     if (confirm("Seguro que desea eliminar?")) {
 
 
-        ajaxDelFromList(element)    //Peticion al server
-        delPrepareInterface()       //Preparar interface para hacer los cambios
-        addToSelect(element)        //Añadir el dev eliminado a el select de añadir
-        delFromList(element)        //ELiminar de la lista
+        ajaxDelFromList(element) //Peticion al server
+        delPrepareInterface() //Preparar interface para hacer los cambios
+        addToSelect(element) //Añadir el dev eliminado a el select de añadir
+        delFromList(element) //ELiminar de la lista
 
         //Mensaje de aviso de borrado realizado
         $('#dev-list').before(
@@ -294,13 +294,15 @@ function addToList(element) {
 
     //Anadir a la lista de desarrolladores
     $('#dev-list ul').append(
-        "<li>" +
+        "<li class='list-group-item'>" +
         "<div class='row'>" +
-        "<div class='col data-item' data-id='" + devId + "'>" + itemContent + "</div>" +
-        "<div class='col'>" +
+        "<div class='col my-auto' data-id='" + devId + "'>" + itemContent + "</div>" +
+        "<div class='col my-auto'>" +
+        "<dibv class='float-right'>" +
         "<a data-id='" + devId + "' data-funct='/project-del-developer-bd/" + projectId + "/" + devId + "' href='' class='btn btn-sm text-danger f-remove'>" +
         "<i class='fas fa-trash-alt'></i>" +
         "</a>" +
+        "</div>" +
         "</div>" +
         "</div>" +
         "</li>"
@@ -345,7 +347,7 @@ function delTaskGroup(event, element) {
 
     //Ocultar mensaje 2 segundos despues
     window.setTimeout(
-        function () {$("#taskgroup-list .alert.alert-success").fadeTo(500, 0).slideUp( 500, function () { $(this).remove() }) }, 2000
+        function() { $("#taskgroup-list .alert.alert-success").fadeTo(500, 0).slideUp(500, function() { $(this).remove() }) }, 2000
     )
 
 

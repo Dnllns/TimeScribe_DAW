@@ -5,23 +5,40 @@
         <!-- CABECERA -->
         {{-- ------------------------------- --}}
 
-        <div data-name
-        class="card-header col-12 p-2 text-uppercase">
+        <div data-name class="card-header col-12 p-2 text-uppercase" style="background: 
+            
+            @switch($task->status)
+                @case($task::STATUS_TODO)
+                    #ff8181!important;
+                    @break
+
+                @case($task::STATUS_DOING)
+                    #36b9cc!important;
+                    @break
+
+                @case($task::STATUS_DONE)
+                    #1cc88a!important;
+                    @break
+                    
+            @endswitch
+
+            ">
+
             <!-- TITULO -->
-            {{ $task->name }}
+            <strong>{{ $task->name }}</strong>
 
             <div class="float-right">
                 <a data-togglebuttons data-toggle="collapse"
-                href="div[data-togglebuttonscontainer]" role="button" >
+            href="div[data-toggleid='{{$task->id}}']" role="button" >
                     <i class="fas fa-tools"></i>
                 </a>
             </div>
 
         </div>
 
-        <div data-togglebuttonscontainer class="col-12 float-right p-0 collapse">
+        <div data-toggleid="{{$task->id}}" class="col-auto p-0 collapse">
 
-            <div class="col-4 float-right">
+            <div class="col-auto p-0 float-right">
 
             @if ($task->status == $task::STATUS_TODO)
                 @include('task.partials.task_item_buttons', ['type' => 'START'] )
@@ -53,10 +70,13 @@
         {{-- CONTENIDO --}}
         {{-- ----------------------------------------- --}}
 
-        <div class="col-12 pt-2">
+        <div class="col-12 p-2">
 
             {{-- DESCRIPCION --}}
-            <div data-description class="">{{ $task->description }}</div>
+            <div data-description class="row">
+                <div class ="col-12"><strong>Description:</strong></div>
+                <div class="col-12">{{ $task->description }}</div>
+            </div>
 
 
             <!-- TASK DATA -->

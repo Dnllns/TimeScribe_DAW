@@ -54,19 +54,19 @@
         <!-- ICONOS DE TODO DOING DONE -->
         <div class="col-4 col-md-3 my-auto text-center" >
             <span
-                class="btn btn-circle icon-sm bg-warning mb-1"
+                class="btn btn-circle icon-sm mb-1 todo"
                 data-tooltip="tooltip" data-placement="bottom" title="To do">
                 <strong class="text-dark">{{count($taskGroup->getTasks(0))}}</strong>
             </span>
 
             <span
-                class="btn btn-circle icon-sm bg-info mb-1 "
+                class="btn btn-circle icon-sm mb-1 doing"
                 data-tooltip="tooltip" data-placement="bottom" title="Doing">
                 <strong class="text-dark">{{count($taskGroup->getTasks(1))}}</strong>
             </span>
 
             <span
-                class="btn btn-circle icon-sm bg-success mb-1 "
+                class="btn btn-circle icon-sm mb-1 done"
                 data-tooltip="tooltip" data-placement="bottom" title="Done">
                 <strong class="text-dark">{{count($taskGroup->getTasks(2))}}</strong>
             </span>
@@ -90,12 +90,13 @@
 
     {{-- TAREAS DEL GRUPO --}}
     <div id="task-list-{{$taskGroup->id}}" class="col-sm-12 mt-3 collapse">
+        <hr>
 
         <div class="row">
 
             {{-- TODO --}}
             <div data-todo class="col-12 col-lg-4">
-                <h4 class="text-center">TO DO</h4>
+                <h4 class="text-center mt-2 mb-4 ">TO DO</h4>
                 <ul class="p-0" style="list-style: none">
                     @foreach ($taskGroup->getTasks(0) as $task)
                     <li data-taskid="{{$task->id}}">
@@ -106,8 +107,8 @@
             </div>
 
             {{-- DOING --}}
-            <div data-doing class="col-12 col-lg-4">
-                <h4 class="text-center">DOING</h4>
+            <div data-doing class="col-12 col-lg-4 taskgroup-border">
+                <h4 class="text-center mt-2 mb-4 ">DOING</h4>
                 <ul class="p-0" style="list-style: none">
                     @foreach ($taskGroup->getTasks(1) as $task)
                     <li data-taskid="{{$task->id}}">
@@ -120,7 +121,7 @@
 
             {{-- DONE --}}
             <div data-done class="col-12 col-lg-4">
-                <h4 class="text-center">DONE</h4>
+                <h4 class="text-center mt-2 mb-4 ">DONE</h4>
                 <ul class="p-0" style="list-style: none">
                     @foreach ($taskGroup->getTasks(2) as $task)
                     <li data-taskid="{{$task->id}}">
@@ -135,7 +136,6 @@
 
 </div>
 
-<hr>
 
 
 

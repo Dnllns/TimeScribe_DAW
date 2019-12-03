@@ -80,12 +80,12 @@
                                 <div id="dev-list" class="col-12">
                                     <ul class="list-group ">
                                         @foreach ($devList as $dev)
-                                        <li class="list-group-item mb-1">
+                                        <li class="list-group-item">
                                             <div class="row">
-                                                <div data-id="{{$dev->id}}" class="col">{{$dev->name}}, {{$dev->email}}</div>
+                                                <div data-id="{{$dev->id}}" class="col my-auto">{{$dev->name}}, {{$dev->email}}</div>
                                                 <div class="col my-auto">
                                                     <div class="float-right">
-                                                        <a class="btn btn-sm text-danger f-remove" href
+                                                        <a class="btn btn-sm text-warning f-remove" href
                                                         data-funct="{{route('f-pj-deldev', ['projectId' => $project->id, 'developerId' => $dev->id])}}" >
                                                             <i class="fas fa-trash-alt"></i>
                                                         </a>

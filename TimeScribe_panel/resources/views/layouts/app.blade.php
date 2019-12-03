@@ -51,7 +51,7 @@
             <!-- Main Content -->
             <div id="content">
                 <!-- Begin Page Content -->
-                <div class="container mx-auto">
+                <div class="container my-5 mx-auto">
                     @yield('content')
                 </div>
 

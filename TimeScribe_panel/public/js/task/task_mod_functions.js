@@ -139,11 +139,11 @@ function addToList(element) {
 
     //Anadir a la lista de desarrolladores
     $('#dev-list ul').append(
-        "<li>" +
+        "<li class='list-group-item'>" +
         "<div class='row'>" +
         "<div class='col data-item' data-id='" + devId + "'>" + itemContent + "</div>" +
         "<div class='col'>" +
-        "<a data-id='" + devId + "' data-funct='/task-deldev-bd/" + taskId + "/" + devId + "' href='' class='btn btn-sm text-danger f-remove'>" +
+        "<a data-id='" + devId + "' data-funct='/task-deldev-bd/" + taskId + "/" + devId + "' href='' class='btn btn-sm text-warning f-remove'>" +
         "<i class='fas fa-trash-alt'></i>" +
         "</a>" +
         "</div>" +

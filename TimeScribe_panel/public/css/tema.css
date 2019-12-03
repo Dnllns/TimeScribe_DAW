@@ -13,27 +13,105 @@ footer {
 
 .card-header {
     background: gold;
-    color: darkblue;
+    color: darkblue !important;
     /* border: 2px solid #ffaf17; */
 }
 
+.card-header h1 {
+    color: darkblue !important;
+}
+
+
+/* ---------------------------------------------------------------------- 
+    LETRA E ICONOS
+    --------------
+*/
+
+
+/*  */
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     font-family: "Roboto", sans-serif;
 }
 
 h1 {
     font-size: 1.8em;
+    color: #4e73df;
 }
 
 h2 {
     font-size: 1.4em;
     margin-bottom: 0.6em;
+    color: #4e73df!important;
 }
 
-h3 {
+h3,
+h4 {
     font-size: 1.2em;
     margin-bottom: 0.6em;
+}
+
+
+/* Iconos de dentro de un card header */
+
+
+/* .card-header i {
+    font-size: 1.6em;
+} */
+
+a[data-togglebuttons] i {
+    font-size: 1em;
+    color: darkblue;
+}
+
+
+/* Botones colapsables de la tarea */
+
+div[data-toggleid] div {
+    border: 1px solid #e3e6f0;
+    border-radius: .35rem;
+    background: aliceblue;
+}
+
+.font-roboto {
+    font-family: "Roboto";
+}
+
+
+/* ---------------------------------------------------------------------- 
+    PROJECT SHOW
+    -------------
+*/
+
+
+/* Bordes de Doing */
+
+.taskgroup-border {
+    border-left: 1px solid #e3e6f0;
+    border-right: 1px solid #e3e6f0;
+}
+
+
+/* Fondos */
+
+.todo {
+    background: #ff8181!important;
+}
+
+.doing {
+    background: #36b9cc!important;
+}
+
+.done {
+    background: #1cc88a!important;
+}
+
+
+/**---------------------------------------------------*/
+
+.breadcrumbs {
+    border: 1px solid #e3e6f0;
 }

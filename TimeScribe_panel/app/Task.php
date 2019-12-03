@@ -22,10 +22,10 @@ class Task extends Model
         'task_group_id',
         'name',
         'description',
-        'status',
         'start_date',
         'finish_date',
-        'visible',
+        'status',
+        'visible'
     ];
 
     //TASK STATUS
@@ -34,8 +34,9 @@ class Task extends Model
     const STATUS_DONE = 2;
 
     //VISIBLE
-    const VISIBLE = 1;
     const INVISIBLE = 0;
+    const VISIBLE = 1;
+    
 
     #endregion
 
@@ -90,15 +91,15 @@ class Task extends Model
 
         switch ($this->status) {
             case $this::STATUS_TODO:
-                echo '<i class="far fa-clipboard" data-toggle="tooltip" title="To do"></i>';
+                echo '<i class="far fa-clipboard pr-1" data-toggle="tooltip" title="To do"></i>';
                 break;
 
             case $this::STATUS_DOING:
-                echo '<i class="fas fa-pencil-alt" data-toggle="tooltip" title="Doing"></i>';
+                echo '<i class="fas fa-pencil-alt pr-1" data-toggle="tooltip" title="Doing"></i>';
                 break;
 
             case $this::STATUS_DONE:
-                echo '<i class="fas fa-clipboard-check" data-toggle="tooltip" title="Done"></i>';
+                echo '<i class="fas fa-clipboard-check pr-1" data-toggle="tooltip" title="Done"></i>';
                 break;
         }
     }
@@ -112,7 +113,7 @@ class Task extends Model
     public function getVisibilityIcon()
     {
 
-        if ($this->visible == 1) {
+        if ($this['visible'] == 1) {
             echo '<i class="far fa-eye" data-toggle="tooltip" data-placement="right" title="Visible"></i>';
         } else {
             echo '<i class="fas fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';

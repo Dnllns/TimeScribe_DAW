@@ -112,7 +112,10 @@ class ProjectController extends Controller
             //Update database
             $project->save();
 
-            return $this->view_selectProject(); //Show the project selection view
+            // return $this->view_selectProject(); //Show the project selection view
+
+            return WorkGroupController::view_show($project->workgroup_id);
+
 
         }
 
@@ -159,7 +162,14 @@ class ProjectController extends Controller
         public function view_selectProject()
         {
 
+            //Obtener los proyectos visibles del usuario
             $userProjects = auth()->user()->projects;
+            if ($userProjects->count() == 0) {
+                $userProjects = null;
+            }
+
+
+
             return view('project/select', ['userProjects' => $userProjects]);
         }
 
