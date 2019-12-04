@@ -83,7 +83,7 @@ class WorkGroupInvitationController extends Controller
             $invitation->used = true;
             $invitation->save();
 
-            //Crear usuario manualmente            
+            //Crear usuario manualmente
             $password = Str::random(10);
             $user = new User;
             $user->name = "";
@@ -91,20 +91,21 @@ class WorkGroupInvitationController extends Controller
             $user->password = $password;
             $user->workgroup_id = $invitation->workgroup_id;
             $user->is_admin = 0;
+            $user->is_client = 0;
             $user->save();
             Auth::login($user);
 
             //redireccionar a el formulario de registro
             return view(
-                'user/mod', 
-                [ 
-                    'user' => $user, 
+                'user/mod',
+                [
+                    'user' => $user,
                     'workgroupId' => $user->workgroup_id
                 ]
             );
-            
+
         }else{
-            
+
             return redirect('/home');
 
         }

@@ -129,23 +129,24 @@ class WorkGroupController extends Controller
 
     }
 
-    protected function webSelectProject($workGroupId)
-    {
 
-        $userId = auth()->user()->id;
-        $workGroup = WorkGroup::find($workGroupId);
-        $projects = $workGroup->projects()->where('user_id', $userId)->get();
 
-    }
+    // protected function registerDeveloper( Request $data){
 
-    /**
-     * Obtiene los proyectos pertenecientes a un workgroup
-     */
-    public function getProjects($workGroupId)
-    {
 
-        return $projects;
+    //     $user = Auth::user();
+    //     $user->name = $data['name'];
+    //     $user->email = $data['email'];
+    //     $user->password = $data['password'];
 
-    }
+
+    //     $user->save();
+
+
+    // }
+
+
+
+
 
 }

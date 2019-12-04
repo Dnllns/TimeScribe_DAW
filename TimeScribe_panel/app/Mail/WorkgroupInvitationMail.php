@@ -43,7 +43,7 @@ class WorkgroupInvitationMail extends Mailable
 
         return $this->from($fromEmail)
         ->view(
-            'emails.invitationMail', 
+            'emails.workgroupInvitationMail',
             [
                 'name' => $this->guestName,
                 'adminName' => $this->adminName,

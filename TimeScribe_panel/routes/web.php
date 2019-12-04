@@ -298,6 +298,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/remove-developer/{userId}', 'UserController@deleteUser')
 ->name('f-wg-removedev')->middleware('auth');
 
+
+Route::post('/register-developer', 'WorkGroupInvitationController@registerUser')
+->name('f-wg-register-developer')->middleware('auth');
+
+
 #endregion
 
 
