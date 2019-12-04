@@ -17,7 +17,7 @@ class User extends Authenticatable
 
     #region class
 
-        protected $fillable = ['name', 'email', 'password', 'workgroup_id', 'is_admin'];
+        protected $fillable = ['name', 'email', 'password', 'workgroup_id', 'is_admin', 'is_client'];
         protected $hidden = ['password', 'remember_token'];
         protected $casts = ['email_verified_at' => 'datetime'];
 

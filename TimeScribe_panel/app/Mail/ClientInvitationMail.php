@@ -7,13 +7,13 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class WorkgroupInvitationMail extends Mailable
+class ClientInvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $guestName;
     public $guestEmail;
     public $adminName;
-    public $workGroupName;
+    public $projectName;
     public $link;
 
     /**
@@ -22,12 +22,12 @@ class WorkgroupInvitationMail extends Mailable
      * @return void
      */
     // public function __construct($data)
-    public function __construct($guestName, $adminName, $workGroupName, $link)
+    public function __construct($guestName, $adminName, $projectName, $link)
 
     {
         $this->guestName = $guestName;
         $this->adminName = $adminName;
-        $this->workGroupName = $workGroupName;
+        $this->projectName = $projectName;
         $this->link = $link;
     }
 
@@ -39,15 +39,14 @@ class WorkgroupInvitationMail extends Mailable
     public function build()
     {
         $fromEmail = "timescribeteam@gmail.com";
-        // $fromEmail = env('SEND_EMAIL_ACCOUNT', false);
 
         return $this->from($fromEmail)
         ->view(
-            'emails.invitationMail', 
+            'emails.clientInvitationMail', 
             [
                 'name' => $this->guestName,
                 'adminName' => $this->adminName,
-                'workGroupName' => $this->workGroupName,
+                'projectName' => $this->projectName,
                 'link' => $this->link
             ]
         );

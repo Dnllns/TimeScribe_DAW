@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('workgroup_id')->nullable();
             $table->foreign('workgroup_id')->references('id')->on('workgroups')->onDelete('cascade');
             $table->unsignedInteger('is_admin')->nullable();
+            $table->unsignedInteger('is_client')->nullable();
+
 
 
             //EXTRA

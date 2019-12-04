@@ -36,36 +36,7 @@
 
         </div>
 
-        <div data-toggleid="{{$task->id}}" class="col-auto p-0 collapse">
-
-            {{-- <div class="col-auto p-0 float-right">
-            @if ($task->status == $task::STATUS_TODO)
-                @include('task.partials.task_item_buttons', ['type' => 'START'] )
-            @else
-                <!-- BOTON DE VISUALIZAR -->
-                @include('task.partials.task_item_buttons', ['type' => 'VIEW'] )
-
-                @if ($task->status == $task::STATUS_DOING)
-
-                    <!-- BOTON DE SELECT -->
-                    @include('task.partials.task_item_buttons', ['type' => 'SELECT'] )
-
-                    <!-- BOTON DE COMPLETADO -->
-                    @include('task.partials.task_item_buttons', ['type' => 'DONE'] )
-
-                @elseif ($task->status == $task::STATUS_DONE)
-
-                    <!-- BOTON DE ELIMINAR -->
-                    @include('task.partials.task_item_buttons', ['type' => 'DELETE'] )
-
-                @endif
-
-            @endif
-            </div> --}}
-
-        </div>
-
-
+        
         {{-- CONTENIDO --}}
         {{-- ----------------------------------------- --}}
 
@@ -112,7 +83,7 @@
                 <div data-workedtime class="col-12 m-1"
                     data-tooltip="tooltip" data-placement="bottom" title="Worked time">
                     <i class="fas fa-business-time mr-1"></i>
-                    {{ $task->getWorkedTime($task->id) }}
+                    {{ $task->getWorkedTime() }}
                 </div>
 
                 <div class="col-12 m-1"
@@ -132,33 +103,6 @@
 
         </div>
 
-        <!-- BOTONES -->
-        {{-- <div class="col-12 pt-2">
-
-            @if ($task->status == $task::STATUS_TODO)
-                @include('task.partials.task_item_buttons', ['type' => 'START'] )
-            @else
-                <!-- BOTON DE VISUALIZAR -->
-                @include('task.partials.task_item_buttons', ['type' => 'VIEW'] )
-
-                @if ($task->status == $task::STATUS_DOING)
-
-                    <!-- BOTON DE SELECT -->
-                    @include('task.partials.task_item_buttons', ['type' => 'SELECT'] )
-
-                    <!-- BOTON DE COMPLETADO -->
-                    @include('task.partials.task_item_buttons', ['type' => 'DONE'] )
-
-                @elseif ($task->status == $task::STATUS_DONE)
-
-                    <!-- BOTON DE ELIMINAR -->
-                    @include('task.partials.task_item_buttons', ['type' => 'DELETE'] )
-
-                @endif
-
-            @endif
-
-        </div> --}}
-
+        
 
 </div>

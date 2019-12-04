@@ -12,7 +12,7 @@
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 //LOGIN - REGISTER
@@ -276,8 +276,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 #region Client
 
-    Route::get('/client-dashboard', 'UserController@view_clientDashboard')
+    Route::get('/client-dashboard/{clientId}', 'ClientController@view_showClientProjects')
     ->name('client_dashboard')->middleware('auth');
+
+    Route::post('/email/send-client-invitation', 'ClientInvitationController@inviteClient')
+    ->name('invite_client')->middleware('auth');
+
+    Route::get('/email/client-accept-invitation/{invitationId}/{hash}', 'ClientInvitationController@acceptInvitation')
+        ->name('f-cl-acceptinvitation');
 
 #endregion
 

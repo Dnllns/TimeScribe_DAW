@@ -109,9 +109,40 @@ div[data-toggleid] div {
     background: #1cc88a!important;
 }
 
+.text-todo {
+    color: #ff8181!important;
+}
+
+.text-doing {
+    color: #36b9cc!important;
+}
+
+.text-done {
+    color: #1cc88a!important;
+}
+
 
 /**---------------------------------------------------*/
 
 .breadcrumbs {
     border: 1px solid #e3e6f0;
+}
+
+ul.striped>li:nth-child(odd) {
+    background: #edefe6;
+}
+
+.todo-list {
+    border: 1px solid #ff8181;
+    border-radius: 8px;
+}
+
+.doing-list {
+    border: 1px solid #36b9cc;
+    border-radius: 8px;
+}
+
+.done-list {
+    border: 1px solid #1cc88a;
+    border-radius: 8px;
 }
