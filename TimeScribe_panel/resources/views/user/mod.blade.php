@@ -7,7 +7,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('f-wg-register-developer') }}">
+                    <form method="POST" action="{{ route('f-wg-register-developer', ['workgroupId' => $user->workgroup_id]) }}">
                         @csrf
 
                         {{-- NOMBRE --}}

@@ -5,16 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><strong>Create workgroup</strong></div>
+                <div class="card-header">
+                    <h1 class="m-0">Create workgroup</h1>
+                </div>
 
                 <div class="card-body m-4">
 
-
-                    <form method="post" action="{{ route('f-wg-new') }}">
+                    <form method="post" action="{{route('f-wg-new')}}">
                         @csrf
 
                         <div class="row">
-                            <p>The work group is the space where your company's projects will be located</p>
+
+                            <div class="col-12">
+                                @php
+                                $content = "The work group is the space where your projects will be located";
+                                @endphp
+                                @include('common.alert', ['style' => "info", 'content' => $content] )
+                            </div>
+
                         </div>
 
                         <!-- Text input-->

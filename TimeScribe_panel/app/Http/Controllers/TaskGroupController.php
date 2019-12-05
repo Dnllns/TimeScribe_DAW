@@ -78,7 +78,7 @@ class TaskGroupController extends Controller
 
         //Update database
         $taskGroup->save();
-        return ProjectController::view_editProject($taskGroup->project_id);
+        return ProjectController::view_showProject($taskGroup->project_id);
 
     }
 
@@ -97,7 +97,7 @@ class TaskGroupController extends Controller
         $taskGroup->save();
 
         $projectId = $taskGroup->project_id;
-        
+
         return ProjectController::view_editProject($projectId);
     }
 

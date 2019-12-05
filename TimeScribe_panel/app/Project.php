@@ -147,7 +147,7 @@ class Project extends Model
             $wgroup_name = $this->workgroups()->first()->name;
             $wgroup_id = $this->workgroups()->first()->id;
 
-            $wg_route = "<a href='/workgroup-show/" . $wgroup_id . "'>" . $wgroup_name  . "</a>";
+            $wg_route = "<a class='text-info' href='/workgroup-show/" . $wgroup_id . "'>" . $wgroup_name  . "</a>";
 
             return $wg_route . "<span class='text-secondary'>/</span>" . $this->name;
         }

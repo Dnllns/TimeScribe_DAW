@@ -56,34 +56,36 @@ class WorkGroupController extends Controller
 
         $currentUser =  auth()->user();
         $projects = null;
+        $isAdmin = false;
 
 
         if( $currentUser->is_admin == 1){
 
             // USUARIO ADMIN
-
+            $isAdmin = true;
             // Obtiene todos los proyectos del Workgroup
             $projects = $workGroup->projects()->get();
-
         }
         else{
-
-            // NO ADMIN
-
             // Obtiene los proyectos del workgroup que le han sido asignados
             $projects = $currentUser->projects()
             ->where('permissions', Project::PERM_ALL)
             ->orWhere('permissions', Project::PERM_WORK )->get();
-
         }
 
+
+
+        //Vista Mostrar Workgroup
         return view(
             'workgroup/show',
-            ['workGroup' =>$workGroup , 'userProjects' => $projects]
+            [
+                'workGroup' =>$workGroup ,
+                'userProjects' => $projects,
+                'isAdmin' => $isAdmin
+            ]
         );
+
     }
-
-
 
     #endregion
 
@@ -105,14 +107,9 @@ class WorkGroupController extends Controller
         $currentUser->is_admin = 1;
         $currentUser->save();
 
+        return $this->view_show($workGroup->id);
 
-        // Return to the project editor view
-        // return view(
-        //     'workgroup/mod',
-        //     ['workGroup' => $workGroup, 'isNew' => true]
-        // );
 
-        return $this->view_modWorkGroup($workGroup->id, true);
 
     }
 

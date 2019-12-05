@@ -183,13 +183,13 @@
                                 <!-- CLIENT EMAIL -->
                                 <div class="form-group col-6 mb-0">
                                     <label class="control-label" for="client_email">Client email:</label>
-                                    <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="{{ $client->email }}">
+                                    <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="@if($client != null){{$client->email }}@endif">
                                 </div>
 
                                 <!-- CLIENT NAME  -->
                                 <div class="form-group col-6 mb-0">
                                     <label class="control-label" for="client_name">Client name:</label>
-                                    <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="{{ $client->name }}">
+                                    <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="@if($client != null){{$client->name }}@endif">
                                 </div>
 
 
@@ -202,7 +202,7 @@
                                     var adminName = {!! json_encode(Auth::user()->name, JSON_HEX_TAG) !!}
                                     var projectName = {!! json_encode($project->name, JSON_HEX_TAG) !!}
                                     var projectId = {!! json_encode($project->id, JSON_HEX_TAG) !!}
-                                </script>  
+                                </script>
 
                             </div>
 

@@ -1,24 +1,29 @@
-nav {
-    background-image: linear-gradient(#e35906, yellow) !important;
+nav, footer {
+    background:#114163;
+    color: white !important;
 }
 
 #content-wrapper {
-    background-image: url(/svg/15505.jpg) !important;
+    background: #d9d9ff !important;
 }
 
 footer {
-    background-image: linear-gradient(yellow, red) !important;
     color: black !important;
+}
+.card{
+    border: 1px solid #b2b4bf!important;
 }
 
 .card-header {
-    background: gold;
-    color: darkblue !important;
+    background: #5a5c69!important;
+    border: 0px;
+
+    color: white !important;
     /* border: 2px solid #ffaf17; */
 }
 
 .card-header h1 {
-    color: darkblue !important;
+    color: white !important;
 }
 
 
@@ -38,19 +43,19 @@ h4 {
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: 1.5em;
     color: #4e73df;
 }
 
 h2 {
-    font-size: 1.4em;
+    font-size: 1.3em;
     margin-bottom: 0.6em;
     color: #4e73df!important;
 }
 
 h3,
 h4 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 0.6em;
 }
 
@@ -64,7 +69,7 @@ h4 {
 
 a[data-togglebuttons] i {
     font-size: 1em;
-    color: darkblue;
+    color: white;
 }
 
 
@@ -73,11 +78,24 @@ a[data-togglebuttons] i {
 div[data-toggleid] div {
     border: 1px solid #e3e6f0;
     border-radius: .35rem;
-    background: aliceblue;
 }
 
 .font-roboto {
     font-family: "Roboto";
+}
+
+.list-group-item{
+
+    border-color: #b2b4bf;
+}
+
+.progress{
+
+    border: 1px solid #b2b4bf;
+}
+
+hr{
+    background: #b2b4bf;
 }
 
 
@@ -122,6 +140,9 @@ div[data-toggleid] div {
 }
 
 
+a i.far:hover, a i.fas:hover, a i.fa:hover, i[data-funct]:hover, button i:hover {
+    color: #1cc88a!important;
+}
 /**---------------------------------------------------*/
 
 .breadcrumbs {

@@ -15,11 +15,11 @@ class CreateProjectsTable extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            
+
             $table->increments('id');
-            
+
             //ID CLIENTE
-            $table->unsignedInteger('client_id');
+            $table->unsignedInteger('client_id')->nullable();
             $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade');
 
             //NOMBRE
@@ -59,5 +59,5 @@ class CreateProjectsTable extends Migration
 
 
 
-    
+
 }

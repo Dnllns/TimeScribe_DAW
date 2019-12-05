@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkGroup extends Model
 {
-    
 
-    
+
+
     /**
      * -----------------------------CLASS----------------------------
      * ---------------------------------------------------------------
@@ -30,7 +30,7 @@ class WorkGroup extends Model
      */
 
 
-    #region Relations 
+    #region Relations
 
         //1:N
         public function users()
@@ -52,7 +52,7 @@ class WorkGroup extends Model
 
         }
 
-    #endregion 
+    #endregion
 
 
     /**
@@ -64,10 +64,16 @@ class WorkGroup extends Model
 
         /**
          * Obtener los desarrolladores que pertenecen al Workgroup
-         * @return Collection[User] 
+         * @return Collection[User]
          */
         public function getAllDevelopers(){
             return $this->users()->get();
+        }
+
+        public function getAllClients(){
+
+            return $this->users()->where('is_client', '1')->get();
+
         }
 
     #endregion

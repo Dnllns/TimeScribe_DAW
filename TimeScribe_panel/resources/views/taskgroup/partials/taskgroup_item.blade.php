@@ -16,71 +16,88 @@
         </div>
 
         <!-- BARRA DE PROGRESO -->
-        <div class="col-6 col-md-4 my-auto">
+        <div class="col-12 col-md-4 mb-2 my-md-auto ">
 
-            <div class="row mx-auto">
-                {{-- BARRA --}}
-                <div class="col-9 p-0">
-                    <div class="progress">
-                        <div class=" progress-bar progress-bar-striped progress-bar-animated
 
-                        @if ($taskGroup->getPercentCompleted() < 20 )
-                            bg-danger
-                        @elseif ($taskGroup->getPercentCompleted() >= 20 && $taskGroup->getPercentCompleted() < 40)
-                            bg-warning
-                        @elseif ($taskGroup->getPercentCompleted() >= 40 && $taskGroup->getPercentCompleted() < 60)
-                            bg-primary
-                        @elseif ($taskGroup->getPercentCompleted() >= 60 && $taskGroup->getPercentCompleted() < 80)
-                            bg-info
-                        @elseif ($taskGroup->getPercentCompleted() >= 80 && $taskGroup->getPercentCompleted() == 100)
-                            bg-success
-                        @endif
+            <div class="progress col-12" style="height:20px;">
 
-                        " role="progressbar"
-                        style="width: {{$taskGroup->getPercentCompleted()}}%"
-                        aria-valuenow="{{$taskGroup->getPercentCompleted()}}"
-                        aria-valuemin="0" aria-valuemax="100" ></div>
+                <div class=" progress-bar progress-bar-striped progress-bar-animated
 
-                    </div>
+                @if ($taskGroup->getPercentCompleted() < 20 )
+                    bg-danger
+                @elseif ($taskGroup->getPercentCompleted() >= 20 && $taskGroup->getPercentCompleted() < 40)
+                    bg-warning
+                @elseif ($taskGroup->getPercentCompleted() >= 40 && $taskGroup->getPercentCompleted() < 60)
+                    bg-primary
+                @elseif ($taskGroup->getPercentCompleted() >= 60 && $taskGroup->getPercentCompleted() < 80)
+                    bg-info
+                @elseif ($taskGroup->getPercentCompleted() >= 80 && $taskGroup->getPercentCompleted() == 100)
+                    bg-success
+                @endif
+
+                " role="progressbar"
+                style="width: {{$taskGroup->getPercentCompleted()}}%"
+                aria-valuenow="{{$taskGroup->getPercentCompleted()}}"
+                aria-valuemin="0" aria-valuemax="100" >
                 </div>
-
-                {{-- PORCENTAJE --}}
-                <div class="small font-weight-bold col-3 pr-0">{{$taskGroup->getPercentCompleted()}}%</div>
-
+                {{$taskGroup->getPercentCompleted()}}%
             </div>
 
         </div>
 
+
+
         <!-- ICONOS DE TODO DOING DONE -->
-        <div class="col-4 col-md-3 my-auto text-center" >
+        <div class="col-12 col-md-4 my-auto text-center" >
+
+            @if ($taskGroup['visible'] == 0)
+
             <span
-                class="btn btn-circle icon-sm mb-1 todo"
+                class="btn btn-circle icon-sm mb-1 bg-dark "
+                data-tooltip="tooltip" data-placement="bottom" title="Not visible">
+                <i class="fas fa-eye-slash text-white"></i>
+            </span>
+            &nbsp;
+
+            @endif
+
+            <span
+                class="btn btn-circle icon-sm mb-1 bg-dark"
                 data-tooltip="tooltip" data-placement="bottom" title="To do">
-                <strong class="text-dark">{{count($taskGroup->getTasks(0))}}</strong>
+                <strong class="text-todo">{{count($taskGroup->getTasks(0))}}</strong>
             </span>
 
             <span
-                class="btn btn-circle icon-sm mb-1 doing"
+                class="btn btn-circle icon-sm mb-1 bg-dark"
                 data-tooltip="tooltip" data-placement="bottom" title="Doing">
-                <strong class="text-dark">{{count($taskGroup->getTasks(1))}}</strong>
+                <strong class="text-doing">{{count($taskGroup->getTasks(1))}}</strong>
             </span>
 
             <span
-                class="btn btn-circle icon-sm mb-1 done"
+                class="btn btn-circle icon-sm mb-1 bg-dark"
                 data-tooltip="tooltip" data-placement="bottom" title="Done">
-                <strong class="text-dark">{{count($taskGroup->getTasks(2))}}</strong>
+                <strong class="text-done">{{count($taskGroup->getTasks(2))}}</strong>
             </span>
 
-        </div>
+            &nbsp;
 
-        <!-- BOTON DE COLLAPSE -->
-        <div class="col-1 my-auto text-center">
+            <a href="{{route('v-tg-mod', ['taskgroupId' => $taskGroup->id])}}" class="btn btn-circle btn-sm bg-dark mb-1" data-tooltip="tooltip" data-placement="bottom" title="" data-original-title="Edit">
+                <i class="far fa-edit icon-white"></i>
+            </a>
 
-            <button class="btn btn-sm bg-primary " data-toggle="collapse" data-target="#task-list-{{$taskGroup->id}}" >
-                <i class="fas fa-chevron-down icon-white"></i>
+            <a href data-del data-ajax="{{route('f-tg-del', ['taskgroupId' => $taskGroup->id])}}" class="btn btn-circle btn-sm bg-dark mb-1" data-tooltip="tooltip" data-placement="bottom" title="" data-original-title="Delete">
+                <i class="far fa-trash-alt icon-white"></i>
+            </a>
+
+            <button class="btn btn-circle btn-sm bg-dark mb-1" data-toggle="collapse" data-target="#task-list-{{$taskGroup->id}}" >
+                    <i class="far fa-eye icon-white"></i>
             </button>
 
+
         </div>
+
+
+
 
 
 

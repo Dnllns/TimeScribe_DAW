@@ -100,7 +100,6 @@ class WorkGroupInvitationController extends Controller
                 'user/mod',
                 [
                     'user' => $user,
-                    'workgroupId' => $user->workgroup_id
                 ]
             );
 

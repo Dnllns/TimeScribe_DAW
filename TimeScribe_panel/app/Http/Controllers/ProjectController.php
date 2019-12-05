@@ -55,32 +55,17 @@ class ProjectController extends Controller
                 'workgroup_id' => $workGroupId,
             ]);
 
+
+
             //Attach to project_user table
             $user->projects()->attach(
                 $newProject->id,
                 [
                     'project_id' => $newProject->id,
                     'user_id' => $user->id,
-                    'permissions' => 1,
+                    'permissions' => 0, //ADMIN
                 ]
             );
-
-            //Devolver la vista de editar proyecto
-            // $projectClient = User::find($data['client_id']);
-            // $projectTaskGroups = null;  // Al ser recien creado no tiene TaskGroups
-            // $devList = $newProject->users()->get();
-            // $workGroupDevs = WorkGroup::find($workGroupId)->users()->get();
-
-            // return view(
-            //     'project/mod/mod',
-            //     [
-            //         'project' => $newProject,
-            //         'client' => $projectClient,
-            //         'taskGroups' => $projectTaskGroups,
-            //         'devList' => $devList,
-            //         'workGroupDevs' => $workGroupDevs
-            //     ]
-            // );
 
             //Devolver la vista de seleccionar proyecto
             return WorkGroupController::view_show($workGroupId);
@@ -114,7 +99,7 @@ class ProjectController extends Controller
 
             // return $this->view_selectProject(); //Show the project selection view
 
-            return WorkGroupController::view_show($project->workgroup_id);
+            return $this->view_showProject($project->id);
 
 
         }
@@ -241,6 +226,8 @@ class ProjectController extends Controller
                 ]
             );
         }
+
+
 
     #endregion
 

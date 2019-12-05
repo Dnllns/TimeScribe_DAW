@@ -5,19 +5,19 @@
         <!-- CABECERA -->
         {{-- ------------------------------- --}}
 
-        <div data-name class="card-header col-12 p-2 text-uppercase" style="background:
+        <div data-name class="card-header col-12 p-2 text-uppercase bg-dark
 
             @switch($task->status)
                 @case($task::STATUS_TODO)
-                    #ff8181!important;
+                    text-todo
                     @break
 
                 @case($task::STATUS_DOING)
-                    #36b9cc!important;
+                    text-doing
                     @break
 
                 @case($task::STATUS_DONE)
-                    #1cc88a!important;
+                    text-done
                     @break
 
             @endswitch
@@ -28,23 +28,22 @@
             <strong>{{ $task->name }}</strong>
 
             <div class="float-right">
-                <a data-togglebuttons data-toggle="collapse"
-            href="div[data-toggleid='{{$task->id}}']" role="button" >
-                    <i class="fas fa-tools"></i>
+                <a data-togglebuttons data-toggle="collapse" href="div[data-toggleid='{{$task->id}}']" role="button" >
+                    <i data-funct class="fas fa-tools"></i>
                 </a>
             </div>
 
         </div>
 
-        
+
         {{-- CONTENIDO --}}
         {{-- ----------------------------------------- --}}
 
         <div class="col-12 p-0">
 
-            <div data-toggleid="{{$task->id}}" class="col-auto p-0 collapse">
+            <div data-toggleid="{{$task->id}}" class="col-auto p-0 collapse ">
 
-                <div class="col-auto p-0 float-right">
+                <div class="col-auto p-0 float-right bg-dark">
                     @if ($task->status == $task::STATUS_TODO)
                         @include('task.partials.task_item_buttons', ['type' => 'START'] )
                     @else
@@ -103,6 +102,6 @@
 
         </div>
 
-        
+
 
 </div>

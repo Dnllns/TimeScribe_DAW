@@ -12,14 +12,14 @@
 
 {{-- Alert message for when new workgroup is created --}}
 @if ($isNew)
-<div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
-    Hey {{auth()->user()->name}}!
-    <br>
-    The workgroup <strong>{{$workGroup->name}}</strong> has been successfully created. Now you can start creating a new project.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+
+    @php
+        $content =  "Hey " . auth()->user()->name . "!" . "<br>".
+        "The workgroup <strong>" . $workGroup->name . "</strong> has been successfully created. Now you can start creating a new project."
+    @endphp
+
+    @include('common.alert', ['style' => "success", 'content' => $content] )
+
 @endif
 
 <div class="row">
@@ -38,12 +38,12 @@
                         <div class="float-right">
                             {{$workGroup->name}} <i class="far fa-id-card">{{$workGroup->id}}</i>
                         </div>
-                        
+
                     </div>
 
 
                 </div>
-                
+
             </div>
 
             {{-- CONTENIDO --}}
@@ -116,7 +116,7 @@
                         <div id="add-developers" class="col-12 pb-4">
                             <h2>Add developers</h2>
 
-                                
+
 
 
                             <div class="row">
@@ -150,13 +150,13 @@
                                         var adminName = {!! json_encode(Auth::user()->name, JSON_HEX_TAG) !!}
                                         var workgroupName = {!! json_encode($workGroup->name, JSON_HEX_TAG) !!}
                                         var workgroupId = {!! json_encode($workGroup->id, JSON_HEX_TAG) !!}
-                                    </script>  
+                                    </script>
                                 </div>
 
                             </div>
-                            
 
-                            
+
+
 
                         </div>
 
@@ -166,7 +166,7 @@
 
                             @if ($workGroupInvitations == null)
                             {{-- Mensaje de alerta de sin invitaciones --}}
-                                
+
                             <div id="invitation-alert">
                                 @include('common.alert', ['style' => "warning", 'content' => "Currently no invitation is pending."] )
                             </div>
@@ -193,7 +193,7 @@
                                     @endforeach
                                 </ul>
 
-                            </div>    
+                            </div>
 
                             @endif
 
@@ -209,7 +209,7 @@
                             <div class="text-center">
                                 <button id="save" name="save" class="btn btn-success ">Save</button>
                             </div>
-                            
+
                         </div>
                     </div>
 

@@ -38,6 +38,10 @@ Route::get('/home', 'HomeController@index')->name('home');
     #region VISTAS
 
         // ALTA
+        Route::post('/workgroup', 'WorkGroupController@view_S')
+        ->name('v-wg-v')->middleware('auth');
+
+        // ALTA
         Route::get('/workgroup-new', 'WorkGroupController@view_newWorkGroup')
         ->name('v-wg-new')->middleware('auth');
 
@@ -112,6 +116,10 @@ Route::get('/home', 'HomeController@index')->name('home');
         Route::get('/project-show/{projectId}', 'ProjectController@view_showProject')
         ->name('v-pj-show')->middleware('auth');
 
+        //  // BAJA
+        //  Route::post('/taskgroup-show/{projectId}', 'ProjectController@v_showBeforeDeleteTaskgroup')
+        //  ->name('v-pj-show_before_delete_tg')->middleware('auth');
+
     #endregion
 
     #region BD
@@ -155,6 +163,8 @@ Route::get('/home', 'HomeController@index')->name('home');
         // MOD
         Route::get('/taskgroup-mod/{taskGroupId}', 'TaskGroupController@view_editTaskGroup')
         ->name('v-tg-mod')->middleware('auth');
+
+
 
     #endregion
 
@@ -299,7 +309,7 @@ Route::get('/remove-developer/{userId}', 'UserController@deleteUser')
 ->name('f-wg-removedev')->middleware('auth');
 
 
-Route::post('/register-developer', 'WorkGroupInvitationController@registerUser')
+Route::post('/register-developer/{workgroupId}', 'WorkGroupInvitationController@registerUser')
 ->name('f-wg-register-developer')->middleware('auth');
 
 

@@ -14,6 +14,8 @@
     <script src="/js/project/show/ajax_updates.js"></script>
     <script src="/js/project/show/chrono-old.js"></script>
     <script src="/js/project/show/chronoSticky.js"></script>
+    <script src="/js/project/show/del_taskgroup.js"></script>
+
 
     <!-- Para hacer drag and drop -->
 
@@ -34,7 +36,7 @@
 
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <h1 class="my-auto"> Show project</h1>
+                    <h1 class="my-auto text-uppercase"> Show project</h1>
 
                 </div>
 
