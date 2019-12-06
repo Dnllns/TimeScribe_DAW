@@ -140,15 +140,15 @@ class TaskGroup extends Model
 
         switch ($this->status) {
             case $this::STATUS_TODO:
-                echo '<i class="far fa-clipboard text-info ml-3" data-toggle="tooltip" data-placement="right" title="To do"></i>';
+                echo '<i class="far fa-clipboard text-white" data-toggle="tooltip" data-placement="right" title="To do"></i>';
                 break;
 
             case $this::STATUS_DOING:
-                echo '<i class="fas fa-pencil-alt text-info ml-3" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
+                echo '<i class="fas fa-pencil-alt text-white" data-toggle="tooltip" data-placement="right" title="Doing"></i>';
                 break;
 
             case $this::STATUS_DONE:
-                echo '<i class="fas fa-clipboard-check text-info ml-3" data-toggle="tooltip" data-placement="right" title="Done"></i>';
+                echo '<i class="fas fa-clipboard-check text-white" data-toggle="tooltip" data-placement="right" title="Done"></i>';
                 break;
         }
     }
@@ -162,9 +162,9 @@ class TaskGroup extends Model
     {
 
         if ($this['visible'] == 1) {
-            echo '<i class="far fa-eye text-info" data-toggle="tooltip" data-placement="right" title="Visible"></i>';
+            echo '<i class="far fa-eye text-white" data-toggle="tooltip" data-placement="right" title="Visible"></i>';
         } else {
-            echo '<i class="fas fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';
+            echo '<i class="fas fa-eye-slash text-white" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';
         }
 
     }

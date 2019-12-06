@@ -27,21 +27,29 @@
         <div class="card">
 
             {{-- CABECERA --}}
+
+
             <div class="card-header">
+
                 <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h1 class="my-auto text-uppercase">Edit workgroup</h1>
 
-                    <div class="col-6">
-                        <h1 class="my-auto">Edit workgroup</h1>
                     </div>
 
-                    <div class="col-6 my-auto">
-                        <div class="float-right">
-                            {{$workGroup->name}} <i class="far fa-id-card">{{$workGroup->id}}</i>
+                    <div class="col-auto col-md-5 my-auto text-uppercase">
+                        <div class="float-right ">
+                            <a class="text-info" href="{{route('v-wg-show', $workGroup->id )}}">
+                                {{$workGroup->name}}
+                            </a>
                         </div>
-
                     </div>
 
-
+                    <div class="col-auto col-md-1 my-auto">
+                        <div class="float-right">
+                            <i class="far fa-id-card">{{$workGroup->id}}</i>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -94,9 +102,11 @@
                                                 <div class="col-10">{{$developer->name}}, {{$developer->email}}</div>
                                                 <div class="col-2">
                                                     <div class="float-right">
-                                                        <a href=""  class="text-warning f-remove"
+
+                                                        <a href=""  class="btn btn-circle btn-sm bg-dark f-remove"
+                                                        data-tooltip="tooltip" data-placement="bottom" title="" data-original-title="Remove"
                                                         data-funct="{{route('f-wg-removedev', ['userId' => $developer->id])}}">
-                                                            <i class="fas fa-trash-alt"></i>
+                                                            <i class="fas fa-trash-alt text-white"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -162,7 +172,7 @@
 
                         {{-- Invitaciones pendientes --}}
                         <div id="invitations" class="col-12 pb-4">
-                            <h2>Pending invitations</h2>
+                            <h2 class="mb-4">Pending invitations</h2>
 
                             @if ($workGroupInvitations == null)
                             {{-- Mensaje de alerta de sin invitaciones --}}

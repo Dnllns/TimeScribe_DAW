@@ -1,21 +1,30 @@
-<div class="d-flex align-items-center" data-project-id="{{$project->id}}">
+<div class="row" data-project-id="{{$project->id}}">
 
 
     <!-- NOMBRE DEL PROYECTO -->
-    <div class="col-sm-2">
-        <p class="small font-weight-bold m-0" data-toggle="tooltip" data-placement="top" title="Project name">{{$project->name}}</p>
+    <div class="col-6 p-2 col-md-4">
+        <p class="text-uppercase m-0" data-toggle="tooltip" data-placement="top" title="Project name">
+            <strong>{{$project->name}}</strong>
+        </p>
     </div>
 
-    <!-- NOMBRE CLIENTE -->
-    <div class="col-sm-2">
-        <p class="small font-weight-bold m-0">
+    <div class="col p-2 col-md-2">
+        <p class="m-0">
             <i class="fas fa-user" data-toggle="tooltip" data-placement="top" title="Client"></i>
 
+            @php
+                $clientName="not set";
+                $client = $project->getClient();
+                if($client!=null){
+                    $clientName=$project->getClient()->name;
+                }
+            @endphp
+            {{$clientName}}
         </p>
     </div>
 
     <!-- BARRA DE PROGRESO -->
-    <div class="row col-sm-6 mr-2 ">
+    <div class="col-12 p-2 col-md-4">
         <div class="progress col ">
             <div class="progress-bar progress-bar-striped progress-bar-animated
 
@@ -34,16 +43,26 @@
             " role="progressbar"
             style="width: {{$project->getPercentCompleted()}}%"
             aria-valuenow="{{$project->getPercentCompleted()}}"
-            aria-valuemin="0" aria-valuemax="100" ></div>
+            aria-valuemin="0" aria-valuemax="100" >
+
+
+
+            </div>
+
+            <div class="small font-weight-bold col-sm-2 ">{{$project->getPercentCompleted()}}%</div>
+
         </div>
-        <div class="small font-weight-bold col-sm-2 ">{{$project->getPercentCompleted()}}%</div>
     </div>
 
+    <!-- NOMBRE CLIENTE -->
+
+
+
     <!-- BOTONES -->
-    <div class="col-sm-2 text-center" >
+    <div class="col-6 p-2 col-md-2 mx-auto" >
         <a
             href="{{route('v-pj-show', $project->id)}}"
-            class="btn btn-circle btn-sm bg-primary mb-1 "
+            class="btn btn-circle btn-sm bg-dark mb-1 "
             data-tooltip="tooltip" data-placement="bottom" title="View">
             <i class="far fa-eye icon-white"></i>
         </a>
@@ -52,14 +71,14 @@
 
             <a
                 href="{{route('v-pj-mod', $project->id)}}"
-                class="btn btn-circle btn-sm bg-warning mb-1"
+                class="btn btn-circle btn-sm bg-dark mb-1"
                 data-tooltip="tooltip" data-placement="bottom" title="Edit">
                 <i class="far fa-edit icon-white"></i>
             </a>
 
             <a
                 href="{{route('f-pj-del', $project->id)}}"
-                class="btn btn-circle btn-sm bg-danger mb-1"
+                class="btn btn-circle btn-sm bg-dark mb-1"
                 data-tooltip="tooltip" data-placement="bottom" title="Delete">
                 <i class="far fa-trash-alt icon-white"></i>
             </a>

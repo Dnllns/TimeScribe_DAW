@@ -11,22 +11,37 @@
 
 
 <div class="row">
-    <div class="col-10 mx-auto">
-    <div id="project-container" data-projectid="{{$project->id}}" class="card">
+    <div class="col-12 col-lg-10 mx-auto">
+        <div id="project-container" data-projectid="{{$project->id}}" class="card">
+
             <div class="card-header">
                 <div class="row">
-                    <div class="col-8">
-                        <h1>Edit project</h1>
+                    <div class="col-12  my-auto col-md-4">
+                        <h1 class="text-uppercase m-0">Edit project</h1>
                     </div>
-                    <div class="col-4 my-auto">
-                        <div class="float-right">
-                            <i class="far fa-id-card">{{ $project->id }}</i>
+
+                    <div class="col-sm-12 col-md-8 my-auto text-uppercase">
+
+                        <div class="row">
+                            <div class="col-10 text-left text-md-right ">
+                                {!!$project->getBreadCrumbs()!!}
+                            </div>
+                            <div class="col-2 text-right">
+                                <i class="far fa-id-card">{{$project->id}}</i>
+                            </div>
+
                         </div>
+
+
+
                     </div>
+
 
                 </div>
 
             </div>
+
+
 
             <div class="card-body m-4">
 
@@ -86,7 +101,7 @@
                                             <div data-id="{{$dev->id}}" class="col my-auto">{{$dev->name}}, {{$dev->email}}</div>
                                             <div class="col my-auto">
                                                 <div class="float-right">
-                                                    <a class="btn btn-sm text-warning f-remove" href
+                                                    <a class="btn btn-circle btn-sm bg-dark text-white f-remove" href
                                                     data-funct="{{route('f-pj-deldev', ['projectId' => $project->id, 'developerId' => $dev->id])}}" >
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
@@ -181,13 +196,13 @@
                             <div class="row">
 
                                 <!-- CLIENT EMAIL -->
-                                <div class="form-group col-6 mb-0">
+                                <div class="form-group col-12 p-2 mb-0 col-md-6">
                                     <label class="control-label" for="client_email">Client email:</label>
                                     <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="@if($client != null){{$client->email }}@endif">
                                 </div>
 
                                 <!-- CLIENT NAME  -->
-                                <div class="form-group col-6 mb-0">
+                                <div class="form-group col-12 p-2 mb-0 col-md-6">
                                     <label class="control-label" for="client_name">Client name:</label>
                                     <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="@if($client != null){{$client->name }}@endif">
                                 </div>
@@ -262,6 +277,7 @@
                 </form>
 
             </div>
+
         </div>
     </div>
 </div>

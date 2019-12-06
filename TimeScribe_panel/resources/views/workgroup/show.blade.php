@@ -13,8 +13,28 @@
     <div class="col-10 mx-auto">
         <div class="card">
 
+
             <div class="card-header">
-                <h1 class="m-0">Select a project</h1>
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h1 class="my-auto text-uppercase">Select a project</h1>
+
+                    </div>
+
+                    <div class="col-auto col-md-5 my-auto text-uppercase">
+                        <div class="float-right">
+                            {{$workGroup->name}}
+                        </div>
+                    </div>
+
+                    <div class="col-auto col-md-1 my-auto">
+                        <div class="float-right">
+                            <i class="far fa-id-card">{{$workGroup->id}}</i>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="card-body m-4">

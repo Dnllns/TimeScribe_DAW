@@ -15,6 +15,8 @@
     <script src="/js/project/show/chrono-old.js"></script>
     <script src="/js/project/show/chronoSticky.js"></script>
     <script src="/js/project/show/del_taskgroup.js"></script>
+    <script src="/js/project/show/collapse_task_list.js"></script>
+
 
 
     <!-- Para hacer drag and drop -->
@@ -30,23 +32,23 @@
     @include('task.partials.sticky_chrono' )
 
 
-    <div class="card shadow col-sm-10 mx-auto p-0">
+    <div class="card shadow col-12 col-lg-10 mx-auto p-0">
 
         <div class="card-header">
 
             <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12 my-auto col-md-6">
                     <h1 class="my-auto text-uppercase"> Show project</h1>
 
                 </div>
 
-                <div class="col-auto col-md-5 my-auto text-uppercase">
-                    <div class="float-right">
+                <div class="col col-md-5 my-auto text-uppercase">
+                    <div class="text-md-right">
                         {!! $project->getBreadCrumbs() !!}
                     </div>
                 </div>
 
-                <div class="col-auto col-md-1 my-auto">
+                <div class="col-1  my-auto">
                     <div class="float-right">
                         <i class="far fa-id-card">{{$project->id}}</i>
                     </div>

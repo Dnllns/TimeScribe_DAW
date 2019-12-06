@@ -139,6 +139,41 @@ hr{
     color: #1cc88a!important;
 }
 
+.bg-todo {
+    background: #ff8181!important;
+}
+
+.bg-doing {
+    background: #36b9cc!important;
+}
+
+.bg-done {
+    background: #1cc88a!important;
+}
+
+.border-todo, .border-doing, .border-done {
+    border-style: solid;
+    border-radius: 6px;
+    border-width: 0px 1px 1px 1px;
+
+}
+
+.border-todo {
+
+    border-color:  #ff8181!important;
+}
+
+.border-doing {
+    border-color:  #36b9cc!important;
+
+}
+
+.border-done {
+    border-color:  #1cc88a!important;
+}
+
+
+
 
 a i.far:hover, a i.fas:hover, a i.fa:hover, i[data-funct]:hover, button i:hover {
     color: #1cc88a!important;
