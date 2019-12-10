@@ -13,7 +13,6 @@
     <!-- Primero las peticiones al server -->
     <script src="/js/project/show/ajax_updates.js"></script>
     <script src="/js/project/show/chrono-old.js"></script>
-    <script src="/js/project/show/chronoSticky.js"></script>
     <script src="/js/project/show/del_taskgroup.js"></script>
     <script src="/js/project/show/collapse_task_list.js"></script>
 
@@ -21,18 +20,18 @@
 
     <!-- Para hacer drag and drop -->
 
-
-
 @endsection
 
 
 @section('content')
 
     <!-- Plantilla de sticky chrono -->
+
+<div class="row">
+
     @include('task.partials.sticky_chrono' )
 
-
-    <div class="card shadow col-12 col-lg-10 mx-auto p-0">
+    <div class="card shadow col-12 mx-auto p-0">
 
         <div class="card-header">
 
@@ -74,7 +73,7 @@
                 @foreach ($taskGroups as $taskGroup)
                 <li class="list-group-item">
                     <div data-taskgroup='{{$taskGroup->id}}'>
-                        @include('taskgroup.partials.taskgroup_item', ['taskGroup' => $taskGroup])
+                        @include('project.show.taskgroup', ['taskGroup' => $taskGroup])
                     </div>
                 </li>
                 @endforeach
@@ -96,6 +95,7 @@
         </div>
     </div>
 
+</div>
 
 
 

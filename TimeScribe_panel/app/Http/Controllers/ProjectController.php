@@ -7,7 +7,6 @@ use App\User;
 use App\WorkGroup;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\WorkGroupController;
 
@@ -219,7 +218,7 @@ class ProjectController extends Controller
             }
 
             return view(
-                'project/show',
+                'project/show/show',
                 [
                     'taskGroups' => $taskGroups,
                     'project' => $project,

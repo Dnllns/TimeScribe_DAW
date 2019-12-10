@@ -1,5 +1,6 @@
-nav, footer {
-    background:#114163;
+nav,
+footer {
+    background: #114163;
     color: white !important;
 }
 
@@ -10,12 +11,12 @@ nav, footer {
 footer {
     color: black !important;
 }
-.card{
-    border: 1px solid #b2b4bf!important;
+.card {
+    border: 1px solid #b2b4bf !important;
 }
 
 .card-header {
-    background: #5a5c69!important;
+    background: #5a5c69 !important;
     border: 0px;
 
     color: white !important;
@@ -26,12 +27,17 @@ footer {
     color: white !important;
 }
 
-
 /* ----------------------------------------------------------------------
     LETRA E ICONOS
     --------------
 */
 
+@font-face {
+    font-family: "digital-7";
+    src: url("/css/digital-7.tff") format("ttf");
+    font-style: normal;
+    font-weight: normal;
+}
 
 /*  */
 
@@ -50,7 +56,7 @@ h1 {
 h2 {
     font-size: 1.3em;
     margin-bottom: 0.6em;
-    color: #4e73df!important;
+    color: #4e73df !important;
 }
 
 h3,
@@ -59,9 +65,7 @@ h4 {
     margin-bottom: 0.6em;
 }
 
-
 /* Iconos de dentro de un card header */
-
 
 /* .card-header i {
     font-size: 1.6em;
@@ -72,38 +76,33 @@ a[data-togglebuttons] i {
     color: white;
 }
 
-
 /* Botones colapsables de la tarea */
 
 div[data-toggleid] div {
     border: 1px solid #e3e6f0;
-    border-radius: .35rem;
+    border-radius: 0.35rem;
 }
 
 .font-roboto {
     font-family: "Roboto";
 }
 
-.list-group-item{
-
+.list-group-item {
     border-color: #b2b4bf;
 }
 
-.progress{
-
+.progress {
     border: 1px solid #b2b4bf;
 }
 
-hr{
+hr {
     background: #b2b4bf;
 }
-
 
 /* ----------------------------------------------------------------------
     PROJECT SHOW
     -------------
 */
-
 
 /* Bordes de Doing */
 
@@ -112,71 +111,82 @@ hr{
     border-right: 1px solid #e3e6f0;
 }
 
-
 /* Fondos */
 
 .todo {
-    background: #ff8181!important;
+    background: #ff8181 !important;
 }
 
 .doing {
-    background: #36b9cc!important;
+    background: #36b9cc !important;
 }
 
 .done {
-    background: #1cc88a!important;
+    background: #1cc88a !important;
 }
 
 .text-todo {
-    color: #ff8181!important;
+    color: #ff8181 !important;
 }
 
 .text-doing {
-    color: #36b9cc!important;
+    color: #36b9cc !important;
 }
 
 .text-done {
-    color: #1cc88a!important;
+    color: #1cc88a !important;
 }
 
 .bg-todo {
-    background: #ff8181!important;
+    background: #ff8181 !important;
+}
+
+.bg-todo-light {
+    background: #f5dcdc;
 }
 
 .bg-doing {
-    background: #36b9cc!important;
+    background: #36b9cc !important;
+}
+
+.bg-doing-light {
+    background: #d5edf1;
 }
 
 .bg-done {
-    background: #1cc88a!important;
+    background: #1cc88a !important;
 }
 
-.border-todo, .border-doing, .border-done {
+.bg-done-light {
+    background: #caf1e3;
+}
+
+.border-todo,
+.border-doing,
+.border-done {
     border-style: solid;
     border-radius: 6px;
     border-width: 0px 1px 1px 1px;
-
 }
 
 .border-todo {
-
-    border-color:  #ff8181!important;
+    border-color: #ff8181 !important;
 }
 
 .border-doing {
-    border-color:  #36b9cc!important;
-
+    border-color: #36b9cc !important;
 }
 
 .border-done {
-    border-color:  #1cc88a!important;
+    border-color: #1cc88a !important;
 }
 
-
-
-
-a i.far:hover, a i.fas:hover, a i.fa:hover, i[data-funct]:hover, button i:hover {
-    color: #1cc88a!important;
+a i.far:hover,
+a i.fas:hover,
+a i.fa:hover,
+i[data-funct]:hover,
+button i:hover {
+    color: #1cc88a !important;
 }
 /**---------------------------------------------------*/
 
@@ -184,7 +194,7 @@ a i.far:hover, a i.fas:hover, a i.fa:hover, i[data-funct]:hover, button i:hover 
     border: 1px solid #e3e6f0;
 }
 
-ul.striped>li:nth-child(odd) {
+ul.striped > li:nth-child(odd) {
     background: #edefe6;
 }
 
@@ -201,4 +211,29 @@ ul.striped>li:nth-child(odd) {
 .done-list {
     border: 1px solid #1cc88a;
     border-radius: 8px;
+}
+
+#sticky-chrono {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    z-index: 1;
+}
+
+#chronotime {
+    font-size: 2.5em;
+}
+
+#chrono-container {
+    border: 1px solid;
+    background: gainsboro;
+    color: black;
+    border-radius: 5px;
+}
+
+/* Botones de la tarea */
+.card-body div[data-toggleid] {
+    position: absolute;
+    right: 3px;
+    top: 3px;
 }

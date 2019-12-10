@@ -4,7 +4,8 @@ jQuery(function($) {
         if ($(window).scrollTop() > 40)
             $cache.css({
                 'position': 'fixed',
-                'top': '10px'
+                'bottom': '10px',
+                'z-index':'1'
             });
         else
             $cache.css({

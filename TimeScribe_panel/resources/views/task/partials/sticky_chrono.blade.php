@@ -1,37 +1,31 @@
 
 <!-- STICKY CHRONO -->
-<div id="sticky-chrono" data-current-taskid="" class="row d-none">
+<div id="sticky-chrono" data-current-taskid="" class="d-none col-11 col-sm-8 col-md-6 col-lg-3 p-0 mb-3">
 
-    <div class="card text-white bg-dark col-12 p-0 mb-3">
+    <div class="card">
 
         {{-- Nombre del grupo de tarea --}}
-        <div class="card-header" style="background: #00000054;">
-            <div id="ch-taskgroup-name"></div>
+        <div class="card-header p-2 text-uppercase">
+            <div id="ch-task-name"></div>
         </div>
 
         <div class="card-body">
-            
+
             <div class="row">
 
-                {{-- Nombre de la tarea --}}
-                <div class="col my-auto">            
-                    <h5 id="ch-task-name" class="card-title m-0"></h5>
-                </div>
-
-                <div class="col my-auto">
-                    
+                <div class="mx-auto">
                     {{-- Cronometro --}}
-                    <div class="float-left my-auto">
-                        <div id="chronotime" style="font-size: x-large;">00:00:00</div>
+                    <div id="chrono-container" class="col-12 mx-auto my-auto text-center border-dark  rounded">
+                        <div id="chronotime" >00:00:00</div>
                     </div>
 
                     {{-- Botones --}}
-                    <div class="float-right">
+                    <div class="col-12 pt-2 mx-auto my-auto text-center">
 
                         {{-- START --}}
                         <button
                             id="chrono-start"
-                            type="button"  class="btn btn-sm btn-primary m-1"
+                            type="button"  class="btn btn-circle btn-sm bg-dark d-none"
                             data-ajax="{{route('f-ts-ch-start', '')}}">
                             <i class="fas fa-play icon-white"></i>
                         </button>
@@ -39,7 +33,7 @@
                         {{-- STOP --}}
                         <button
                             id="chrono-stop"
-                            type="button"  class="btn btn-sm btn-primary m-1 d-none"
+                            type="button"  class="btn btn-circle btn-sm bg-dark d-none"
                             data-ajax="{{route('f-ts-ch-stop')}}">
                             <i class="fas fa-pause icon-white"></i>
                         </button>
@@ -47,7 +41,7 @@
                         {{-- RESUME --}}
                         <button
                             id="chrono-resume"
-                            type="button"  class="btn btn-sm btn-warning m-1 d-none"
+                            type="button"  class="btn btn-circle btn-sm bg-dark d-none"
                             data-ajax="{{route('f-ts-ch-start', '')}}">
                             <i class="fas fa-play icon-white"></i>
                         </button>
@@ -57,7 +51,7 @@
                         <button
                             id="chrono-reset"
                             data-ajax="{{route('f-ts-ch-reset','')}}"
-                            type="button"  class="btn btn-sm btn-danger m-1 d-none">
+                            type="button"  class="btn btn-circle btn-sm bg-dark d-none">
                             <i class="fas fa-undo icon-white"></i>
                         </button>
 
@@ -66,22 +60,22 @@
                         <button
                             id="chrono-finish"
                             data-ajax="{{route('f-ts-ch-finish','')}}"
-                            type="button" class="btn btn-sm btn-info m-1 d-none">
+                            type="button" class="btn btn-circle btn-sm bg-dark d-none">
                             <i class="fas fa-save icon-white"></i>
                         </button>
 
                         {{-- CLOSE --}}
                         <button
                             id="chrono-close"
-                            type="button"  class="btn btn-sm btn-danger m-1">
+                            type="button"  class="btn btn-circle btn-sm bg-dark d-none">
                             <i class="fas fa-times icon-white"></i>
                         </button>
 
 
 
-                    
+
                     </div>
-                
+
                 </div>
 
             </div>

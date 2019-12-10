@@ -169,6 +169,27 @@ class TaskGroup extends Model
 
     }
 
+
+
+
+
+    public function getBreadCrumbs()
+    {
+
+        $slash = "<span class='text-secondary'>/</span>";
+
+        $wgroup_name = $this->project()->first()->workgroups()->first()->name;
+        $wgroup_id = $this->project()->first()->workgroups()->first()->id;
+        $wg_route = "<a class='text-info' href='/workgroup-show/" . $wgroup_id . "'>" . $wgroup_name  . "</a>";
+
+        $project_name = $this->project()->first()->name;
+        $project_id = $this->project()->first()->id;
+        $project_route = "<a class='text-info' href='/project-show/" . $project_id . "'>" . $project_name  . "</a>";
+
+        return $wg_route . $slash . $project_route . $slash . $this->name;
+    }
+
+
     #endregion
 
 }

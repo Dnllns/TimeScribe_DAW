@@ -10,7 +10,7 @@
 
 
 <div class="row">
-    <div class="col-10 mx-auto">
+    <div class="col-12 mx-auto">
         <div class="card">
 
 
@@ -69,7 +69,7 @@
                                     )
 
                                     <li class="list-group-item">
-                                        @include('project.partials.project_item', ['perms' => $userPermissions])
+                                        @include('workgroup.show.project_item', ['perms' => $userPermissions])
                                     </li>
 
 

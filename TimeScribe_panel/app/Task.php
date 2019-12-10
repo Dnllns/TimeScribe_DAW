@@ -36,7 +36,7 @@ class Task extends Model
     //VISIBLE
     const INVISIBLE = 0;
     const VISIBLE = 1;
-    
+
 
     #endregion
 
@@ -69,7 +69,6 @@ class Task extends Model
 
             //Sumar el tiempo
             $totalTime->add($interval);
-
         }
 
         return $totalTime->format('H:i:s');
@@ -91,21 +90,21 @@ class Task extends Model
 
         switch ($this->status) {
             case $this::STATUS_TODO:
-                echo '<i class="far fa-clipboard pr-1" data-toggle="tooltip" title="To do"></i>';
+                echo '<i class="far fa-clipboard" data-toggle="tooltip" title="To do"></i>';
                 break;
 
             case $this::STATUS_DOING:
-                echo '<i class="fas fa-pencil-alt pr-1" data-toggle="tooltip" title="Doing"></i>';
+                echo '<i class="fas fa-pencil-alt" data-toggle="tooltip" title="Doing"></i>';
                 break;
 
             case $this::STATUS_DONE:
-                echo '<i class="fas fa-clipboard-check pr-1" data-toggle="tooltip" title="Done"></i>';
+                echo '<i class="fas fa-clipboard-check" data-toggle="tooltip" title="Done"></i>';
                 break;
         }
     }
 
 
-        /*
+    /*
      * GET ICONO DE ESTADO
      * ---------------------
      * Obtiene el icono de la visibilidad del grupo de tareas
@@ -118,8 +117,43 @@ class Task extends Model
         } else {
             echo '<i class="fas fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Not visible"></i>';
         }
-
     }
+
+
+
+    public function getBreadCrumbs()
+    {
+
+        $slash = "<span class='text-secondary'>/</span>";
+
+        $wgroup_name = $this->taskGroup()->first()
+            ->project()->first()
+            ->workgroups()->first()->name;
+        $wgroup_id = $this->taskGroup()->first()
+            ->project()->first()
+            ->workgroups()->first()->id;
+
+        $wg_route = "<a class='text-info' href='/workgroup-show/" . $wgroup_id . "'>" . $wgroup_name  . "</a>";
+
+        $project_name = $this->taskGroup()->first()
+            ->project()->first()->name;
+        $project_id = $this->taskGroup()->first()
+            ->project()->first()->id;
+
+        $project_route = "<a class='text-info' href='/project-show/" . $project_id . "'>" . $project_name  . "</a>";
+
+
+        // $taskGroup_id = $this->taskGroup()->first()->id;
+        $taskGroup_name = $this->taskGroup()->first()->name;
+        // $taskGroup_route = "<a class='text-info'" .
+        // "href='/project-show/" . $project_id . "[data-taskgroup=\"" . $taskGroup_id . "\"] [data-toggle]" .  "'" .
+        // ">" . $taskGroup_name  . "</a>";
+
+
+
+        return $wg_route . $slash . $project_route . $slash . $taskGroup_name . $slash . $this->name;
+    }
+
 
 
 
@@ -147,7 +181,7 @@ class Task extends Model
     // N:N USARIOS
     public function users()
     {
-        return $this->belongsToMany('App\user', 'tasks_users', 'task_id', 'user_id');
+        return $this->belongsToMany('App\User', 'tasks_users', 'task_id', 'user_id');
     }
 
     #endregion

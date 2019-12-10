@@ -77,7 +77,7 @@ class WorkGroupController extends Controller
 
         //Vista Mostrar Workgroup
         return view(
-            'workgroup/show',
+            'workgroup.show.show',
             [
                 'workGroup' =>$workGroup ,
                 'userProjects' => $projects,

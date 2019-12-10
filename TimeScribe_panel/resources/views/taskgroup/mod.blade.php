@@ -8,22 +8,30 @@
 @section('content')
 
 <div class="row">
-    <div class="col-12 col-md-10 mx-auto">
+    <div class="col-12 col-lg-10 mx-auto">
     <div class="card">
+
             <div class="card-header">
-                <div class="row">
+                    <div class="row">
 
-                    <div class="col-10 my-auto">
-                        <h1 class="m-0">Edit task group</h1>
+                        <div class="col-12  my-auto col-md-4">
+                            <h1 class="text-uppercase m-0">Edit task group</h1>
+                        </div>
+
+                        <div class="col-sm-12 col-md-8 my-auto text-uppercase">
+                            <div class="row">
+                                <div class="col-10 text-left text-md-right ">
+                                    {!!$taskGroup->getBreadCrumbs()!!}
+                                </div>
+                                <div class="col-2 text-right my-auto">
+                                    <i class="far fa-id-card">{{$taskGroup->id}}</i>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-
-                    <div class="col-2 float-right my-auto">
-                        <i class="far fa-id-card float-right">{{ $taskGroup->id }}</i>
-                    </div>
-
                 </div>
-                
-            </div>
 
             <div class="card-body m-4">
 
@@ -54,10 +62,10 @@
                             <label class="control-label" for="visible">Visibility status:</label>
 
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="r1" name="visible" value="0" 
-                                
+                                <input type="radio" class="custom-control-input" id="r1" name="visible" value="0"
+
                                 @if ($taskGroup['visible'] == 0)
-                                    checked                            
+                                    checked
                                 @endif
 
                                 >
@@ -65,18 +73,18 @@
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" id="r2" name="visible" value="1"
-                                
+
                                 @if ($taskGroup['visible'] == 1)
-                                    checked                            
+                                    checked
                                 @endif
-                                
+
                                 >
                                 <label class="custom-control-label" for="r2">Visible</label>
                             </div>
                         </div>
-                        
 
-           
+
+
 
                     </div>
                     <hr>
@@ -103,42 +111,42 @@
                             <div class="pb-2">
                                 <ul class="list-group">
                                     @foreach ($taskList as $task)
-                                    <li class="list-group-item p-1 pl-4">
+                                    <li class="list-group-item p-2">
                                         <div class="row">
 
                                             {{-- NOMBRE --}}
-                                            <div class="col-6 col-md-8 my-auto">
+                                            <div class="col-12 pr-3 text-center col-sm-auto text-sm-left my-auto">
                                                 {{$task->name}}
                                             </div>
 
                                             {{-- ELEMENTOS --}}
 
-                                            <div class="col-6 col-md-4 my-auto">
-                                                
-                                                <div class="float-right pr-4">
-                                                    {{-- EDITAR --}}
-                                                    <a class="text-warning" 
-                                                    href="{{route('v-ts-mod', ['taskId' => $task->id])}}" >
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
+                                            <div class="col-12 pl-3 text-center col-sm text-sm-right my-auto">
 
-                                                    {{-- ELIMINAR --}}
-                                                    <a class="text-warning f-remove" href
-                                                    data-funct="{{route('f-ts-del', ['taskId' => $task->id])}}" >
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
-                                                </div>
-
-                                                <div class="float-right pr-4">
-                                                
+                                                {{-- STATUS --}}
+                                                <span class="btn btn-circle icon-sm bg-secondary text-white">
                                                     {{$task->getStatusIcon()}}
-
+                                                </span>
+                                                {{-- VISIBILITY --}}
+                                                <span class="btn btn-circle icon-sm bg-secondary text-white mr-2">
                                                     {{$task->getVisibilityIcon()}}
-                                                    
-                                                    
-                                                </div>
+                                                </span>
+
+
+                                                {{-- EDITAR --}}
+                                                <a class="btn btn-circle icon-sm bg-dark text-white"
+                                                href="{{route('v-ts-mod', ['taskId' => $task->id])}}" >
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                {{-- ELIMINAR --}}
+                                                <a class="btn btn-circle icon-sm bg-dark text-white f-remove" href
+                                                data-funct="{{route('f-ts-del', ['taskId' => $task->id])}}" >
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+
                                             </div>
-                                        </div>    
+                                        </div>
                                     </li>
 
 
@@ -149,9 +157,9 @@
                             @endif
 
                         </div>
-                        
+
                         <hr>
-                        
+
                         <div class="col-12 ">
                             <div class="float-right">
                             <a href="{{route('v-ts-new', ['taskGroupId' => $taskGroup->id ])}}" id="addnewtask" class="btn btn-sm btn-primary ">Add new task</a>
@@ -160,7 +168,7 @@
 
                     </div>
                     <hr>
-                    
+
 
                     {{-- BOTON GUARDAR --}}
                     <div class="row">

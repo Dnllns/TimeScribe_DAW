@@ -16,12 +16,12 @@
 
             <div class="card-header">
                 <div class="row">
+
                     <div class="col-12  my-auto col-md-4">
                         <h1 class="text-uppercase m-0">Edit project</h1>
                     </div>
 
                     <div class="col-sm-12 col-md-8 my-auto text-uppercase">
-
                         <div class="row">
                             <div class="col-10 text-left text-md-right ">
                                 {!!$project->getBreadCrumbs()!!}
@@ -31,14 +31,9 @@
                             </div>
 
                         </div>
-
-
-
                     </div>
 
-
                 </div>
-
             </div>
 
 

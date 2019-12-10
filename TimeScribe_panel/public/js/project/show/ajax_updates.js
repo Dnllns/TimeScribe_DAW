@@ -92,32 +92,13 @@ function botonesChrono() {
         var ajaxRoute = "/ct-getworkedtime/" + taskId
 
 
-
-        // var xmlhttp = new XMLHttpRequest()
-        // xmlhttp.onreadystatechange = function() {
-        //     if (this.readyState == 4 && this.status == 200) {
-        //         var response = JSON.parse(this.responseText);
-
-        //         //Actualizar interface (Añadir el tiempo obtenido del server)
-        //         $("div[data-taskid='" + taskId + "']").find("div[data-workedtime]").innerText(response)
-
-        //         // document.getElementById("demo").innerHTML = myObj.name;
-        //     }
-        // }
-        // xmlhttp.open("GET", ajaxRoute, true)
-        // xmlhttp.send()
-
-
         $.get(ajaxRoute, function(data, status) {
 
             if (status == "success") {
 
-
                 var time = data.split('"')
 
-                $("div[data-taskid='" + taskId + "']").find("div[data-workedtime]").html(
-                    "<i class='fas fa-business-time mr-1'></i>" + time[1]
-                )
+                $("#task-data-"+ taskId).find("div[data-workedtime]").html(time[1])
             }
         })
 

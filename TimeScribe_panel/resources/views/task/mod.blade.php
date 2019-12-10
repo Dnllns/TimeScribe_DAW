@@ -19,18 +19,38 @@
                     'style' => "success",
                     'content' => "The task <strong>"  . $task->name . "</strong> has been successfully created."
                 ]
-            )  
+            )
         </div>
-                    
+
     </div>
 @endif
 
 <div class="row">
     <div class="col-10 mx-auto">
         <div class="card">
+
             <div id="taskcard" data-taskid="{{$task->id}}" class="card-header">
-                <h1 class="m-0" >Edit task</h1>
-            </div>
+                    <div class="row">
+
+                        <div class="col-12  my-auto col-md-4">
+                            <h1 class="text-uppercase m-0">Edit task</h1>
+                        </div>
+
+                        <div class="col-sm-12 col-md-8 my-auto text-uppercase">
+                            <div class="row">
+                                <div class="col-10 text-left text-md-right ">
+                                    {!!$task->getBreadCrumbs()!!}
+                                </div>
+                                <div class="col-2 text-right">
+                                    <i class="far fa-id-card">{{$task->id}}</i>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
 
             <div class="card-body m-4">
 
@@ -63,10 +83,10 @@
                             <label class="control-label" for="visible">Visibility status:</label>
 
                             <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="r1" name="visible" value="0" 
-                            
+                            <input type="radio" class="custom-control-input" id="r1" name="visible" value="0"
+
                             @if ($task['visible'] == 0)
-                                checked                            
+                                checked
                             @endif
 
                             >
@@ -74,11 +94,11 @@
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" id="r2" name="visible" value="1"
-                                
+
                                 @if ($task['visible'] == 1)
-                                    checked                            
+                                    checked
                                 @endif
-                                
+
                                 >
                                 <label class="custom-control-label" for="r2">Visible</label>
                             </div>
@@ -107,7 +127,7 @@
                             @else
                             {{-- Existen developers --}}
 
-                                <div id="dev-list">  
+                                <div id="dev-list">
                                     <ul class="list-group">
                                         @foreach ($taskDevelopers as $developer)
                                         <li class="list-group-item">
@@ -117,9 +137,9 @@
                                                 </div>
                                                 <div class="col-2">
                                                     <div class="float-right">
-                                                        <a 
-                                                        data-id="{{$developer->id}}" data-funct="{{ route( 'f-ts-deldev', ['taskId' => $task->id, 'devId' => $developer->id ] ) }}" 
-                                                        href="" class="btn btn-sm text-warning f-remove">
+                                                        <a
+                                                        data-id="{{$developer->id}}" data-funct="{{ route( 'f-ts-deldev', ['taskId' => $task->id, 'devId' => $developer->id ] ) }}"
+                                                        href="" class="btn btn-circle icon-sm bg-dark text-white f-remove">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     </div>
@@ -165,8 +185,8 @@
                                             </div>
 
                                             <div class="col my-auto">
-                                                <a id="adddev" class="btn btn-sm btn-primary float-right"    
-                                                data-funct="{{route('f-ts-adddev', [ 'taskId' =>  $task->id , 'devId' => "devId" ] )}}" 
+                                                <a id="adddev" class="btn btn-sm btn-primary float-right"
+                                                data-funct="{{route('f-ts-adddev', [ 'taskId' =>  $task->id , 'devId' => "devId" ] )}}"
                                                 href="" >Add selected</a>
                                             </div>
                                         </div>
