@@ -270,7 +270,8 @@ class TaskController extends Controller
      */
     public function view_newTask($taskGroupId)
     {
-        return view('task/new', ['taskGroupId' => $taskGroupId]);
+        $taskGroup = Task::find($taskGroupId);
+        return view('task/new', ['taskGroup' => $taskGroup]);
     }
 
     /**

@@ -12,26 +12,15 @@
     <div class="card">
 
             <div class="card-header">
-                    <div class="row">
-
-                        <div class="col-12  my-auto col-md-4">
-                            <h1 class="text-uppercase m-0">Edit task group</h1>
-                        </div>
-
-                        <div class="col-sm-12 col-md-8 my-auto text-uppercase">
-                            <div class="row">
-                                <div class="col-10 text-left text-md-right ">
-                                    {!!$taskGroup->getBreadCrumbs()!!}
-                                </div>
-                                <div class="col-2 text-right my-auto">
-                                    <i class="far fa-id-card">{{$taskGroup->id}}</i>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                @include(
+                    'common.card-header-content', 
+                    [
+                        'title' => "Edit task group",
+                        'breadCrumbs' => $taskGroup->getBreadCrumbs(),
+                        'id' => $taskGroup->id
+                    ]
+                )                   
+            </div>
 
             <div class="card-body m-4">
 

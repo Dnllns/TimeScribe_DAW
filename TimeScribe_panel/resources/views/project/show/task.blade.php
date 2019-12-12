@@ -1,6 +1,6 @@
 
 <!-- TITULO DE LA TAREA -->
-<div class="card mb-2">
+<div class="card m-3">
 
     <!-- CABECERA -->
     {{-- ------------------------------- --}}
@@ -26,7 +26,7 @@
     <div data-name class="card-header col-12 py-1 px-2 text-uppercase bg-dark {{$textStyle}}">
 
         <!-- TITULO -->
-        <strong>{{$task->name}}</strong>
+        {{$task->name}}
 
         <div class="float-right">
             <a data-togglebuttons data-toggle="collapse" href="div[data-toggleid='{{$task->id}}']" role="button" >

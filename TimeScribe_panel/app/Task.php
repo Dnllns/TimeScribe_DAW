@@ -142,16 +142,10 @@ class Task extends Model
 
         $project_route = "<a class='text-info' href='/project-show/" . $project_id . "'>" . $project_name  . "</a>";
 
-
-        // $taskGroup_id = $this->taskGroup()->first()->id;
         $taskGroup_name = $this->taskGroup()->first()->name;
-        // $taskGroup_route = "<a class='text-info'" .
-        // "href='/project-show/" . $project_id . "[data-taskgroup=\"" . $taskGroup_id . "\"] [data-toggle]" .  "'" .
-        // ">" . $taskGroup_name  . "</a>";
 
 
-
-        return $wg_route . $slash . $project_route . $slash . $taskGroup_name . $slash . $this->name;
+        return $wg_route . $slash . $project_route  . "<br>". $taskGroup_name . $slash . $this->name;
     }
 
 

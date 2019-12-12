@@ -13,27 +13,15 @@
         <div id="project-container" data-projectid="{{$project->id}}" class="card">
 
             <div class="card-header">
-                <div class="row">
-
-                    <div class="col-12  my-auto col-md-4">
-                        <h1 class="text-uppercase m-0">Edit project</h1>
-                    </div>
-
-                    <div class="col-sm-12 col-md-8 my-auto text-uppercase">
-                        <div class="row">
-                            <div class="col-10 text-left text-md-right ">
-                                {!!$project->getBreadCrumbs()!!}
-                            </div>
-                            <div class="col-2 text-right">
-                                <i class="far fa-id-card">{{$project->id}}</i>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
+                @include(
+                    'common.card-header-content',
+                    [
+                        'title' => "Edit project",
+                        'breadCrumbs' => $project->getBreadCrumbs(),
+                        'id' => $project->id
+                    ]
+                )
             </div>
-
             <div class="card-body m-4">
 
                 <form method="post" action="{{ route('f-pj-mod', $project->id) }}">
@@ -59,7 +47,6 @@
                         </div>
 
                     </div>
-                    <hr>
 
                     {{-- Configuracion de developers --}}
 
@@ -71,7 +58,7 @@
 
                         {{-- Lista de devs --}}
 
-                        <div id="project-devs-container" class="col-12 pl-0 pb-4">
+                        <div id="project-devs-container" class="col-12 pl-0 pb-2">
                             <h3>Developers list</h3>
 
                             @if ($devList == null)
@@ -84,7 +71,7 @@
                             @else
                             {{-- Lista --}}
 
-                            <div id="dev-list" class="col-12">
+                            <div id="dev-list" class="col-12 pt-2">
                                 <ul class="list-group ">
                                     @foreach ($devList as $dev)
                                     <li class="list-group-item">
@@ -109,7 +96,7 @@
 
                         {{-- Añadir --}}
 
-                        <div class="col-12 pl-0 pb-4">
+                        <div class="col-12 pl-0 pt-2 pb-4">
                             <h3>Add developers</h3>
 
                             {{-- Seleccionar dev perteneciente al Workgroup --}}
@@ -121,7 +108,7 @@
                                     @if ($workGroupDevs == null)
                                     {{-- Mensaje de alerta VACIO--}}
 
-                                    <div id="add-devs-alert">
+                                    <div id="add-devs-alert" class="pt-2">
                                         @include('common.alert', ['style' => "warning", 'content' => "There isn't more developers availables"] )
                                     </div>
 
@@ -129,7 +116,7 @@
                                     @else
                                     {{-- Selecionar desarrollador --}}
 
-                                    <div id="add-devs" class="col-12">
+                                    <div id="add-devs" class="col-12 pt-2">
                                         <div class="row">
 
                                             <div class="col-6">
@@ -174,8 +161,6 @@
                         </div>
 
                     </div>
-                    <hr>
-
 
                     {{-- Configuracion cliente --}}
                     <div class="row pb-2">
@@ -184,7 +169,7 @@
                         <div class="col-12 pl-0 pb-4">
                             <h3>Add client</h3>
 
-                            <div class="row">
+                            <div class="row p-2">
 
                                 <!-- CLIENT EMAIL -->
                                 <div class="form-group col-12 p-2 mb-0 col-md-6">
@@ -212,13 +197,9 @@
 
                             </div>
 
-
-
                         </div>
 
                     </div>
-
-                    <hr>
 
                     {{-- Lista de grupos de tareas --}}
                     <div  class="row pb-2">

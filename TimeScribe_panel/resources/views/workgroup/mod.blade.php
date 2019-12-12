@@ -66,8 +66,6 @@
                         <div class="col-12">
                             <h2>Workgroup data</h2>
 
-
-
                             <label class="control-label" for="name">Name:</label>
                             <div class="input-group mb-2">
                                 <input id="name" name="name" type="text" placeholder="My workgroup"  value="{{$workGroup->name}}" class="form-control input-md">
@@ -75,29 +73,28 @@
                         </div>
                     </div>
 
-                    <hr>
 
                     {{-- AÑADIR USUARIOS --}}
-                    <div class="row pb-2">
+                    <div class="row py-2">
 
+                        <h2>Developers configuration</h2>
 
                         {{-- Lista de usuarios --}}
-                        <div id="dev-list" class="col-12 pb-4">
-                            <h2>Developer list</h2>
-
+                        <div id="dev-list" class="col-12 pt-2 pb-4">
+                            <h3>Developer list</h3>
 
                             @if (!isset($workGroupDevelopers))
-                            {{-- Sin developers asignados --}}
 
+                                {{-- Sin developers asignados --}}
                                 @include('common.alert', ['style' => "warning", 'content' => "Currently no developer has been added."] )
 
                             @else
-                            {{-- Existen developers --}}
 
-                                <ul class="list-group">
+                                {{-- Existen developers --}}
+                                <ul class="list-group py-2">
                                     @foreach ($workGroupDevelopers as $developer)
 
-                                        <li class="list-group-item">
+                                        <li class="list-group-item ">
                                             <div class="row">
                                                 <div class="col-10">{{$developer->name}}, {{$developer->email}}</div>
                                                 <div class="col-2">
@@ -118,16 +115,11 @@
 
                             @endif
 
-
-
                         </div>
 
                         {{-- Añadir --}}
-                        <div id="add-developers" class="col-12 pb-4">
-                            <h2>Add developers</h2>
-
-
-
+                        <div id="add-developers" class="col-12 pt-2 pb-4">
+                            <h3>Add developers</h3>
 
                             <div class="row">
 
@@ -153,7 +145,10 @@
 
                                 <div class="col-12">
                                     <div class="float-right">
-                                        <a id="add-developers-btn" href="" class="btn btn-primary btn-sm mt-2">Enviar invitacion</a>
+                                        <a id="add-developers-btn" href="" class="btn btn-primary btn-sm mt-2">
+                                            <span><i class="far fa-envelope"></i></span>&nbsp;
+                                            Send invitation
+                                        </a>
                                     </div>
                                     {{-- Datos necesarios en javascript --}}
                                     <script>
@@ -165,14 +160,11 @@
 
                             </div>
 
-
-
-
                         </div>
 
                         {{-- Invitaciones pendientes --}}
                         <div id="invitations" class="col-12 pb-4">
-                            <h2 class="mb-4">Pending invitations</h2>
+                            <h3 class="mb-4">Pending invitations</h3>
 
                             @if ($workGroupInvitations == null)
                             {{-- Mensaje de alerta de sin invitaciones --}}
@@ -193,7 +185,7 @@
                                             <div class="col-10">{{$invitation->email}}</div>
                                             <div class="col">
                                                 <div class="float-right">
-                                                    <a href="" class="text-warning">
+                                                    <a href="" class="btn btn-circle btn-sm bg-dark text-white f-remove">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </div>
@@ -210,6 +202,8 @@
                         </div>
 
                     </div>
+
+
 
                     <hr>
 

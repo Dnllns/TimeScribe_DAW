@@ -24,7 +24,7 @@
     {{-- CONTENT --}}
     <div id="{{$status}}-{{$taskGroup->id}}" class="row m-0 bg-{{$status}}-light" data-collapse="js">
         <div class="col-12">
-            <ul class="list-unstyled p-3">
+            <ul class="list-unstyled">
                 @php
                     $taskList = $taskGroup->getTasks($statusId);
                 @endphp

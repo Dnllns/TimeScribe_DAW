@@ -26,7 +26,7 @@
 
     <!-- BARRA DE PROGRESO -->
     <div class="col-12 pb-2 my-auto col-md-6 pb-md-0 col-lg-4 my-lg-auto">
-        <div class="progress col-10 p-0 " style="height:20px;">
+        <div class="progress col-10 mx-auto p-0 " style="height:20px;">
 
             @php
             $bg= "";
@@ -53,7 +53,7 @@
 
 
     <!-- BOTONES -->
-    <div class="col-12 my-auto pt-2 text-center pt-md-0 col-lg-2  " >
+    <div class="col-12 my-auto pt-2 text-center pt-lg-0 col-lg-2 text-lg-right" >
         <a
             href="{{route('v-pj-show', $project->id)}}"
             class="btn btn-circle btn-sm bg-dark"

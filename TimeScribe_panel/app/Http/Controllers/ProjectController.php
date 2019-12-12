@@ -135,7 +135,8 @@ class ProjectController extends Controller
          */
         public function view_newProject($workGroupId)
         {
-            return view('project/new', [ 'workGroupId' => $workGroupId]);
+            $workGroup = Workgroup::find($workGroupId);
+            return view('project/new', [ 'workGroup' => $workGroup]);
         }
 
         /**

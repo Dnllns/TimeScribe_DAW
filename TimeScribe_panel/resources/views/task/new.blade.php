@@ -4,28 +4,24 @@
 
 
 <div class="row">
-    <div class="col-12 col-md-10 mx-auto">
+    <div class="col-12 col-lg-10 mx-auto">
         <div class="card">
 
                 <div class="card-header">
-                    <div class="row">
-
-                        <div class="col-10 my-auto">
-                            <h1 class="m-0">New task</h1>
-                        </div>
-
-                        {{-- <div class="col-2 float-right my-auto">
-                            <i class="far fa-id-card float-right">{{ $taskGroup->id }}</i>
-                        </div> --}}
-
-                    </div>
-                    
+                    @include(
+                        'common.card-header-content', 
+                        [
+                            'title' => "Create task",
+                            'breadCrumbs' => $taskGroup->getBreadCrumbs(),
+                            'id' => $taskGroup->id
+                        ]
+                    )
                 </div>
 
 
             <div class="card-body m-4">
 
-                <form method="post" action="{{ route('f-ts-new', $taskGroupId) }}">
+                <form method="post" action="{{ route('f-ts-new', $taskGroup->id) }}">
                     @csrf
 
 

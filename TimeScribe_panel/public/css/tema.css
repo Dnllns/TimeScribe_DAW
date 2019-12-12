@@ -33,20 +33,22 @@ footer {
 */
 
 @font-face {
-    font-family: "digital-7";
-    src: url("/css/digital-7.tff") format("ttf");
+    font-family: 'digital-7';
+    src: url('/font/digital-7.tff') format("ttf");
     font-style: normal;
     font-weight: normal;
+
 }
 
-/*  */
 
+/* 
 h1,
 h2,
 h3,
 h4 {
-    /* font-family: "Roboto", sans-serif; */
-}
+    font-family: "Roboto", sans-serif;
+} 
+*/
 
 h1 {
     font-size: 1.5em;

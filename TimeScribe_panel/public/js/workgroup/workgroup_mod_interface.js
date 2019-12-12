@@ -2,7 +2,7 @@ $(function() {
 
 
 
-    //Click eliminar desarrollador de la lista 
+    //Click eliminar desarrollador de la lista
     $("a.f-remove").click(function(event) {
 
         event.preventDefault()
@@ -86,7 +86,7 @@ $(function() {
             "<div class='col-10'>" + nombre + ", " + email + "</div>" +
             "<div class='col'>" +
             "<div class='float-right'>" +
-            "<a href='' class='text-danger'>" +
+            "<a href='' class='btn btn-circle btn-sm bg-dark text-white f-remove'>" +
             "<i class='fas fa-trash-alt'></i>" +
             "</a>" +
             "</div>" +

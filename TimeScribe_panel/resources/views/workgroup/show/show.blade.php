@@ -15,11 +15,9 @@
 
 
             <div class="card-header">
-
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <h1 class="my-auto text-uppercase">Select a project</h1>
-
                     </div>
 
                     <div class="col-auto col-md-5 my-auto text-uppercase">
@@ -39,17 +37,44 @@
 
             <div class="card-body m-4">
 
+                @if(
+                    auth()->user()->is_admin == 1 or
+                    $project->getUserPermission(auth()->user()->id) == 0
+                )
+
+
+                {{-- Boton de añadir proyecto --}}
+                <div class="row">
+                    <div class="col-12 mb-4">
+
+                        <div class="float-right">
+                            <a class="btn btn-warning btn-sm text-white" href="{{ route('v-wg-mod', ['workGroupId'=> $workGroup->id])}}">
+                                <span class="btn-label"><i class="far fa-edit"></i></span>&nbsp;
+                                Edit workgroup
+                            </a>
+                        </div>
+
+                        <div class="float-right pr-2">
+                            <a class="btn btn-primary btn-sm text-white" href="{{ route('v-pj-new', ['workGroupId'=> $workGroup->id])}}">
+                                <span class="btn-label"><i class="fas fa-plus"></i></span>&nbsp;
+                                Add new project
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                @endif
+
+
                 @if ($userProjects->count() == 0)
 
-                @php
+                    @php
+                        $content = "The workgroup" . $workGroup->name . "is empty. You can start" .
+                        "<a href='" . route('v-pj-new', ['workGroupId'=> $workGroup->id]) . "'> <strong>creating a new Project</strong></a>";
+                    @endphp
 
-                $content = "The workgroup" . $workGroup->name . "is empty. You can start" .
-                "<a href='" . route('v-pj-new', ['workGroupId'=> $workGroup->id]) . "'> <strong>creating a new Project</strong></a>";
-
-                @endphp
-
-                @include('common.alert', ['style' => "warning", 'content' => $content] )
-
+                    @include('common.alert', ['style' => "warning", 'content' => $content] )
 
                 @else
 
@@ -68,12 +93,12 @@
                                         $userPermissions == $project::PERM_WORK
                                     )
 
-                                    <li class="list-group-item">
-                                        @include('workgroup.show.project_item', ['perms' => $userPermissions])
-                                    </li>
-
+                                        <li class="list-group-item">
+                                            @include('workgroup.show.project_item', ['perms' => $userPermissions])
+                                        </li>
 
                                     @endif
+
                                 @endforeach
                             </ul>
                         </div>
