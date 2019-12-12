@@ -1,15 +1,25 @@
 <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>SB Admin 2 - Blank</title>
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>{{ config('app.name', 'TimeScribe') }}</title>
 
-  <!-- Custom fonts for this template-->
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css" />
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="/js/jquery-3.4.1.min.js" language="JavaScript" type="text/javascript" ></script>
+<script src="/js/enableTooltips.js" language="JavaScript" type="text/javascript"></script>
 
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<!-- Fonts -->
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito|Roboto&display=swap" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- Styles -->
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+<link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css" />
+
+<link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
+<link href="{{ asset('css/tema.css') }}" rel="stylesheet">

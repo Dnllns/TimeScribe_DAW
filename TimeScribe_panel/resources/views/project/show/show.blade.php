@@ -29,7 +29,7 @@
 
 <div class="row">
 
-    @include('task.partials.sticky_chrono' )
+    @include('project.show.sticky_chrono' )
 
     <div class="card shadow col-12 mx-auto p-0">
 

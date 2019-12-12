@@ -8,8 +8,6 @@
 
 @section('content')
 
-
-
 <div class="row">
     <div class="col-12 col-lg-10 mx-auto">
         <div id="project-container" data-projectid="{{$project->id}}" class="card">
@@ -35,8 +33,6 @@
 
                 </div>
             </div>
-
-
 
             <div class="card-body m-4">
 
@@ -239,7 +235,7 @@
                                 <ul class="list-group">
                                     @foreach ($taskGroups as $taskGroup)
                                         <li class="list-group-item">
-                                            @include('project.mod.partials.taskGroupItem', ['taskGroup' => $taskGroup])
+                                            @include('project.mod.taskGroupItem', ['taskGroup' => $taskGroup])
                                         </li>
 
                                     @endforeach

@@ -5,8 +5,6 @@
 
 <!-- CREATE PROJECT FORM -->
 
-
-
 <div class="row">
     <div class="col-10 mx-auto">
         <div class="card">
@@ -18,9 +16,7 @@
             <div class="card-body m-4">
 
                 <form class="form-horizontal" method="post" action="{{ route('f-pj-new', ['workGroupId'=>$workGroupId]) }}">
-
                     @csrf
-
                     <div class="row">
 
                         <div class="col-12">
@@ -39,14 +35,8 @@
                                 <input type="text" class="form-control" id="description" placeholder="Enter description" name="description">
                             </div>
 
-                            <!-- SELECT CLIENT -->
-
                             <h2>Add client</h2>
-
-
                             <div>
-
-
                                 <div class="row">
 
                                     <div class="col-12">
@@ -85,41 +75,27 @@
 
                                     @php
                                     use App\WorkGroup;
-
                                     $clients= WorkGroup::find($workGroupId)->getAllClients();
-
-                                    @endphp
-                                    @if ($clients->count()==0)
-
-                                    @php
-
                                     $content = "There isn't old clients";
-
                                     @endphp
+
+                                    @if ($clients->count()==0)
 
                                     @include('common.alert', ['style' => "warning", 'content' => $content] )
 
                                     @else
-
                                     <div class="col-6">
                                         <select class="browser-default custom-select">
                                             <option default value="">Select</option>
-
                                             @foreach ($clients as $client)
                                             <option value="{{$client->id}}"> {{$client->name}} {{$client->email}}</option>
-
                                             @endforeach
-
                                         </select>
                                     </div>
-
                                     @endif
-
-
                                 </div>
 
                             </div>
-
                             <hr>
 
                             <div class="text-center">
@@ -128,11 +104,7 @@
 
                         </div>
 
-
-
                     </div>
-
-
 
                 </form>
 
