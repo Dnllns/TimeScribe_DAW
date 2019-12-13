@@ -41,13 +41,13 @@ footer {
 }
 
 
-/* 
+/*
 h1,
 h2,
 h3,
 h4 {
     font-family: "Roboto", sans-serif;
-} 
+}
 */
 
 h1 {
@@ -238,4 +238,14 @@ ul.striped > li:nth-child(odd) {
     position: absolute;
     right: 3px;
     top: 3px;
+}
+
+
+.text-title{
+    font-size: 4rem;
+}
+
+
+.text-slogan{
+    font-size: 2rem;
 }

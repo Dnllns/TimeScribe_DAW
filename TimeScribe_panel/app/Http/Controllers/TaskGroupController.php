@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ProjectController;
 use App\TaskGroup;
+use App\Project;
 use Illuminate\Http\Request;
 
 class TaskGroupController extends Controller
@@ -93,7 +94,7 @@ class TaskGroupController extends Controller
     {
         $taskGroup = TaskGroup::find($taskGroupId);
         // $taskGroup->delete();
-        $taskGroup->visible = 0;
+        $taskGroup['visible'] = 0;
         $taskGroup->save();
 
         $projectId = $taskGroup->project_id;
@@ -148,7 +149,8 @@ class TaskGroupController extends Controller
      */
     public function view_newTaskGroup($projectId)
     {
-        return view('taskgroup/new', ['projectId' => $projectId]);
+        $project = Project::find($projectId);
+        return view('taskgroup/new', ['project' => $project]);
     }
 
     /**

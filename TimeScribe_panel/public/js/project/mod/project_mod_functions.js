@@ -15,7 +15,7 @@ $(function() {
                     500,
                     function() { $(this).remove() })
             },
-            2000
+            5000
         )
 
 
@@ -328,16 +328,34 @@ function delTaskGroup(event, element) {
     //----------------------
     $.get(element.attr('data-funct'))
 
-    //Eliminar de la lista
+    //Si el usuario es admin mostar como oculto
+    //Si el usuario no es admin eliminar de la lista
+    //(Variable showDeleteds creada en el server)
+
+    var alertMessage = ""
+
+    if(showDeleteds){
+        element.closest("li").find("span i.fa-eye")
+        .removeClass("fa-eye")
+        .addClass("fa-eye-slash")
+
+        alertMessage = " invisible for the standard users."
+    }
+    else{
+        element.closest("li").remove()
+        alertMessage = " deleted."
+
+    }
+
+
     //-----------------------
-    element.closest("li").remove();
 
     //Mostrar mensaje de eliminado
     $('#taskgroup-list').append(
 
-        "<div class='col-12'>" +
+        "<div class='col-12 pt-2'>" +
         "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
-        "The task group has been deleted." +
+        "The task group has become" + alertMessage +
         "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
         "<span aria-hidden='true'>&times;</span>" +
         "</button>" +

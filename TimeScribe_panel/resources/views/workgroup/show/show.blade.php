@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-12 mx-auto">
-        <div class="card">
+        <div class="card pb-2">
 
 
             <div class="card-header">
@@ -35,7 +35,7 @@
 
             </div>
 
-            <div class="card-body m-4">
+            <div class="card-body m-2">
 
                 @if(
                     auth()->user()->is_admin == 1 or
@@ -70,7 +70,7 @@
                 @if ($userProjects->count() == 0)
 
                     @php
-                        $content = "The workgroup" . $workGroup->name . "is empty. You can start" .
+                        $content = "The workgroup " . $workGroup->name . " is empty. You can start" .
                         "<a href='" . route('v-pj-new', ['workGroupId'=> $workGroup->id]) . "'> <strong>creating a new Project</strong></a>";
                     @endphp
 

@@ -19,4 +19,7 @@ class WorkGroupInvitation extends Model
 
     }
 
+
+
+
 }

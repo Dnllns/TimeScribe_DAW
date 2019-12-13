@@ -9,7 +9,7 @@
 
                 <div class="card-header">
                     @include(
-                        'common.card-header-content', 
+                        'common.card-header-content',
                         [
                             'title' => "Create task",
                             'breadCrumbs' => $taskGroup->getBreadCrumbs(),
@@ -40,7 +40,7 @@
                         <!-- TASK DESCRIPTION -->
                         <div class="form-group col-12">
                             <label class="control-label" for="description">Description:</label>
-                            <textarea id="description" class="form-control" rows="5" placeholder="Enter description" name="description"></textarea>
+                            <textarea id="description" class="form-control" rows="3" placeholder="Enter description" name="description"></textarea>
                         </div>
 
                     </div>
@@ -53,7 +53,7 @@
                             <div class="text-center">
                                 <button id="save" name="save" class="btn btn-success">Save</button>
                             </div>
-                            
+
                         </div>
                     </div>
 

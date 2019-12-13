@@ -15,10 +15,12 @@
                     'common.card-header-content',
                     [
                         'title' => "Create project",
-                        'breadCrumbs' =>$workGroup->name,
+                        'breadCrumbs' =>$workGroup->getBreadCrumbs(),
                         'id' => ""
                     ]
                 )
+
+
             </div>
 
             <div class="card-body m-4">

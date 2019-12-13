@@ -7,12 +7,20 @@
     <div class="col-10 mx-auto">
         <div class="card">
             <div class="card-header">
-                <h1 class="m-0" >Create task group</h1>
+                @include(
+                    'common.card-header-content',
+                    [
+                        'title' => "Create task group",
+                        'breadCrumbs' => $project->getBreadCrumbs(),
+                        'id' => $project->id
+                    ]
+                )
+
             </div>
 
             <div class="card-body m-4">
 
-                <form class="form-horizontal" method="post" action="{{ route('f-tg-new', $projectId) }}">
+                <form class="form-horizontal" method="post" action="{{ route('f-tg-new', $project->id) }}">
 
                     @csrf <!-- {{ csrf_field() }} -->
 
@@ -32,7 +40,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="description">Description:</label>
                                 <div class="">
-                                    <textarea 
+                                    <textarea
                                     class="form-control rounded-1" rows="3" placeholder="Enter task group description"
                                     id="description" name="description" ></textarea>
                                 </div>
@@ -40,20 +48,20 @@
                         </div>
 
                         <div class="col-12"><hr></div>
-            
-                        
-            
+
+
+
                         <div class="col-12 mt-2">
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success">Save</button>
                             </div>
                         </div>
-                
+
                     </div>
-            
+
                 </form>
 
-            </div>   
+            </div>
         </div>
     </div>
 </div>

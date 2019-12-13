@@ -10,6 +10,8 @@
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="/js/jquery-3.4.1.min.js" language="JavaScript" type="text/javascript" ></script>
 <script src="/js/enableTooltips.js" language="JavaScript" type="text/javascript"></script>
+<script src="/js/funcionesComunes.js" language="JavaScript" type="text/javascript"></script>
+
 
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.gstatic.com">

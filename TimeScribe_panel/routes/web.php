@@ -82,6 +82,10 @@ Route::get('/home', 'HomeController@index')->name('home');
         Route::post('/email/send-workgroup-invitation', 'WorkGroupInvitationController@inviteUser')
         ->name('f-wg-invite')->middleware('auth');
 
+        //Eliminar invitacion a grupo
+        Route::get('/email/remove-wg-invitation/{invitationId}', 'WorkGroupInvitationController@removeInvitation')
+        ->name('f-wg-removeinvitation')->middleware('auth');
+
 
     #endregion
 

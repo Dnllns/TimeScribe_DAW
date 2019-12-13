@@ -3,7 +3,6 @@
 @section('head')
     <script src="/js/project/mod/project_mod_functions.js"></script>
     <script src="/js/project/mod/invite_client.js"></script>
-
 @endsection
 
 @section('content')
@@ -171,16 +170,18 @@
 
                             <div class="row p-2">
 
-                                <!-- CLIENT EMAIL -->
-                                <div class="form-group col-12 p-2 mb-0 col-md-6">
-                                    <label class="control-label" for="client_email">Client email:</label>
-                                    <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="@if($client != null){{$client->email }}@endif">
-                                </div>
+
 
                                 <!-- CLIENT NAME  -->
                                 <div class="form-group col-12 p-2 mb-0 col-md-6">
                                     <label class="control-label" for="client_name">Client name:</label>
                                     <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="@if($client != null){{$client->name }}@endif">
+                                </div>
+
+                                <!-- CLIENT EMAIL -->
+                                <div class="form-group col-12 p-2 mb-0 col-md-6">
+                                    <label class="control-label" for="client_email">Client email:</label>
+                                    <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="@if($client != null){{$client->email }}@endif">
                                 </div>
 
 
@@ -209,19 +210,30 @@
                         <div id="taskgroup-list" class="col-12 px-0">
                             <h3>Task group list</h3>
 
+                            @php
+                                $showDeleteds = false;
+                                if(Auth::user()->is_admin == 1){
+                                    $showDeleteds = true;
+                                }
+                            @endphp
+
+                            {{-- Si el ususario es administrador mostrar eliminados --}}
+                            <script>
+                                var showDeleteds =  {!! json_encode($showDeleteds, JSON_HEX_TAG) !!}
+                            </script>
+
 
                             @if ( $taskGroups != null )
+                                <div class="col-12">
+                                    <ul class="list-group">
+                                        @foreach ($taskGroups as $taskGroup)
+                                            <li class="list-group-item">
+                                                @include('project.mod.taskGroupItem', ['taskGroup' => $taskGroup])
+                                            </li>
 
-                            <div class="col-12">
-                                <ul class="list-group">
-                                    @foreach ($taskGroups as $taskGroup)
-                                        <li class="list-group-item">
-                                            @include('project.mod.taskGroupItem', ['taskGroup' => $taskGroup])
-                                        </li>
-
-                                    @endforeach
-                                </ul>
-                            </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             @else
                             {{-- Mensaje de aviso, no hay tareas --}}
 

@@ -45,6 +45,8 @@ class WorkGroupInvitationController extends Controller
             $acceptInvitationLink
         );
 
+        return $invitation->id;
+
     }
 
     protected function sendInvitationEmail( $guestEmail, $guestName, $adminName, $workGroupName, $link ){
@@ -125,5 +127,15 @@ class WorkGroupInvitationController extends Controller
 
     }
 
+
+    public function removeInvitation($invitationId){
+
+
+        $invitation = WorkGroupInvitation::find($invitationId);
+        $invitation->delete();
+        return "true";
+        // $invitation->save();
+
+    }
 
 }

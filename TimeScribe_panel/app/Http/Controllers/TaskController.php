@@ -6,7 +6,6 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskGroupController;
 use App\Task;
 use App\TimeRecord;
-use App\WorkGroup;
 use App\TaskGroup;
 use App\Project;
 
@@ -270,7 +269,7 @@ class TaskController extends Controller
      */
     public function view_newTask($taskGroupId)
     {
-        $taskGroup = Task::find($taskGroupId);
+        $taskGroup = TaskGroup::find($taskGroupId);
         return view('task/new', ['taskGroup' => $taskGroup]);
     }
 

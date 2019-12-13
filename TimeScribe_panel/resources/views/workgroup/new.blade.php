@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h1 class="m-0">Create workgroup</h1>
+                    <h1 class="m-0 text-uppercase">Create workgroup</h1>
                 </div>
 
                 <div class="card-body m-4">
