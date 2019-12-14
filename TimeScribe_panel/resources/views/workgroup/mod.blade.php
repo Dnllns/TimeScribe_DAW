@@ -101,12 +101,12 @@
                                                     <div class="float-right">
 
                                                         {{-- controlar no eliminar al admin --}}
-                                                        @if( Auth::user()->is_admin != 1)
+                                                        @if( $developer->is_admin != 1)
 
 
                                                         <a href=""  class="btn btn-circle btn-sm bg-dark"
                                                         data-tooltip="tooltip" data-placement="bottom" data-original-title="Remove"
-                                                        data-funct="{{route('f-wg-removedev', ['userId' => $developer->id])}}">
+                                                        data-remove-developer data-funct="{{route('f-wg-removedev', ['userId' => $developer->id])}}">
                                                             <i class="fas fa-trash-alt text-white"></i>
                                                         </a>
 
@@ -187,20 +187,23 @@
 
                                 <ul class="list-group">
                                     @foreach ($workGroupInvitations as $invitation)
-                                    <li class="list-group-item" data-invitationid="{{$invitation->id}}">
-                                        <div class="row">
-                                            <div class="col-10">{{$invitation->email}}</div>
-                                            <div class="col">
-                                                <div class="float-right">
-                                                    <a href class="btn btn-circle btn-sm bg-dark text-white" data-remove-invitation
-                                                    data-tooltip="tooltip" data-placement="bottom" data-original-title="Remove"
-                                                    data-funct="{{route('f-wg-removeinvitation', [$invitation->id])}}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
+
+                                    @if ($invitation->used!=1)
+                                        <li class="list-group-item" data-invitationid="{{$invitation->id}}">
+                                            <div class="row">
+                                                <div class="col-10">{{$invitation->email}}</div>
+                                                <div class="col">
+                                                    <div class="float-right">
+                                                        <a href class="btn btn-circle btn-sm bg-dark text-white" data-remove-invitation
+                                                        data-tooltip="tooltip" data-placement="bottom" data-original-title="Remove"
+                                                        data-funct="{{route('f-wg-removeinvitation', [$invitation->id])}}">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @endif
                                     @endforeach
                                 </ul>
 

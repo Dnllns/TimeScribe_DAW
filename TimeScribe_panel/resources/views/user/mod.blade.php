@@ -4,10 +4,19 @@
     <div class="row">
         <div class="col-10 mx-auto">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header text-uppercase">{{ __('Register from invitation') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('f-wg-register-developer', ['workgroupId' => $user->workgroup_id]) }}">
+                    <form method="POST"
+                        action="{{
+                            route(
+                                'f-wg-register-developer',
+                                [
+                                    'workgroupId' => $workGroupId,
+                                    'invitationId' => $invitationId
+                                ]
+                            )
+                        }}">
                         @csrf
 
                         {{-- NOMBRE --}}
@@ -30,7 +39,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" readonly class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -76,5 +85,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

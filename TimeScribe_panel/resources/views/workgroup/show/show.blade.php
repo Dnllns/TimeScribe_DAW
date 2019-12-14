@@ -15,63 +15,61 @@
 
 
             <div class="card-header">
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <h1 class="my-auto text-uppercase">Select a project</h1>
-                    </div>
 
-                    <div class="col-auto col-md-5 my-auto text-uppercase">
-                        <div class="float-right">
-                            {{$workGroup->name}}
-                        </div>
-                    </div>
+                @include('
+                    common.card-header-content',
+                    [
+                        "title" => "Select a project",
+                        "breadCrumbs" => $workGroup->name,
+                        'id' => $workGroup->id
+                    ]
 
-                    <div class="col-auto col-md-1 my-auto">
-                        <div class="float-right">
-                            <i class="far fa-id-card">{{$workGroup->id}}</i>
-                        </div>
-                    </div>
-                </div>
+                )
+
+
 
             </div>
 
             <div class="card-body m-2">
 
-                @if(
-                    auth()->user()->is_admin == 1 or
-                    $project->getUserPermission(auth()->user()->id) == 0
-                )
+                @if( auth()->user()->is_admin == 1 )
 
+                    {{-- Botones --}}
+                    <div class="row">
+                        <div class="col-12 mb-4">
 
-                {{-- Boton de añadir proyecto --}}
-                <div class="row">
-                    <div class="col-12 mb-4">
+                            <div class="float-right">
+                                <a class="btn btn-secondary btn-sm text-white" href="{{ route('v-wg-mod', ['workGroupId'=> $workGroup->id])}}">
+                                    <span class="btn-label"><i class="far fa-edit"></i></span>&nbsp;
+                                    Edit workgroup
+                                </a>
+                            </div>
 
-                        <div class="float-right">
-                            <a class="btn btn-warning btn-sm text-white" href="{{ route('v-wg-mod', ['workGroupId'=> $workGroup->id])}}">
-                                <span class="btn-label"><i class="far fa-edit"></i></span>&nbsp;
-                                Edit workgroup
-                            </a>
+                            <div class="float-right pr-2">
+                                <a class="btn btn-primary btn-sm text-white" href="{{ route('v-pj-new', ['workGroupId'=> $workGroup->id])}}">
+                                    <span class="btn-label"><i class="fas fa-plus"></i></span>&nbsp;
+                                    Add new project
+                                </a>
+                            </div>
+
                         </div>
-
-                        <div class="float-right pr-2">
-                            <a class="btn btn-primary btn-sm text-white" href="{{ route('v-pj-new', ['workGroupId'=> $workGroup->id])}}">
-                                <span class="btn-label"><i class="fas fa-plus"></i></span>&nbsp;
-                                Add new project
-                            </a>
-                        </div>
-
                     </div>
-                </div>
 
                 @endif
 
 
                 @if ($userProjects->count() == 0)
 
+                    {{-- Mostrar alerta --}}
                     @php
-                        $content = "The workgroup " . $workGroup->name . " is empty. You can start" .
-                        "<a href='" . route('v-pj-new', ['workGroupId'=> $workGroup->id]) . "'> <strong>creating a new Project</strong></a>";
+
+                        $extra = "";
+                        if(auth()->user()->is_admin == 1){
+                            $extra = " You can start" .
+                            "<a href='" . route('v-pj-new', ['workGroupId'=> $workGroup->id]) . "'> <strong>creating a new Project</strong></a>";
+                        }
+                        $content = "The workgroup " . $workGroup->name . " is empty." . $extra;
+
                     @endphp
 
                     @include('common.alert', ['style' => "warning", 'content' => $content] )
@@ -85,7 +83,7 @@
                                 @foreach ($userProjects as $project)
 
                                     @php
-                                        $userPermissions=$project->getUserPermission(auth()->user()->id);
+                                        $userPermissions=$project->getUserPermission();
                                     @endphp
 
                                     @if(

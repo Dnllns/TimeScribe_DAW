@@ -61,7 +61,7 @@
             <i class="far fa-eye icon-white"></i>
         </a>
 
-        @if ( $perms == $project::PERM_ALL)
+        @if ( $userPermissions == $project::PERM_ALL)
 
             <a
                 href="{{route('v-pj-mod', $project->id)}}"

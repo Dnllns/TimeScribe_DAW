@@ -48,8 +48,15 @@ class UserController extends Controller
 
     public function deleteUser($userId){
 
-        $user = User::find($userId);
-        $user->delete();
+        $serverResponse = "true";
+        try {
+            $user = User::find($userId);
+            $user->delete();
+        } catch (\Throwable $th) {
+            $serverResponse = "false";
+        }
+
+        return $serverResponse;
 
     }
 

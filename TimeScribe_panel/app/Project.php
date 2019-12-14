@@ -4,6 +4,8 @@ namespace App;
 
 use App\WorkGroup;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 
 class Project extends Model
 {
@@ -19,9 +21,8 @@ class Project extends Model
     const STATUS_DONE = 2;
 
     //PROJECT PERMISSIONS
-    const PERM_ALL = 0;
-    const PERM_WORK = 1;
-    const PERM_VIEW = 2;
+    const PERM_ALL = 1;
+    const PERM_WORK = 0;
 
     //VISIBILITY
     const INVISIBLE = 0;
@@ -60,7 +61,10 @@ class Project extends Model
     //N:N USERS
     public function users()
     {
-        return $this->belongsToMany('App\User', 'users_projects', 'project_id', 'user_id');
+        return $this->belongsToMany('App\User', 'users_projects')->withPivot('permissions');
+        // return $this->belongsToMany('App\User', 'users_projects', 'user_id', 'project_id')
+        // ->withPivot('permissions');
+
     }
 
     //1:N TASKGROUP
@@ -130,14 +134,13 @@ class Project extends Model
 
     /**
      * Obtiene los permisos que tiene el usuario en este proyecto
-     * @param Integer $userId, el id del usuario
      */
-    public function getUserPermission($userId)
+    public function getUserPermission()
     {
 
-        $relationData = $this->users()->where('user_id', $userId)->withPivot('permissions')->get()->toArray();
-        $permissions = $relationData[0]["pivot"]["permissions"];
-        return $permissions;
+        return $this->users() ->where('user_id', Auth::user()->id)
+            ->first()->pivot->permissions;
+
     }
 
     public function getClient()
@@ -165,7 +168,10 @@ class Project extends Model
 
         $wg_route = "<a class='text-info' href='/workgroup-show/" . $wgroup_id . "'>" . $wgroup_name  . "</a>";
 
-        return $wg_route . "<span class='text-secondary'>/</span>" . $this->name;
+        $project_route = "<a class='text-info' href='/project-show/" . $this->id . "'>" . $this->name  . "</a>";
+
+
+        return $wg_route . "<span class='text-secondary'>/</span>" . $project_route;
     }
 
     #endregion

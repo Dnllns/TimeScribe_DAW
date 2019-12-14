@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Project;
 use App\User;
 use App\WorkGroup;
-
 use Illuminate\Http\Request;
-
 use App\Http\Controllers\WorkGroupController;
 
 
@@ -62,7 +59,7 @@ class ProjectController extends Controller
                 [
                     'project_id' => $newProject->id,
                     'user_id' => $user->id,
-                    'permissions' => 0, //ADMIN
+                    'permissions' => Project::PERM_ALL, //ADMIN
                 ]
             );
 

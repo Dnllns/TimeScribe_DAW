@@ -78,10 +78,16 @@
                                             <div data-id="{{$dev->id}}" class="col my-auto">{{$dev->name}}, {{$dev->email}}</div>
                                             <div class="col my-auto">
                                                 <div class="float-right">
+
+                                                    @if( $dev->is_admin != 1)
+
+
                                                     <a class="btn btn-circle btn-sm bg-dark text-white f-remove" href
                                                     data-funct="{{route('f-pj-deldev', ['projectId' => $project->id, 'developerId' => $dev->id])}}" >
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
+
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

@@ -12,8 +12,7 @@
                         'common.card-header-content',
                         [
                             'title' => "Create task",
-                            'breadCrumbs' => $taskGroup->getBreadCrumbs(),
-                            'id' => $taskGroup->id
+                            'breadCrumbs' => $taskGroup->getBreadCrumbs()
                         ]
                     )
                 </div>

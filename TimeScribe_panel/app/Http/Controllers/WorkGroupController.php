@@ -23,7 +23,7 @@ class WorkGroupController extends Controller
 
         $workGroup = WorkGroup::find($workGroupId);
         $workGroupDevelopers = $workGroup->users()->get();
-        $workGroupInvitations = $workGroup->workGroupInvitations()->get();
+        $workGroupInvitations = $workGroup->workGroupInvitations()->where('used', "!=", 1)->get();
 
         if($workGroupInvitations->count() == 0){
             $workGroupInvitations = null;
@@ -105,6 +105,8 @@ class WorkGroupController extends Controller
         $currentUser = auth()->user();
         $currentUser->workgroup_id = $workGroup->id;
         $currentUser->is_admin = 1;
+        $currentUser->is_client = 0;
+
         $currentUser->save();
 
         return $this->view_show($workGroup->id);

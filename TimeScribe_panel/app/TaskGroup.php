@@ -176,7 +176,7 @@ class TaskGroup extends Model
     public function getBreadCrumbs()
     {
 
-        $slash = "<span class='text-secondary'>/</span>";
+        $slash = "&nbsp;<span class='text-secondary'>/</span>&nbsp;";
 
         $wgroup_name = $this->project()->first()->workgroups()->first()->name;
         $wgroup_id = $this->project()->first()->workgroups()->first()->id;
@@ -186,7 +186,7 @@ class TaskGroup extends Model
         $project_id = $this->project()->first()->id;
         $project_route = "<a class='text-info' href='/project-show/" . $project_id . "'>" . $project_name  . "</a>";
 
-        return $wg_route . $slash . $project_route . "<br>" . $this->name;
+        return $wg_route . $slash . $project_route . $slash . $this->name;
     }
 
 

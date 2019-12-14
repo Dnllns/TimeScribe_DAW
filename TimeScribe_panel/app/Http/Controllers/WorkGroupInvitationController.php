@@ -80,28 +80,13 @@ class WorkGroupInvitationController extends Controller
         //Validar que el hash es el mismo
         if($invitation->hash == $hash){
 
-            //Actualizar registro de la invitacion
-            //Marcar como usada
-            $invitation->used = true;
-            $invitation->save();
-
-            //Crear usuario manualmente
-            $password = Str::random(10);
-            $user = new User;
-            $user->name = "";
-            $user->email = $invitation->email;
-            $user->password = $password;
-            $user->workgroup_id = $invitation->workgroup_id;
-            $user->is_admin = 0;
-            $user->is_client = 0;
-            $user->save();
-            Auth::login($user);
-
             //redireccionar a el formulario de registro
             return view(
                 'user/mod',
                 [
-                    'user' => $user,
+                    "workGroupId" => $invitation->workgroup_id,
+                    'email' => $invitation->email,
+                    'invitationId' => $invitation->id
                 ]
             );
 
@@ -115,13 +100,29 @@ class WorkGroupInvitationController extends Controller
 
 
 
-    public function registerUser( $workgroupId, Request $data){
+    public function registerUser( $workgroupId, $invitationId,  Request $data){
 
-        $user = Auth::user();
+        //Crear usuario manualmente
+
+        $user = new User;
+        Auth::login($user);
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
+        $user->workgroup_id = $workgroupId;
+        $user->is_admin = 0;
+        $user->is_client = 0;
         $user->save();
+
+        //Actualizar registro de la invitacion
+        //Marcar como usada
+        $invitation = WorkGroupInvitation::find($invitationId);
+        $invitation->used = true;
+        $invitation->save();
+
+
+
+
 
         return  WorkGroupController::view_show($workgroupId);
 

@@ -77,6 +77,16 @@
 
         &nbsp;
 
+
+        @php
+
+            $perms = $project->getUserPermission(Auth::user()->id);
+
+        @endphp
+
+
+        @if ( $perms == $project::PERM_ALL)
+
         <a href="{{route('v-tg-mod', ['taskgroupId' => $taskGroup->id])}}" class="btn btn-circle btn-sm bg-dark" data-tooltip="tooltip" data-placement="bottom" title="" data-original-title="Edit">
             <i class="far fa-edit icon-white"></i>
         </a>
@@ -84,6 +94,8 @@
         <a href data-del data-ajax="{{route('f-tg-del', ['taskgroupId' => $taskGroup->id])}}" class="btn btn-circle btn-sm bg-dark" data-tooltip="tooltip" data-placement="bottom" title="" data-original-title="Delete">
             <i class="far fa-trash-alt icon-white"></i>
         </a>
+
+        @endif
 
 
         <a class="btn btn-sm" data-toggle="collapse" data-target="#task-list-{{$taskGroup->id}}" >
@@ -101,6 +113,26 @@
     <div id="task-list-{{$taskGroup->id}}" class="col-sm-12 mt-1 collapse">
 
         <hr>
+
+
+        @if( auth()->user()->is_admin == 1 or $project->getUserPermission() == 1 )
+
+        {{-- Boton de añadir proyecto --}}
+        <div class="row my-3 pt-1">
+            <div class="col-12 pr-1">
+
+                <div class="float-right">
+                    <a class="btn btn-primary btn-sm text-white" href="{{ route('v-ts-new', ['taskGroupId'=> $taskGroup->id])}}">
+                        <span class="btn-label"><i class="fas fa-plus"></i></span>&nbsp;
+                        Add new task
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        @endif
+
 
         <div class="row">
 

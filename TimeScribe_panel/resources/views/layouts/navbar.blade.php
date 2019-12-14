@@ -19,7 +19,8 @@
         $view_name != "auth.login" and
         $view_name != "auth.register" and
         $view_name != "auth.passwords.email" and
-        $view_name != "layouts.home"
+        $view_name != "layouts.home" and
+        $view_name != "user.mod"
     ){
         $show_perfil = true;
     }
@@ -30,8 +31,8 @@
     <!-- Topbar Navbar -->
     @if ( $show_perfil )
     <ul class="navbar-nav ml-auto">
-        
-        <div class="topbar-divider d-none d-sm-block"></div>
+
+        {{-- <div class="topbar-divider d-none d-sm-block"></div> --}}
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
 
@@ -64,6 +65,8 @@
 
 
                 <div class="dropdown-divider"></div>
+
+
                 <a class="dropdown-item" href="{{route('f-logout')}}">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
@@ -71,7 +74,7 @@
             </div>
 
         </li>
-        
+
     </ul>
     @endif
 

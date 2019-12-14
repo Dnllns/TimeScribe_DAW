@@ -42,6 +42,10 @@ function getAlert(id, style, data){
 
 }
 
+function deleteElement(element){
+    element.fadeTo(500, 0).slideUp(500, function(){ $(this).remove() })
+}
+
 
 // function getLi(){
 //     "<li class='list-group-item'>" +
