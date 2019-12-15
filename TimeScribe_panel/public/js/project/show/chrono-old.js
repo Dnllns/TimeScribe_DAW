@@ -321,7 +321,7 @@ function moveTask(element, statuss) {
     //Generar el nuevo elemento
     var newTask =
     "<li data-taskid='" + taskId + "'>"+
-        "<div class='card mb-2'>"+
+        "<div class='card m-3'>"+
 
             "<div data-name='" + name +"' class='card-header col-12 py-1 px-2 text-uppercase bg-dark text-doing'>"+
                 "<strong>" + name + "</strong>"+

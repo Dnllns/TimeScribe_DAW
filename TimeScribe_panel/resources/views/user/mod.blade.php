@@ -8,15 +8,7 @@
 
                 <div class="card-body">
                     <form method="POST"
-                        action="{{
-                            route(
-                                'f-wg-register-developer',
-                                [
-                                    'workgroupId' => $workGroupId,
-                                    'invitationId' => $invitationId
-                                ]
-                            )
-                        }}">
+                        action="{{ $formRoute }}">
                         @csrf
 
                         {{-- NOMBRE --}}

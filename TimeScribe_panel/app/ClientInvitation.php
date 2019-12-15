@@ -15,7 +15,7 @@ class ClientInvitation extends Model
     public function projects()
     {
         // return $this->belongsToMany('App\WorkGroup', 'workgroups_workgroupinvitations', 'workgroup_id', 'invitation_id');
-        return $this->belongsTo('App\Project', 'clientinvitations', 'project_id', 'id');
+        return $this->belongsTo('App\Project', 'project_id');
 
     }
 

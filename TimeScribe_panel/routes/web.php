@@ -299,6 +299,13 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/email/client-accept-invitation/{invitationId}/{hash}', 'ClientInvitationController@acceptInvitation')
         ->name('f-cl-acceptinvitation');
 
+    Route::get('/email/client-delete-invitation/{invitationId}', 'ClientInvitationController@deleteInvitation')
+    ->name('f-cl-deleteinvitation');
+
+    Route::post('/register-client/{projectId}/{invitationId}', 'ClientInvitationController@registerClient')
+    ->name('f-pj-register-client')->middleware('guest');
+
+
 #endregion
 
 

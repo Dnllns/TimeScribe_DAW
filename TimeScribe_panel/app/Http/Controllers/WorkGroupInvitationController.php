@@ -74,11 +74,24 @@ class WorkGroupInvitationController extends Controller
 
     public function acceptInvitation($invitationId, $hash){
 
+        $todoCorrecto = true;
+
         //Obtener  el registro de la invitacion
         $invitation = WorkGroupInvitation::find($invitationId);
 
+        //Commprobar usuario existente
+        $existeUsuario = (User::where('email', $invitation->email)->get()->count() > 0);
+        if($existeUsuario){
+            $todoCorrecto = false;
+        }
+
         //Validar que el hash es el mismo
-        if($invitation->hash == $hash){
+        if($invitation->hash != $hash){
+            $todoCorrecto = false;
+        }
+
+
+        if($todoCorrecto){
 
             //redireccionar a el formulario de registro
             return view(
@@ -86,14 +99,19 @@ class WorkGroupInvitationController extends Controller
                 [
                     "workGroupId" => $invitation->workgroup_id,
                     'email' => $invitation->email,
-                    'invitationId' => $invitation->id
+                    'invitationId' => $invitation->id,
+                    'formRoute' => route(
+                        'f-wg-register-developer',
+                        [
+                            'workGroupId' => $invitation->workgroup_id,
+                            'invitationId' => $invitationId
+                        ]
+                    )
                 ]
             );
-
-        }else{
-
-            return redirect('/home');
-
+        }
+        else{
+            return redirect('/');
         }
 
     }
@@ -120,17 +138,12 @@ class WorkGroupInvitationController extends Controller
         $invitation->used = true;
         $invitation->save();
 
-
-
-
-
         return  WorkGroupController::view_show($workgroupId);
 
     }
 
 
     public function removeInvitation($invitationId){
-
 
         $invitation = WorkGroupInvitation::find($invitationId);
         $invitation->delete();

@@ -23,6 +23,7 @@ class Project extends Model
     //PROJECT PERMISSIONS
     const PERM_ALL = 1;
     const PERM_WORK = 0;
+    const PERM_CLIENT = 2;
 
     //VISIBILITY
     const INVISIBLE = 0;
@@ -77,6 +78,12 @@ class Project extends Model
     public function bill()
     {
         return $this->hasOne('App\Bill');
+    }
+
+    public function clientInvitation()
+    {
+        // return $this->belongsToMany('App\WorkGroupInvitation', 'workgroups_workgroupinvitations', 'workgroup_id', 'invitation_id');
+        return $this->hasMany('App\ClientInvitation', 'project_id', 'id');
     }
 
     #endregion
@@ -158,6 +165,14 @@ class Project extends Model
         }
     }
 
+    public function getClientinvitation(){
+
+
+        $invitation = $this->clientInvitation()->first();
+        return $invitation;
+
+
+    }
 
     public function getBreadCrumbs()
     {

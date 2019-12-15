@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('head')
-    <script src="/js/project/mod/project_mod_functions.js"></script>
+    <script src="/js/project/mod/developers_configuration_functions.js"></script>
+    <script src="/js/project/mod/tg_configuration_functions.js"></script>
     <script src="/js/project/mod/invite_client.js"></script>
+    <script src="/js/project/mod/client_invitation_list_functions.js"></script>
+
+
+
 @endsection
 
 @section('content')
@@ -52,7 +57,7 @@
 
                     <div id="dev-config-container" class="row pb-2">
 
-                        <h2 class="text-primary">Developers config</h2>
+                        <h2 class="text-primary">Developers configuration</h2>
 
 
                         {{-- Lista de devs --}}
@@ -172,35 +177,112 @@
                         <h2 class="text-primary">Client configuration</h2>
 
                         <div class="col-12 pl-0 pb-4">
-                            <h3>Add client</h3>
 
                             <div class="row p-2">
 
-
-
-                                <!-- CLIENT NAME  -->
-                                <div class="form-group col-12 p-2 mb-0 col-md-6">
-                                    <label class="control-label" for="client_name">Client name:</label>
-                                    <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="@if($client != null){{$client->name }}@endif">
+                                <div id="addclient-alert" class="col-12">
                                 </div>
 
-                                <!-- CLIENT EMAIL -->
-                                <div class="form-group col-12 p-2 mb-0 col-md-6">
-                                    <label class="control-label" for="client_email">Client email:</label>
-                                    <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="@if($client != null){{$client->email }}@endif">
-                                </div>
+                                {{-- Cliente establecido --}}
+                                @if($project->client_id != null)
+
+                                    <div id="current-client" class="col-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <div class="col">
+                                                    {{$project->getClient()->name}}
+                                                </div>
+                                                <div class="col-1 text-right">
+                                                    <a class="btn btn-circle btn-sm bg-dark text-white" href="" data-funct="">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                @else
+
+                                    @php
+
+                                        $hasInvitation = false;
+                                        $displayInvitationList = "d-none";
+                                        $displayInvitationContainer = "";
+                                        $invitation = $project->getClientInvitation();
+
+                                        if($invitation!=null && $invitation->count() > 0){
+                                            $hasInvitation = true;
+                                            $displayInvitationList = "";
+                                            $displayInvitationContainer = "d-none";
+                                        }
+
+                                    @endphp
+
+                                    {{-- Establecer cliente --}}
 
 
-                                <div class="col-12 pt-4 my-auto">
-                                    <a id="send-invitation" class="btn btn-primary btn-sm float-right" href=""> Send the invitation</a>
-                                </div>
+                                    <div id="send-invitation-container" class="col-12 {{$displayInvitationContainer}}">
 
-                                {{-- Datos necesarios en javascript --}}
-                                <script>
-                                    var adminName = {!! json_encode(Auth::user()->name, JSON_HEX_TAG) !!}
-                                    var projectName = {!! json_encode($project->name, JSON_HEX_TAG) !!}
-                                    var projectId = {!! json_encode($project->id, JSON_HEX_TAG) !!}
-                                </script>
+                                        <h3>Add client</h3>
+
+
+                                        <div class="row">
+
+                                            <!-- CLIENT NAME  -->
+                                            <div class="form-group col-12 mb-0 col-md-6">
+                                                <label class="control-label" for="client_name">Client name:</label>
+                                                <input type="text" class="form-control" id="client_name" placeholder="Enter client name" name="client_name" value="@if($client != null){{$client->name }}@endif">
+                                            </div>
+
+                                            <!-- CLIENT EMAIL -->
+                                            <div class="form-group col-12  mb-0 col-md-6">
+                                                <label class="control-label" for="client_email">Client email:</label>
+                                                <input type="text" class="form-control" id="client_email" placeholder="Enter client email" name="client_email" value="@if($client != null){{$client->email }}@endif">
+                                            </div>
+
+
+                                            <div class="col-12 pt-4 my-auto">
+                                                <a id="send-invitation" class="btn btn-primary btn-sm float-right" href=""> Send the invitation</a>
+                                            </div>
+
+                                            {{-- Datos necesarios en javascript --}}
+                                            <script>
+                                                var adminName = {!! json_encode(Auth::user()->name, JSON_HEX_TAG) !!}
+                                                var projectName = {!! json_encode($project->name, JSON_HEX_TAG) !!}
+                                                var projectId = {!! json_encode($project->id, JSON_HEX_TAG) !!}
+                                            </script>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div id="client-invitation-list" class="col-12 mt-2 {{$displayInvitationList}} ">
+                                        <h3>Client invitation</h3>
+
+                                        @if($hasInvitation)
+
+                                        <ul class="list-group">
+                                            <li class="list-group-item" data-invitationid="9" >
+                                                <div class="row">
+                                                    <div class="col-10">{{$invitation['email']}}</div>
+                                                    <div class="col">
+                                                        <div class="float-right">
+                                                            <a href="" class="btn btn-circle btn-sm bg-dark text-white" data-remove-invitation data-invitationid="{{$invitation->id}}">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        @endif
+                                    </div>
+
+                                @endif
 
                             </div>
 

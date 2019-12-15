@@ -39,13 +39,24 @@ class ClientInvitationController extends Controller
         );
 
         //Enviar email
-        $this->sendInvitationEmail(
-            $request[0]['guestEmail'],
-            $request[0]['guestName'],
-            $request[0]['adminName'],
-            $request[0]['projectName'],
-            $acceptInvitationLink
-        );
+        try {
+
+            $this->sendInvitationEmail(
+                $request[0]['guestEmail'],
+                $request[0]['guestName'],
+                $request[0]['adminName'],
+                $request[0]['projectName'],
+                $acceptInvitationLink
+            );
+
+            return $invitation->id;
+
+        } catch (\Throwable $th) {
+
+            return "false";
+
+        }
+
 
     }
 
@@ -74,68 +85,99 @@ class ClientInvitationController extends Controller
 
     public function acceptInvitation($invitationId, $hash){
 
+        $todoCorrecto = true;
+
         //Obtener  el registro de la invitacion
         $invitation = ClientInvitation::find($invitationId);
+        $invitedProject = Project::find($invitation->project_id);
+
+
+        //Commprobar usuario existente
+        $existeUsuario = (User::where('email', $invitation->email)->get()->count() > 0);
+        if($existeUsuario){
+            $todoCorrecto = false;
+        }
 
         //Validar que el hash es el mismo
-        if($invitation->hash == $hash){
+        if($invitation->hash != $hash){
+            $todoCorrecto = false;
+        }
 
-            //Actualizar registro de la invitacion
-            //Marcar como usada
-            $invitation->used = true;
-            $invitation->save();
-
-            //Crear usuario manualmente            
-            $user = new User;
-            $user->name = "";
-            $user->email = $invitation->email;
-            $user->password = "";
-
-            $workgroupId = Project::find($invitation->project_id)->workgroup_id;
-            $user->workgroup_id = $workgroupId;
-            $user->is_admin = 0;
-            $user->is_client = 1;
-
-            $user->save();
-            Auth::login($user);
+        //Comprobar que no hay errores
+        if($todoCorrecto){
 
             //redireccionar a el formulario de registro
+            return view(
+                'user/mod',
+                [
+                    "workgroupId" => $invitedProject->workgroup_id,
+                    'email' => $invitation->email,
+                    'invitationId' => $invitation->id,
+                    'formRoute' => route(
+                        'f-pj-register-client',
+                        [
+                            'workGroupId' => $invitation->project_id,
+                            'invitationId' => $invitationId
+                        ]
+                    )
+                ]
+            );
 
-            return ClientController::view_showClientProjects($user->id);
-
-
-            // return view(
-            //     'client/dashboard', 
-            //     [ 
-            //         'user' => $user, 
-            //         'workgroupId' => $user->workgroup_id
-            //     ]
-            // );
-            
-        }else{
-            
-            return redirect('/home');
-
+        }else {
+            return redirect('/');
         }
+
 
     }
 
 
 
-    public function registerClient( $workgroupId, Request $data){
+    public function deleteInvitation($invitationId){
 
-        $user = Auth::user();
+        $invitation = ClientInvitation::find($invitationId);
+        $invitation->delete();
+    }
+
+
+    public function registerClient($projectId, $invitationId,  Request $data){
+
+        $user = new User;
+        Auth::login($user);
+
+
+        $workgroupId = Project::find($projectId)->workgroup_id;
+
+        //Actualizar registro de la invitacion
+        //Marcar como usada
+        $invitation = ClientInvitation::find($invitationId);
+        $invitation->used = true;
+        $invitation->save();
+
+        //Crear usuario manualmente
+
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
+        $user->workgroup_id = $workgroupId;
+        $user->is_admin = 0;
         $user->is_client = 1;
         $user->save();
 
-        return  ClientController::view_showClientProjects($clientId);
+        //Asignar usuario al proyecto
+        $project = Project::find($projectId);
+        $project->users()->attach(
+            $user->id,
+            [
+                'project_id' => $projectId,
+                'user_id' => $user->id,
+                'permissions' => 2, //CLIENT PERMS
+            ]
+        );
+
+
+
+        return  ClientController::view_showClientProjects($user->id);
 
     }
-
-
-
 
 }
