@@ -202,17 +202,14 @@ ul.striped > li:nth-child(odd) {
 
 .todo-list {
     border: 1px solid #ff8181;
-    border-radius: 8px;
 }
 
 .doing-list {
     border: 1px solid #36b9cc;
-    border-radius: 8px;
 }
 
 .done-list {
     border: 1px solid #1cc88a;
-    border-radius: 8px;
 }
 
 #sticky-chrono {

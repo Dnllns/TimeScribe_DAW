@@ -6,6 +6,8 @@ use App\User;
 use App\WorkGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WorkGroupController;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class ProjectController extends Controller
@@ -164,12 +166,22 @@ class ProjectController extends Controller
         public static function view_editProject($projectId)
         {
             $project = Project::find($projectId);
-            $client = User::find($project->client_id);
+            $client = null;
+
+            if($project->client_id != null){
+                $client = User::find($project->client_id);
+            }
+
             $taskGroups = $project->taskGroups()->get();      //->where("visible", 0)
-            $devList = $project->users()->get();
+            $devList = $project->users()
+            ->where('is_client', null)->orWhere('is_client', '0')
+            ->get();
+
 
             // Obtener los desarrolladores del grupo que no se han asignado al proyecto
-            $workGroupDevs = WorkGroup::find($project->workgroup_id)->users()->get();
+            $workGroupDevs = WorkGroup::find($project->workgroup_id)->users()
+            ->where('is_client', null)->orWhere('is_client', '0')
+            ->get();
             $notAsignedDevs = $workGroupDevs->diff($devList);
 
             //SET TO NULL
@@ -185,6 +197,7 @@ class ProjectController extends Controller
             if($taskGroups->count() == 0){
                 $taskGroups = null;
             }
+
 
             return view(
                 'project/mod/mod',
@@ -215,11 +228,16 @@ class ProjectController extends Controller
                 $taskGroups = null;
             }
 
+            $permissions = $project->getUserPermission(Auth::user()->id);
+
+
             return view(
                 'project/show/show',
                 [
                     'taskGroups' => $taskGroups,
                     'project' => $project,
+                    'permissions' => $permissions
+
                 ]
             );
         }
@@ -292,6 +310,20 @@ class ProjectController extends Controller
 
         }
 
+
+
+        public function removeClient($projectId, $clientId){
+
+            $project = Project::find($projectId);
+            $project->client_id = null;
+            $project->users()->detach($clientId);
+            $project->save();
+
+            $user = User::find($clientId);
+            $user->delete();
+
+
+        }
 
 
     #endregion

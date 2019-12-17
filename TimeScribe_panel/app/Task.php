@@ -55,7 +55,9 @@ class Task extends Model
     public function getWorkedTime()
     {
         // $taskId = $this->id;
-        $timeRecords = TimeRecord::where('task_id', $this->id)->where('user_id', auth()->user()->id)->get();
+        // $timeRecords = TimeRecord::where('task_id', $this->id)->where('user_id', auth()->user()->id)->get();
+        $timeRecords = TimeRecord::where('task_id', $this->id)->get();
+
 
         $totalTime = new \DateTime('2000-01-01');
 

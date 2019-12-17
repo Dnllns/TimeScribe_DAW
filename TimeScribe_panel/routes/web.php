@@ -306,6 +306,12 @@ Route::get('/home', 'HomeController@index')->name('home');
     ->name('f-pj-register-client')->middleware('guest');
 
 
+    Route::get('/remove-client/{projectId}/{clientId}', 'ProjectController@removeClient')
+    ->name('f-wg-removeclient')->middleware('auth');
+
+
+
+
 #endregion
 
 

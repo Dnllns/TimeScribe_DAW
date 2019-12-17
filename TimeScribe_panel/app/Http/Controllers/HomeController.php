@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        if(Auth::user()->is_client == 1){
+            return route('client_dashboard', ['clientId' => Auth::user()->id]);
+        }
+        else{
+            $workgroupId = Auth::user()->workgroups()->first()->id;
+            return route('v-wg-show', ['workgroupId' => $workgroupId]);
+
+        }
     }
 }

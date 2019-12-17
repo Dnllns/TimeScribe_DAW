@@ -32,10 +32,16 @@ class LoginController extends Controller
 
     protected function redirectTo(){
 
-        $workgroupId = Auth::user()->workgroups()->first()->id;
 
-        return route('v-wg-show', ['workgroupId' => $workgroupId]);
-    
+        if(Auth::user()->is_client == 1){
+            return route('client_dashboard', ['clientId' => Auth::user()->id]);
+        }
+        else{
+            $workgroupId = Auth::user()->workgroups()->first()->id;
+            return route('v-wg-show', ['workgroupId' => $workgroupId]);
+
+        }
+
     }
 
     /**

@@ -145,10 +145,25 @@ class Project extends Model
     public function getUserPermission()
     {
 
-        return $this->users() ->where('user_id', Auth::user()->id)
-            ->first()->pivot->permissions;
+        $permissions = $this->users()->where('user_id', Auth::user()->id)
+        ->first()->pivot->permissions;
+
+        return $permissions;
+
 
     }
+
+    public function getPermission($userId)
+    {
+
+        $permissions = $this->users()->where('user_id', $userId)
+        ->first()->pivot->permissions;
+
+        return $permissions;
+
+
+    }
+
 
     public function getClient()
     {

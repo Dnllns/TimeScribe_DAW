@@ -42,7 +42,7 @@
 
     <div class="col-12 text-center col-md-6 text-md-right col-lg-4 ">
 
-        @if ($taskGroup['visible'] == 0)
+        @if ($taskGroup['visible'] == 0 )
 
         <span
             class="btn btn-circle icon-sm bg-secondary "
@@ -78,14 +78,10 @@
         &nbsp;
 
 
-        @php
-
-            $perms = $project->getUserPermission(Auth::user()->id);
-
-        @endphp
 
 
-        @if ( $perms == $project::PERM_ALL)
+
+        @if ( $permissions == $project::PERM_ALL)
 
         <a href="{{route('v-tg-mod', ['taskgroupId' => $taskGroup->id])}}" class="btn btn-circle btn-sm bg-dark" data-tooltip="tooltip" data-placement="bottom" title="" data-original-title="Edit">
             <i class="far fa-edit icon-white"></i>
@@ -115,7 +111,7 @@
         <hr>
 
 
-        @if( auth()->user()->is_admin == 1 or $project->getUserPermission() == 1 )
+        @if($permissions == $project::PERM_ALL )
 
         {{-- Boton de añadir proyecto --}}
         <div class="row my-3 pt-1">

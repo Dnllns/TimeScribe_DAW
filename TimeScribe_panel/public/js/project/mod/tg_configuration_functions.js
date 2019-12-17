@@ -1,9 +1,9 @@
-(function(){
+$(function(){
 
 
      // TASKGROUP LISTA ELIMINAR
     //--------------
-    $('#taskgroup-list').on('click', "a[data-del]", function(event) {
+    $('#taskgroup-list ul').on('click', "a[data-del]", function(event) {
         delTaskGroup(event, $(this))
     })
 
@@ -21,7 +21,8 @@ function delTaskGroup(event, element) {
 
     // Peticion al servidor
     //----------------------
-    $.get(element.attr('data-funct'))
+    var rutaPeticion = element.attr('data-funct')
+    $.get(rutaPeticion)
 
     //Si el usuario es admin mostar como oculto
     //Si el usuario no es admin eliminar de la lista

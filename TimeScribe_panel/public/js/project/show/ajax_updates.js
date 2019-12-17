@@ -32,8 +32,10 @@ function botonesTarea() {
     // Actualiza en BD en la tabla tasks,
     // Pone el valor de visible a 0 (Invisible)
 
-    $("i[data-funct]").click(function() {
 
+    $("[data-taskgroup]").on("click", "i[data-funct]", function(event) {
+
+        event.preventDefault()
         var funct = $(this).attr("data-funct")
 
         if (
@@ -42,7 +44,9 @@ function botonesTarea() {
             funct == "delete"
         ) {
 
-            $.get($(this).attr('data-ajax-route')) // Peticion a servidor
+            var rutaPeticion = $(this).attr('data-ajax-route')
+
+            $.get(rutaPeticion) // Peticion a servidor
 
             // ACTUALIZAR INTERFACE
             //---------------------

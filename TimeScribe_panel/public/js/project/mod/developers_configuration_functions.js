@@ -52,7 +52,7 @@ function delDeveloperFromList(event, element) {
         $('#dev-list').before(
             "<div class='col-12 mt-2' >" +
             "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
-            "The develloper has been deleted" +
+            "The developer has been deleted" +
             "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
             "<span aria-hidden='true'>&times;</span>" +
             "</button>" +
@@ -114,11 +114,11 @@ function delPrepareInterface() {
             "<div id='permissions' class='col-6 mt-2'>" +
             "<p>Permissions</p>" +
             "<div class='custom-control custom-radio'>" +
-            "<input type='radio' class='custom-control-input' id='r1' name='radio' value='1' checked>" +
+            "<input type='radio' class='custom-control-input' id='r1' name='radio' value='0' checked>" +
             "<label class='custom-control-label' for='r1'>Work</label>" +
             "</div>" +
             "<div class='custom-control custom-radio'>" +
-            "<input type='radio' class='custom-control-input' id='r2' name='radio' value='0'>" +
+            "<input type='radio' class='custom-control-input' id='r2' name='radio' value='1'>" +
             "<label class='custom-control-label' for='r2'>All</label>" +
             "</div>" +
             "</div>" +
@@ -162,12 +162,11 @@ function delPrepareInterface() {
 function addToSelect(element) {
 
     //obtener el elemento contenedor
-    var itemContainer = element.closest('div').siblings()[0];
 
     //Extraer los datos
-    var itemContent = itemContainer.innerText; //Obtener el contenido del elemento
-    var developerId = itemContainer.getAttribute('data-id') //Obtener el id
-    var projectId = $('#project-container').attr('data-projectid');
+    var itemContent = element.closest('.row').find('[data-content]').text().trim() //Obtener el contenido del elemento
+    var developerId = element.closest('.row').find('[data-content]').attr("data-id") //Obtener el id
+    var projectId = $('#project-container').attr('data-projectid')
     // var permission = $("#permissions input[checked]").attr("value");
 
 
@@ -176,9 +175,9 @@ function addToSelect(element) {
         "<option" +
         " data-funct='/project-add-developer-bd/" + projectId + "/" + developerId + "/permissionType'" +
         " value='" + developerId + "'>" + itemContent +
-        "</option>";
+        "</option>"
 
-    $('#add-devs select').append(newElement);
+    $('#add-devs select').append(newElement)
 
 }
 
@@ -188,7 +187,7 @@ function addToSelect(element) {
  */
 function delFromList(element) {
     // Obtener el elemento contenedor y eliminarlo
-    element.closest("li").remove();
+    element.closest("li").remove()
 }
 
 // #endregion
@@ -281,25 +280,38 @@ function addPrepareInterface() {
 function addToList(element) {
 
     // Obtener el contenido y el id
-    var itemContent = element.html();
-    var devId = element.attr("value");
-    var projectId = $('#project-container').attr('data-projectid');
+    var itemContent = element.html()
+    var devId = element.attr("value")
+    var projectId = $('#project-container').attr('data-projectid')
+    var permission = $("#permissions input[name='radio']:checked").attr("value")
+    var permissionIcon =""
+
+    if(permission == 1){
+        permissionIcon = "<span class='btn btn-circle btn-sm bg-secondary'>" +
+        "<i class='fas fa-user-shield text-white' data-toggle='tooltip' data-placement='right' title='Working permissions'></i>" +
+        "</span>"
+    }else{
+        permissionIcon =  "<span class='btn btn-circle btn-sm bg-secondary'>" +
+        "<i class='fas fa-user-cog text-white' data-toggle='tooltip' data-placement='right' title='Working permissions'></i>" +
+        "</span>"
+    }
 
     //Anadir a la lista de desarrolladores
     $('#dev-list ul').append(
         "<li class='list-group-item'>" +
-        "<div class='row'>" +
-        "<div class='col my-auto' data-id='" + devId + "'>" + itemContent + "</div>" +
-        "<div class='col my-auto'>" +
-        "<dibv class='float-right'>" +
-        "<a data-id='" + devId + "' data-funct='/project-del-developer-bd/" + projectId + "/" + devId + "' href='' class='btn btn-sm text-danger f-remove'>" +
-        "<i class='fas fa-trash-alt'></i>" +
-        "</a>" +
-        "</div>" +
-        "</div>" +
-        "</div>" +
+            "<div class='row'>" +
+                "<div data-content class='col my-auto' data-id='" + devId + "'>" + itemContent + "</div>" +
+                "<div class='col my-auto'>" +
+                    "<div class='float-right'>" +
+                        permissionIcon + "&nbsp;" +
+                        "<a data-id='" + devId + "' data-funct='/project-del-developer-bd/" + projectId + "/" + devId + "' href='' class='btn btn-circle btn-sm bg-dark text-white f-remove'>" +
+                            "<i class='fas fa-trash-alt'></i>" +
+                        "</a>" +
+                    "</div>" +
+                "</div>" +
+            "</div>" +
         "</li>"
-    );
+    )
 
 }
 

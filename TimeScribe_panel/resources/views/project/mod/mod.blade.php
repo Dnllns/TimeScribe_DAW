@@ -4,6 +4,7 @@
     <script src="/js/project/mod/developers_configuration_functions.js"></script>
     <script src="/js/project/mod/tg_configuration_functions.js"></script>
     <script src="/js/project/mod/invite_client.js"></script>
+    <script src="/js/project/mod/delete_client.js"></script>
     <script src="/js/project/mod/client_invitation_list_functions.js"></script>
 
 
@@ -80,11 +81,32 @@
                                     @foreach ($devList as $dev)
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div data-id="{{$dev->id}}" class="col my-auto">{{$dev->name}}, {{$dev->email}}</div>
-                                            <div class="col my-auto">
+                                            <div data-content data-id="{{$dev->id}}" class="col my-auto">{{$dev->name}}, {{$dev->email}}</div>
+                                            <div class="col-auto my-auto">
                                                 <div class="float-right">
 
+                                                    @if($project->getPermission($dev->id) == $project::PERM_WORK)
+
+                                                    <span class="btn btn-circle btn-sm bg-secondary">
+                                                        <i class="fas fa-user-cog text-white" data-toggle="tooltip" data-placement="right" title="Working permissions"></i>
+                                                    </span>
+
+
+                                                    @elseif($project->getPermission($dev->id) == $project::PERM_ALL)
+
+                                                    <span class="btn btn-circle btn-sm bg-secondary">
+                                                        <i class="fas fa-user-shield text-white" data-toggle="tooltip" data-placement="right" title="Working permissions"></i>
+                                                    </span>
+
+
+                                                    @endif
+
+
+
                                                     @if( $dev->is_admin != 1)
+
+                                                    &nbsp;
+
 
 
                                                     <a class="btn btn-circle btn-sm bg-dark text-white f-remove" href
@@ -184,24 +206,32 @@
                                 </div>
 
                                 {{-- Cliente establecido --}}
-                                @if($project->client_id != null)
 
                                     <div id="current-client" class="col-12">
+
+
+                                        @if($project->client_id != null)
+
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <div class="col">
-                                                    {{$project->getClient()->name}}
-                                                </div>
-                                                <div class="col-1 text-right">
-                                                    <a class="btn btn-circle btn-sm bg-dark text-white" href="" data-funct="">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{$project->getClient()->name}}, {{$project->getClient()->email}}
+                                                    </div>
+                                                    <div class="col-1 text-right">
+                                                        <a class="btn btn-circle btn-sm bg-dark text-white" href="" data-projectid={{$project->id}} data-clientid={{$project->getClient()->id}} >
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </li>
                                         </ul>
+
+                                        @endif
+
                                     </div>
 
-                                @else
+
 
                                     @php
 
@@ -210,18 +240,22 @@
                                         $displayInvitationContainer = "";
                                         $invitation = $project->getClientInvitation();
 
-                                        if($invitation!=null && $invitation->count() > 0){
-                                            $hasInvitation = true;
-                                            $displayInvitationList = "";
-                                            $displayInvitationContainer = "d-none";
+                                        if($invitation!=null && $invitation->count() > 0 ){
+                                            if($invitation->used != 1){
+                                                $hasInvitation = true;
+                                                $displayInvitationList = "";
+                                                $displayInvitationContainer = "d-none";
+                                            }
                                         }
 
                                     @endphp
 
+
+
                                     {{-- Establecer cliente --}}
-
-
                                     <div id="send-invitation-container" class="col-12 {{$displayInvitationContainer}}">
+
+                                        @if($project->client_id == null)
 
                                         <h3>Add client</h3>
 
@@ -254,6 +288,8 @@
 
                                         </div>
 
+                                        @endif
+
                                     </div>
 
 
@@ -270,7 +306,7 @@
                                                     <div class="col-10">{{$invitation['email']}}</div>
                                                     <div class="col">
                                                         <div class="float-right">
-                                                            <a href="" class="btn btn-circle btn-sm bg-dark text-white" data-remove-invitation data-invitationid="{{$invitation->id}}">
+                                                            <a href="" class="btn btn-circle btn-sm bg-dark text-white" data-remove-invitation  data-invitationid="{{$invitation->id}}">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </a>
                                                         </div>
@@ -282,7 +318,6 @@
                                         @endif
                                     </div>
 
-                                @endif
 
                             </div>
 

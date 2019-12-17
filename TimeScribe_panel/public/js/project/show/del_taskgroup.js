@@ -10,6 +10,8 @@ $(function() {
 
             $.get($(this).attr('data-ajax'))
 
+            $(this).closest('li').remove();
+
         }
 
 

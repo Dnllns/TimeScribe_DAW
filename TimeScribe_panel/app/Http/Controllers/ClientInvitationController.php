@@ -173,6 +173,8 @@ class ClientInvitationController extends Controller
                 'permissions' => 2, //CLIENT PERMS
             ]
         );
+        $project->client_id = $user->id;
+        $project->save();
 
 
 

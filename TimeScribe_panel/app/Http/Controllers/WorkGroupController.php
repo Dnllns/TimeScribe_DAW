@@ -22,7 +22,9 @@ class WorkGroupController extends Controller
     {
 
         $workGroup = WorkGroup::find($workGroupId);
-        $workGroupDevelopers = $workGroup->users()->get();
+        $workGroupDevelopers = $workGroup->users()
+        ->where('is_client', null)->orWhere('is_client', '0')
+            ->get();
         $workGroupInvitations = $workGroup->workGroupInvitations()->where('used', "!=", 1)->get();
 
         if($workGroupInvitations->count() == 0){

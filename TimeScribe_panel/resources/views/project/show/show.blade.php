@@ -12,7 +12,7 @@
     {{-- <script src="/js/funcionesComunes.js"></script> --}}
     <!-- Primero las peticiones al server -->
     <script src="/js/project/show/ajax_updates.js"></script>
-    <script src="/js/project/show/chrono-old.js"></script>
+    <script src="/js/project/show/chrono.js"></script>
     <script src="/js/project/show/del_taskgroup.js"></script>
     <script src="/js/project/show/collapse_task_list.js"></script>
 
@@ -24,6 +24,10 @@
 
 
 @section('content')
+
+<script>
+    window.history.pushState('', '', '/project-show/{{$project->id}}');
+</script>
 
     <!-- Plantilla de sticky chrono -->
 
@@ -87,13 +91,30 @@
                 <div class="col-12">
                 @if( $taskGroups != null)
 
+
                     <ul class="list-group">
                         @foreach ($taskGroups as $taskGroup)
-                        <li class="list-group-item">
-                            <div data-taskgroup='{{$taskGroup->id}}'>
-                                @include('project.show.taskgroup', ['taskGroup' => $taskGroup])
-                            </div>
-                        </li>
+
+                            @if($taskGroup['visible'] == $taskGroup::VISIBLE)
+
+                                <li class="list-group-item">
+                                    <div data-taskgroup='{{$taskGroup->id}}'>
+                                        @include('project.show.taskgroup', ['taskGroup' => $taskGroup])
+                                    </div>
+                                </li>
+
+                            @elseif($permissions==$project::PERM_ALL)
+
+                                <li class="list-group-item">
+                                    <div data-taskgroup='{{$taskGroup->id}}'>
+                                        @include('project.show.taskgroup', ['taskGroup' => $taskGroup])
+                                    </div>
+                                </li>
+
+
+                            @endif
+
+
                         @endforeach
                     </ul>
                 @else
